@@ -25,16 +25,6 @@ namespace Super_Personal_Assistant
 
         }
 
-        private void Form1_SizeChanged(object sender, EventArgs e)
-        {
-            if (this.WindowState == FormWindowState.Minimized)
-            {
-                this.Hide(); //或者是this.Visible = false;
-                this.notifyIcon1.Visible = true;
-            }
-
-        }
-
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (this.WindowState == FormWindowState.Normal)
@@ -50,6 +40,7 @@ namespace Super_Personal_Assistant
                 this.Activate();
                 this.ShowInTaskbar = true;
             }
+           
         }
 
         //案關閉 縮小成小圖示
@@ -61,7 +52,8 @@ namespace Super_Personal_Assistant
             this.WindowState = FormWindowState.Minimized;
             this.Hide();
             this.ShowInTaskbar = false;
-
+            //提示工具
+            notifyIcon1.ShowBalloonTip(1000, "哈囉", "我只是縮小而已，還沒關閉", ToolTipIcon.Info);
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)

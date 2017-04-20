@@ -34,6 +34,10 @@
             this.nameTabPage = new System.Windows.Forms.TabPage();
             this.messageTabPage = new System.Windows.Forms.TabPage();
             this.calendarTabPage = new System.Windows.Forms.TabPage();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.addTaskButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.monthCalendar = new Pabo.Calendar.MonthCalendar();
             this.dateItem1 = new Pabo.Calendar.DateItem();
@@ -42,6 +46,8 @@
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.calendarTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,6 +86,10 @@
             // 
             // calendarTabPage
             // 
+            this.calendarTabPage.Controls.Add(this.numericUpDown2);
+            this.calendarTabPage.Controls.Add(this.numericUpDown1);
+            this.calendarTabPage.Controls.Add(this.textBox1);
+            this.calendarTabPage.Controls.Add(this.addTaskButton);
             this.calendarTabPage.Controls.Add(this.label1);
             this.calendarTabPage.Controls.Add(this.monthCalendar);
             this.calendarTabPage.Location = new System.Drawing.Point(4, 22);
@@ -88,6 +98,47 @@
             this.calendarTabPage.TabIndex = 2;
             this.calendarTabPage.Text = "行事曆";
             this.calendarTabPage.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(91, 279);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            23,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(41, 22);
+            this.numericUpDown2.TabIndex = 6;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(150, 279);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(41, 22);
+            this.numericUpDown1.TabIndex = 5;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(91, 241);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 22);
+            this.textBox1.TabIndex = 4;
+            // 
+            // addTaskButton
+            // 
+            this.addTaskButton.Location = new System.Drawing.Point(8, 233);
+            this.addTaskButton.Name = "addTaskButton";
+            this.addTaskButton.Size = new System.Drawing.Size(77, 35);
+            this.addTaskButton.TabIndex = 3;
+            this.addTaskButton.Text = "新增";
+            this.addTaskButton.UseVisualStyleBackColor = true;
+            this.addTaskButton.Click += new System.EventHandler(this.addTaskButton_Click);
             // 
             // label1
             // 
@@ -120,11 +171,11 @@
             this.monthCalendar.TodayColor = System.Drawing.Color.DarkGreen;
             this.monthCalendar.Weekdays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.monthCalendar.Weeknumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.monthCalendar.MonthChanged += new Pabo.Calendar.MonthChangedEventHandler(this.monthCalendar1_MonthChanged);
+            this.monthCalendar.DayClick += new Pabo.Calendar.DayClickEventHandler(this.monthCalendar_DayClick);
             // 
             // dateItem1
             // 
-            this.dateItem1.BackColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.dateItem1.BackColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.dateItem1.BackColor2 = System.Drawing.Color.Gray;
             this.dateItem1.BackgroundImage = null;
             this.dateItem1.BoldedDate = true;
@@ -147,7 +198,7 @@
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
-            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
             // 
             // contextMenuStrip1
             // 
@@ -174,6 +225,9 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.tabControl1.ResumeLayout(false);
             this.calendarTabPage.ResumeLayout(false);
+            this.calendarTabPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -185,12 +239,16 @@
         private System.Windows.Forms.TabPage nameTabPage;
         private System.Windows.Forms.TabPage messageTabPage;
         private System.Windows.Forms.TabPage calendarTabPage;
-        private Pabo.Calendar.MonthCalendar monthCalendar;
         private Pabo.Calendar.DateItem dateItem1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.Button addTaskButton;
+        private System.Windows.Forms.TextBox textBox1;
+        private Pabo.Calendar.MonthCalendar monthCalendar;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
     }
 }
 

@@ -53,7 +53,8 @@ namespace Super_Personal_Assistant
             this.Hide();
             this.ShowInTaskbar = false;
             //通知小視窗
-            notifyIcon1.ShowBalloonTip(1000, "哈囉", "我只是縮小而已，還沒關閉", ToolTipIcon.Info);
+            notifyIcon.ShowBalloonTip(1000, "哈囉", "我只是縮小而已，還沒關閉", ToolTipIcon.Warning);
+            notifyIcon.ShowBalloonTip(1000, "哈囉", "點我右鍵關閉", ToolTipIcon.Info);
         }
 
         //右鍵小圖示，關閉程式
@@ -73,7 +74,7 @@ namespace Super_Personal_Assistant
             di.BackColor1 = Color.Yellow;
             monthCalendar.AddDateInfo(di);
             
-            notifyIcon1.ShowBalloonTip(1000, "新增活動", selectedDate.Year.ToString() + "/" + 
+            notifyIcon.ShowBalloonTip(1000, "新增活動", selectedDate.Year.ToString() + "/" + 
                 selectedDate.Month.ToString() + "/" +
                 selectedDate.Day.ToString() + "/" +
                 " : " + textBox1.Text, ToolTipIcon.Info);

@@ -9,18 +9,18 @@ namespace Super_Personal_Assistant
     class Schedule
     {
         private DateTime _date;
-        private String _task;
+        private String _activity;
 
         public Schedule(DateTime date,String task)
         {
             _date = date;
-            _task = task;
+            _activity = task;
         }
 
         public Schedule()
         {
             _date = DateTime.Today;
-            _task = "";
+            _activity = "";
         }
 
         public void SetDate(DateTime date)
@@ -30,7 +30,7 @@ namespace Super_Personal_Assistant
 
         public void SetTask(String task)
         {
-            _task = task;
+            _activity = task;
         }
 
 

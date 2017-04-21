@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.nameTabPage = new System.Windows.Forms.TabPage();
+            this.TabControl = new System.Windows.Forms.TabControl();
+            this.friendTabPage = new System.Windows.Forms.TabPage();
             this.messageTabPage = new System.Windows.Forms.TabPage();
             this.calendarTabPage = new System.Windows.Forms.TabPage();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
@@ -41,38 +41,38 @@
             this.label1 = new System.Windows.Forms.Label();
             this.monthCalendar = new Pabo.Calendar.MonthCalendar();
             this.dateItem1 = new Pabo.Calendar.DateItem();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.iconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabControl1.SuspendLayout();
+            this.TabControl.SuspendLayout();
             this.calendarTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            this.contextMenuStrip1.SuspendLayout();
+            this.iconContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // TabControl
             // 
-            this.tabControl1.Controls.Add(this.nameTabPage);
-            this.tabControl1.Controls.Add(this.messageTabPage);
-            this.tabControl1.Controls.Add(this.calendarTabPage);
-            this.tabControl1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(448, 391);
-            this.tabControl1.TabIndex = 0;
+            this.TabControl.Controls.Add(this.friendTabPage);
+            this.TabControl.Controls.Add(this.messageTabPage);
+            this.TabControl.Controls.Add(this.calendarTabPage);
+            this.TabControl.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TabControl.Location = new System.Drawing.Point(0, 0);
+            this.TabControl.Name = "TabControl";
+            this.TabControl.SelectedIndex = 0;
+            this.TabControl.Size = new System.Drawing.Size(448, 391);
+            this.TabControl.TabIndex = 0;
             // 
-            // nameTabPage
+            // friendTabPage
             // 
-            this.nameTabPage.Location = new System.Drawing.Point(4, 22);
-            this.nameTabPage.Name = "nameTabPage";
-            this.nameTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.nameTabPage.Size = new System.Drawing.Size(440, 365);
-            this.nameTabPage.TabIndex = 0;
-            this.nameTabPage.Text = "好友";
-            this.nameTabPage.UseVisualStyleBackColor = true;
+            this.friendTabPage.Location = new System.Drawing.Point(4, 22);
+            this.friendTabPage.Name = "friendTabPage";
+            this.friendTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.friendTabPage.Size = new System.Drawing.Size(440, 365);
+            this.friendTabPage.TabIndex = 0;
+            this.friendTabPage.Text = "好友";
+            this.friendTabPage.UseVisualStyleBackColor = true;
             // 
             // messageTabPage
             // 
@@ -129,6 +129,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 22);
             this.textBox1.TabIndex = 4;
+            this.textBox1.Text = "活動敘述~";
             // 
             // addTaskButton
             // 
@@ -192,20 +193,20 @@
             this.dateItem1.TextColor = System.Drawing.Color.Empty;
             this.dateItem1.Weekend = false;
             // 
-            // notifyIcon1
+            // notifyIcon
             // 
-            this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "notifyIcon1";
-            this.notifyIcon1.Visible = true;
-            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
+            this.notifyIcon.ContextMenuStrip = this.iconContextMenuStrip;
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Text = "notifyIcon";
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
             // 
-            // contextMenuStrip1
+            // iconContextMenuStrip
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.iconContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.closeToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(101, 26);
+            this.iconContextMenuStrip.Name = "contextMenuStrip1";
+            this.iconContextMenuStrip.Size = new System.Drawing.Size(101, 26);
             // 
             // closeToolStripMenuItem
             // 
@@ -219,30 +220,30 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(448, 391);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.TabControl);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.tabControl1.ResumeLayout(false);
+            this.TabControl.ResumeLayout(false);
             this.calendarTabPage.ResumeLayout(false);
             this.calendarTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            this.contextMenuStrip1.ResumeLayout(false);
+            this.iconContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage nameTabPage;
+        private System.Windows.Forms.TabControl TabControl;
+        private System.Windows.Forms.TabPage friendTabPage;
         private System.Windows.Forms.TabPage messageTabPage;
         private System.Windows.Forms.TabPage calendarTabPage;
         private Pabo.Calendar.DateItem dateItem1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.ContextMenuStrip iconContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.Button addTaskButton;
         private System.Windows.Forms.TextBox textBox1;

@@ -1,6 +1,6 @@
 ﻿namespace Super_Personal_Assistant
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// 設計工具所需的變數。
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.friendTabPage = new System.Windows.Forms.TabPage();
             this.messageTabPage = new System.Windows.Forms.TabPage();
@@ -38,9 +38,8 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.addTaskButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label = new System.Windows.Forms.Label();
             this.monthCalendar = new Pabo.Calendar.MonthCalendar();
-            this.dateItem1 = new Pabo.Calendar.DateItem();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.iconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,7 +89,7 @@
             this.calendarTabPage.Controls.Add(this.numericUpDown1);
             this.calendarTabPage.Controls.Add(this.textBox1);
             this.calendarTabPage.Controls.Add(this.addTaskButton);
-            this.calendarTabPage.Controls.Add(this.label1);
+            this.calendarTabPage.Controls.Add(this.label);
             this.calendarTabPage.Controls.Add(this.monthCalendar);
             this.calendarTabPage.Location = new System.Drawing.Point(4, 22);
             this.calendarTabPage.Name = "calendarTabPage";
@@ -141,21 +140,19 @@
             this.addTaskButton.UseVisualStyleBackColor = true;
             this.addTaskButton.Click += new System.EventHandler(this.addTaskButton_Click);
             // 
-            // label1
+            // label
             // 
-            this.label1.BackColor = System.Drawing.Color.LavenderBlush;
-            this.label1.Location = new System.Drawing.Point(288, 35);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(144, 192);
-            this.label1.TabIndex = 2;
+            this.label.BackColor = System.Drawing.Color.LavenderBlush;
+            this.label.Location = new System.Drawing.Point(288, 35);
+            this.label.Name = "label";
+            this.label.Size = new System.Drawing.Size(144, 192);
+            this.label.TabIndex = 2;
             // 
             // monthCalendar
             // 
             this.monthCalendar.ActiveMonth.Month = 4;
             this.monthCalendar.ActiveMonth.Year = 2017;
             this.monthCalendar.Culture = new System.Globalization.CultureInfo("zh-TW");
-            this.monthCalendar.Dates.AddRange(new Pabo.Calendar.DateItem[] {
-            this.dateItem1});
             this.monthCalendar.Footer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.monthCalendar.Header.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.monthCalendar.Header.TextColor = System.Drawing.Color.White;
@@ -173,25 +170,6 @@
             this.monthCalendar.Weekdays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.monthCalendar.Weeknumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.monthCalendar.DayClick += new Pabo.Calendar.DayClickEventHandler(this.monthCalendar_DayClick);
-            // 
-            // dateItem1
-            // 
-            this.dateItem1.BackColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.dateItem1.BackColor2 = System.Drawing.Color.Gray;
-            this.dateItem1.BackgroundImage = null;
-            this.dateItem1.BoldedDate = true;
-            this.dateItem1.Date = new System.DateTime(2017, 4, 21, 0, 0, 0, 0);
-            this.dateItem1.DateColor = System.Drawing.Color.LightSlateGray;
-            this.dateItem1.Enabled = true;
-            this.dateItem1.GradientMode = Pabo.Calendar.mcGradientMode.None;
-            this.dateItem1.Image = null;
-            this.dateItem1.ImageListIndex = -1;
-            this.dateItem1.Pattern = Pabo.Calendar.mcDayInfoRecurrence.None;
-            this.dateItem1.Range = new System.DateTime(2017, 4, 21, 0, 0, 0, 0);
-            this.dateItem1.Tag = null;
-            this.dateItem1.Text = "1";
-            this.dateItem1.TextColor = System.Drawing.Color.Empty;
-            this.dateItem1.Weekend = false;
             // 
             // notifyIcon
             // 
@@ -215,14 +193,14 @@
             this.closeToolStripMenuItem.Text = "關閉";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(448, 391);
             this.Controls.Add(this.TabControl);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "MainForm";
+            this.Text = "超牛個人助理";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.TabControl.ResumeLayout(false);
             this.calendarTabPage.ResumeLayout(false);
@@ -240,8 +218,7 @@
         private System.Windows.Forms.TabPage friendTabPage;
         private System.Windows.Forms.TabPage messageTabPage;
         private System.Windows.Forms.TabPage calendarTabPage;
-        private Pabo.Calendar.DateItem dateItem1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ContextMenuStrip iconContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;

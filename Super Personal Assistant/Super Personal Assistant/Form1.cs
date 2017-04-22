@@ -13,12 +13,13 @@ using System.Windows.Forms.VisualStyles;
 
 namespace Super_Personal_Assistant
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private DateTime selectedDate;
+        private Schedule _schedule = new Schedule();
         
         //init
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             Application.VisualStyleState = VisualStyleState.NoneEnabled;
@@ -66,26 +67,29 @@ namespace Super_Personal_Assistant
         //click新增按鈕
         private void addTaskButton_Click(object sender, EventArgs e)
         {
-            Schedule ss = new Schedule();
-            ss.SetDate(selectedDate);
-            ss.SetTask(textBox1.Text);
+
+            _schedule.addNewActivity(new Activity(selectedDate, textBox1.Text));
+
             DateItem di = new DateItem();
             di.Date = selectedDate;
             di.BackColor1 = Color.Yellow;
             monthCalendar.AddDateInfo(di);
-            
+
+
             notifyIcon.ShowBalloonTip(1000, "新增活動", selectedDate.Year.ToString() + "/" + 
                 selectedDate.Month.ToString() + "/" +
                 selectedDate.Day.ToString() + "/" +
                 " : " + textBox1.Text, ToolTipIcon.Info);
-            
+
+
+            label.Text = _schedule.checkHasActivity(selectedDate).Description;
         }
 
         private void monthCalendar_DayClick(object sender, DayClickEventArgs e)
         {
-            selectedDate = Schedule.StringToDate(e.Date);
+            selectedDate = Activity.StringToDate(e.Date);
+            label.Text = _schedule.checkHasActivity(selectedDate).Description;
         }
-
 
     }
 }

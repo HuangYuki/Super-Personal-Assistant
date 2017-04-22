@@ -5,40 +5,38 @@ using System.Text;
 
 namespace Super_Personal_Assistant
 {
- 
+
     class Schedule
     {
-        private DateTime _date;
-        private String _activity;
-
-        public Schedule(DateTime date,String task)
-        {
-            _date = date;
-            _activity = task;
-        }
+        private List<Activity> _activity = new List<Activity>();
 
         public Schedule()
         {
-            _date = DateTime.Today;
-            _activity = "";
+            _activity.Clear();
         }
 
-        public void SetDate(DateTime date)
+        public void addNewActivity(Activity newActivity)
         {
-            _date = date;
+            _activity.Add(newActivity);
         }
 
-        public void SetTask(String task)
+        public void deleteActivity()
         {
-            _activity = task;
+
         }
 
-
-        public static DateTime StringToDate(String input)
+        public Activity checkHasActivity(DateTime today)
         {
-            String[] aa = input.Split('/');
-            DateTime date = new DateTime(int.Parse(aa[0]), int.Parse(aa[1]), int.Parse(aa[2]));
-            return date;
+            foreach(Activity activity in _activity)
+            {
+                if (activity.Date == today)
+                {
+                    return activity;
+                }
+            }
+            
+            return new Activity();
         }
+
     }
 }

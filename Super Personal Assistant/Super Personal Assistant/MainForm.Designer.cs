@@ -34,19 +34,15 @@
             this.friendTabPage = new System.Windows.Forms.TabPage();
             this.messageTabPage = new System.Windows.Forms.TabPage();
             this.calendarTabPage = new System.Windows.Forms.TabPage();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.addTaskButton = new System.Windows.Forms.Button();
             this.label = new System.Windows.Forms.Label();
             this.monthCalendar = new Pabo.Calendar.MonthCalendar();
+            this.accountTabPage = new System.Windows.Forms.TabPage();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.iconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TabControl.SuspendLayout();
             this.calendarTabPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.iconContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,12 +51,13 @@
             this.TabControl.Controls.Add(this.friendTabPage);
             this.TabControl.Controls.Add(this.messageTabPage);
             this.TabControl.Controls.Add(this.calendarTabPage);
+            this.TabControl.Controls.Add(this.accountTabPage);
             this.TabControl.Cursor = System.Windows.Forms.Cursors.Default;
             this.TabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabControl.Location = new System.Drawing.Point(0, 0);
             this.TabControl.Name = "TabControl";
             this.TabControl.SelectedIndex = 0;
-            this.TabControl.Size = new System.Drawing.Size(448, 391);
+            this.TabControl.Size = new System.Drawing.Size(448, 261);
             this.TabControl.TabIndex = 0;
             // 
             // friendTabPage
@@ -68,7 +65,7 @@
             this.friendTabPage.Location = new System.Drawing.Point(4, 22);
             this.friendTabPage.Name = "friendTabPage";
             this.friendTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.friendTabPage.Size = new System.Drawing.Size(440, 365);
+            this.friendTabPage.Size = new System.Drawing.Size(440, 321);
             this.friendTabPage.TabIndex = 0;
             this.friendTabPage.Text = "好友";
             this.friendTabPage.UseVisualStyleBackColor = true;
@@ -78,63 +75,28 @@
             this.messageTabPage.Location = new System.Drawing.Point(4, 22);
             this.messageTabPage.Name = "messageTabPage";
             this.messageTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.messageTabPage.Size = new System.Drawing.Size(440, 365);
+            this.messageTabPage.Size = new System.Drawing.Size(440, 321);
             this.messageTabPage.TabIndex = 1;
             this.messageTabPage.Text = "訊息";
             this.messageTabPage.UseVisualStyleBackColor = true;
             // 
             // calendarTabPage
             // 
-            this.calendarTabPage.Controls.Add(this.numericUpDown2);
-            this.calendarTabPage.Controls.Add(this.numericUpDown1);
-            this.calendarTabPage.Controls.Add(this.textBox1);
             this.calendarTabPage.Controls.Add(this.addTaskButton);
             this.calendarTabPage.Controls.Add(this.label);
             this.calendarTabPage.Controls.Add(this.monthCalendar);
             this.calendarTabPage.Location = new System.Drawing.Point(4, 22);
             this.calendarTabPage.Name = "calendarTabPage";
-            this.calendarTabPage.Size = new System.Drawing.Size(440, 365);
+            this.calendarTabPage.Size = new System.Drawing.Size(440, 235);
             this.calendarTabPage.TabIndex = 2;
             this.calendarTabPage.Text = "行事曆";
             this.calendarTabPage.UseVisualStyleBackColor = true;
             // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.Location = new System.Drawing.Point(91, 279);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
-            23,
-            0,
-            0,
-            0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(41, 22);
-            this.numericUpDown2.TabIndex = 6;
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(150, 279);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            59,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(41, 22);
-            this.numericUpDown1.TabIndex = 5;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(91, 241);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 4;
-            this.textBox1.Text = "活動敘述~";
-            // 
             // addTaskButton
             // 
-            this.addTaskButton.Location = new System.Drawing.Point(8, 233);
+            this.addTaskButton.Location = new System.Drawing.Point(316, 204);
             this.addTaskButton.Name = "addTaskButton";
-            this.addTaskButton.Size = new System.Drawing.Size(77, 35);
+            this.addTaskButton.Size = new System.Drawing.Size(69, 23);
             this.addTaskButton.TabIndex = 3;
             this.addTaskButton.Text = "新增";
             this.addTaskButton.UseVisualStyleBackColor = true;
@@ -143,7 +105,7 @@
             // label
             // 
             this.label.BackColor = System.Drawing.Color.LavenderBlush;
-            this.label.Location = new System.Drawing.Point(288, 35);
+            this.label.Location = new System.Drawing.Point(288, 3);
             this.label.Name = "label";
             this.label.Size = new System.Drawing.Size(144, 192);
             this.label.TabIndex = 2;
@@ -171,6 +133,15 @@
             this.monthCalendar.Weeknumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.monthCalendar.DayClick += new Pabo.Calendar.DayClickEventHandler(this.monthCalendar_DayClick);
             // 
+            // accountTabPage
+            // 
+            this.accountTabPage.Location = new System.Drawing.Point(4, 22);
+            this.accountTabPage.Name = "accountTabPage";
+            this.accountTabPage.Size = new System.Drawing.Size(440, 321);
+            this.accountTabPage.TabIndex = 3;
+            this.accountTabPage.Text = "帳戶";
+            this.accountTabPage.UseVisualStyleBackColor = true;
+            // 
             // notifyIcon
             // 
             this.notifyIcon.ContextMenuStrip = this.iconContextMenuStrip;
@@ -197,16 +168,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(448, 391);
+            this.ClientSize = new System.Drawing.Size(448, 261);
             this.Controls.Add(this.TabControl);
             this.Name = "MainForm";
             this.Text = "超牛個人助理";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.TabControl.ResumeLayout(false);
             this.calendarTabPage.ResumeLayout(false);
-            this.calendarTabPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.iconContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -223,10 +191,8 @@
         private System.Windows.Forms.ContextMenuStrip iconContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.Button addTaskButton;
-        private System.Windows.Forms.TextBox textBox1;
         private Pabo.Calendar.MonthCalendar monthCalendar;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.TabPage accountTabPage;
     }
 }
 

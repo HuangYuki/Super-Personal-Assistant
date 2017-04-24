@@ -16,8 +16,26 @@ namespace Super_Personal_Assistant
     public partial class MainForm : Form
     {
         private DateTime selectedDate;
-        private Schedule _schedule = new Schedule();
+        private  Schedule _schedule = new Schedule();
         
+        public void AddActivity(Activity a)
+        {
+            //新增活動
+            _schedule.addNewActivity(a);
+
+            //標示到日曆物件上
+            DateItem di = new DateItem();
+            di.Date = selectedDate;
+            di.BackColor1 = Color.Yellow;
+            monthCalendar.AddDateInfo(di);
+
+            //提醒使用者創建成功
+            notifyIcon.ShowBalloonTip(1000, "新增活動", selectedDate.Year.ToString() + "/" +
+                selectedDate.Month.ToString() + "/" +
+                selectedDate.Day.ToString() + "/" , ToolTipIcon.Info);
+
+        }
+
         //init
         public MainForm()
         {
@@ -67,28 +85,17 @@ namespace Super_Personal_Assistant
         //click新增按鈕
         private void addTaskButton_Click(object sender, EventArgs e)
         {
+            InputForm a = new InputForm(selectedDate);
+            a.Owner = this;
+            a.ShowDialog();
 
-            _schedule.addNewActivity(new Activity(selectedDate, textBox1.Text));
-
-            DateItem di = new DateItem();
-            di.Date = selectedDate;
-            di.BackColor1 = Color.Yellow;
-            monthCalendar.AddDateInfo(di);
-
-
-            notifyIcon.ShowBalloonTip(1000, "新增活動", selectedDate.Year.ToString() + "/" + 
-                selectedDate.Month.ToString() + "/" +
-                selectedDate.Day.ToString() + "/" +
-                " : " + textBox1.Text, ToolTipIcon.Info);
-
-
-            label.Text = _schedule.checkHasActivity(selectedDate).Description;
+            label.Text = _schedule.checkHasActivity(selectedDate).Title + " : " + _schedule.checkHasActivity(selectedDate).Body;
         }
 
         private void monthCalendar_DayClick(object sender, DayClickEventArgs e)
         {
             selectedDate = Activity.StringToDate(e.Date);
-            label.Text = _schedule.checkHasActivity(selectedDate).Description;
+            label.Text = _schedule.checkHasActivity(selectedDate).Title + " : " + _schedule.checkHasActivity(selectedDate).Body;
         }
 
     }

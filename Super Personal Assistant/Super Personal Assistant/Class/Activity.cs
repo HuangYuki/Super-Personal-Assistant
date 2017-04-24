@@ -6,10 +6,11 @@ using System.Text;
 namespace Super_Personal_Assistant
 {
  
-    class Activity
+    public class Activity
     {
         private DateTime _date;
-        private String _description;
+        private String _title;
+        private String _body;
 
         //Attribute
         public DateTime Date
@@ -18,23 +19,30 @@ namespace Super_Personal_Assistant
             set { _date = value; }
         }
         //Attribute
-        public String Description
+        public String Title
         {
-            get { return _description; }
-            set { _description = value; }
+            get { return _title; }
+            set { _title = value; }
+        }
+        //Attribute
+        public String Body
+        {
+            get { return _body; }
+            set { _body = value; }
         }
 
         //初始化
-        public Activity(DateTime date,String task)
+        public Activity(DateTime date,String title,String body)
         {
             _date = date;
-            _description = task;
+            _title = title;
+            _body = body;
         }
         //初始化
         public Activity()
         {
             _date = DateTime.Today;
-            _description = "";
+            _title = _body = "";
         }
 
         //function

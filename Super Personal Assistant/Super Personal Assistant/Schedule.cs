@@ -6,7 +6,7 @@ using System.Text;
 namespace Super_Personal_Assistant
 {
 
-    class Schedule
+    public class Schedule
     {
         private List<Activity> _activity = new List<Activity>();
 

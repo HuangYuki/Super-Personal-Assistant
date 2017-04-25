@@ -29,6 +29,23 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            "",
+            "2017/3/11",
+            "亂花錢",
+            "",
+            "300",
+            "不要問"}, 0);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            "",
+            "31",
+            "32",
+            "33"}, 0);
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            "",
+            "41",
+            "42",
+            "43"}, 0);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.friendTabPage = new System.Windows.Forms.TabPage();
@@ -41,8 +58,17 @@
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.iconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TabControl.SuspendLayout();
             this.calendarTabPage.SuspendLayout();
+            this.accountTabPage.SuspendLayout();
             this.iconContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +83,7 @@
             this.TabControl.Location = new System.Drawing.Point(0, 0);
             this.TabControl.Name = "TabControl";
             this.TabControl.SelectedIndex = 0;
-            this.TabControl.Size = new System.Drawing.Size(448, 261);
+            this.TabControl.Size = new System.Drawing.Size(444, 263);
             this.TabControl.TabIndex = 0;
             // 
             // friendTabPage
@@ -65,7 +91,7 @@
             this.friendTabPage.Location = new System.Drawing.Point(4, 22);
             this.friendTabPage.Name = "friendTabPage";
             this.friendTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.friendTabPage.Size = new System.Drawing.Size(440, 321);
+            this.friendTabPage.Size = new System.Drawing.Size(440, 235);
             this.friendTabPage.TabIndex = 0;
             this.friendTabPage.Text = "好友";
             this.friendTabPage.UseVisualStyleBackColor = true;
@@ -75,7 +101,7 @@
             this.messageTabPage.Location = new System.Drawing.Point(4, 22);
             this.messageTabPage.Name = "messageTabPage";
             this.messageTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.messageTabPage.Size = new System.Drawing.Size(440, 321);
+            this.messageTabPage.Size = new System.Drawing.Size(440, 235);
             this.messageTabPage.TabIndex = 1;
             this.messageTabPage.Text = "訊息";
             this.messageTabPage.UseVisualStyleBackColor = true;
@@ -87,14 +113,14 @@
             this.calendarTabPage.Controls.Add(this.monthCalendar);
             this.calendarTabPage.Location = new System.Drawing.Point(4, 22);
             this.calendarTabPage.Name = "calendarTabPage";
-            this.calendarTabPage.Size = new System.Drawing.Size(440, 235);
+            this.calendarTabPage.Size = new System.Drawing.Size(436, 237);
             this.calendarTabPage.TabIndex = 2;
             this.calendarTabPage.Text = "行事曆";
             this.calendarTabPage.UseVisualStyleBackColor = true;
             // 
             // addTaskButton
             // 
-            this.addTaskButton.Location = new System.Drawing.Point(316, 204);
+            this.addTaskButton.Location = new System.Drawing.Point(335, 204);
             this.addTaskButton.Name = "addTaskButton";
             this.addTaskButton.Size = new System.Drawing.Size(69, 23);
             this.addTaskButton.TabIndex = 3;
@@ -135,9 +161,10 @@
             // 
             // accountTabPage
             // 
+            this.accountTabPage.Controls.Add(this.listView1);
             this.accountTabPage.Location = new System.Drawing.Point(4, 22);
             this.accountTabPage.Name = "accountTabPage";
-            this.accountTabPage.Size = new System.Drawing.Size(440, 321);
+            this.accountTabPage.Size = new System.Drawing.Size(436, 237);
             this.accountTabPage.TabIndex = 3;
             this.accountTabPage.Text = "帳戶";
             this.accountTabPage.UseVisualStyleBackColor = true;
@@ -164,17 +191,74 @@
             this.closeToolStripMenuItem.Text = "關閉";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
+            // listView1
+            // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader4,
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader5,
+            this.columnHeader6});
+            this.listView1.FullRowSelect = true;
+            this.listView1.GridLines = true;
+            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1,
+            listViewItem2,
+            listViewItem3});
+            this.listView1.Location = new System.Drawing.Point(22, 16);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(376, 168);
+            this.listView1.SmallImageList = this.imageList1;
+            this.listView1.TabIndex = 1;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "日期";
+            this.columnHeader1.Width = 66;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "摘要";
+            this.columnHeader2.Width = 98;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "收入";
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "支出";
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "test.ico");
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "";
+            this.columnHeader4.Width = 28;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "餘額";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(448, 261);
+            this.ClientSize = new System.Drawing.Size(444, 263);
             this.Controls.Add(this.TabControl);
             this.Name = "MainForm";
             this.Text = "超牛個人助理";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.TabControl.ResumeLayout(false);
             this.calendarTabPage.ResumeLayout(false);
+            this.accountTabPage.ResumeLayout(false);
             this.iconContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -193,6 +277,14 @@
         private System.Windows.Forms.Button addTaskButton;
         private Pabo.Calendar.MonthCalendar monthCalendar;
         private System.Windows.Forms.TabPage accountTabPage;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
     }
 }
 

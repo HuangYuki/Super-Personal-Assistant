@@ -31,5 +31,10 @@ namespace Super_Personal_Assistant
             mf.AddActivity(new Activity(d, titleTextBox.Text, bodyRichTextBox.Text));
             this.Close();
         }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

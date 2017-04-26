@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\Account.cs" />
     <Compile Include="InputForm.cs">
       <SubType>Form</SubType>
     </Compile>

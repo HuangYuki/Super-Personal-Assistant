@@ -30,42 +30,31 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
-            "",
+            "1",
             "2017/3/11",
             "亂花錢",
-            "",
+            "0",
             "300",
-            "不要問"}, 0);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
-            "",
-            "31",
-            "32",
-            "33"}, 0);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
-            "",
-            "41",
-            "42",
-            "43"}, 0);
+            "不要問"}, "(無)");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.friendTabPage = new System.Windows.Forms.TabPage();
             this.messageTabPage = new System.Windows.Forms.TabPage();
             this.calendarTabPage = new System.Windows.Forms.TabPage();
-            this.addTaskButton = new System.Windows.Forms.Button();
+            this.addActivityButton = new System.Windows.Forms.Button();
             this.label = new System.Windows.Forms.Label();
             this.monthCalendar = new Pabo.Calendar.MonthCalendar();
             this.accountTabPage = new System.Windows.Forms.TabPage();
+            this.accountListView = new System.Windows.Forms.ListView();
+            this.IdColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.DateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.NameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.iconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.AddAccountButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.TabControl.SuspendLayout();
             this.calendarTabPage.SuspendLayout();
             this.accountTabPage.SuspendLayout();
@@ -91,7 +80,7 @@
             this.friendTabPage.Location = new System.Drawing.Point(4, 22);
             this.friendTabPage.Name = "friendTabPage";
             this.friendTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.friendTabPage.Size = new System.Drawing.Size(440, 235);
+            this.friendTabPage.Size = new System.Drawing.Size(436, 237);
             this.friendTabPage.TabIndex = 0;
             this.friendTabPage.Text = "好友";
             this.friendTabPage.UseVisualStyleBackColor = true;
@@ -101,14 +90,14 @@
             this.messageTabPage.Location = new System.Drawing.Point(4, 22);
             this.messageTabPage.Name = "messageTabPage";
             this.messageTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.messageTabPage.Size = new System.Drawing.Size(440, 235);
+            this.messageTabPage.Size = new System.Drawing.Size(436, 237);
             this.messageTabPage.TabIndex = 1;
             this.messageTabPage.Text = "訊息";
             this.messageTabPage.UseVisualStyleBackColor = true;
             // 
             // calendarTabPage
             // 
-            this.calendarTabPage.Controls.Add(this.addTaskButton);
+            this.calendarTabPage.Controls.Add(this.addActivityButton);
             this.calendarTabPage.Controls.Add(this.label);
             this.calendarTabPage.Controls.Add(this.monthCalendar);
             this.calendarTabPage.Location = new System.Drawing.Point(4, 22);
@@ -118,15 +107,15 @@
             this.calendarTabPage.Text = "行事曆";
             this.calendarTabPage.UseVisualStyleBackColor = true;
             // 
-            // addTaskButton
+            // addActivityButton
             // 
-            this.addTaskButton.Location = new System.Drawing.Point(335, 204);
-            this.addTaskButton.Name = "addTaskButton";
-            this.addTaskButton.Size = new System.Drawing.Size(69, 23);
-            this.addTaskButton.TabIndex = 3;
-            this.addTaskButton.Text = "新增";
-            this.addTaskButton.UseVisualStyleBackColor = true;
-            this.addTaskButton.Click += new System.EventHandler(this.addTaskButton_Click);
+            this.addActivityButton.Location = new System.Drawing.Point(335, 204);
+            this.addActivityButton.Name = "addActivityButton";
+            this.addActivityButton.Size = new System.Drawing.Size(69, 23);
+            this.addActivityButton.TabIndex = 3;
+            this.addActivityButton.Text = "新增";
+            this.addActivityButton.UseVisualStyleBackColor = true;
+            this.addActivityButton.Click += new System.EventHandler(this.addTaskButton_Click);
             // 
             // label
             // 
@@ -161,13 +150,54 @@
             // 
             // accountTabPage
             // 
-            this.accountTabPage.Controls.Add(this.listView1);
+            this.accountTabPage.Controls.Add(this.button1);
+            this.accountTabPage.Controls.Add(this.AddAccountButton);
+            this.accountTabPage.Controls.Add(this.accountListView);
             this.accountTabPage.Location = new System.Drawing.Point(4, 22);
             this.accountTabPage.Name = "accountTabPage";
             this.accountTabPage.Size = new System.Drawing.Size(436, 237);
             this.accountTabPage.TabIndex = 3;
             this.accountTabPage.Text = "帳戶";
             this.accountTabPage.UseVisualStyleBackColor = true;
+            // 
+            // accountListView
+            // 
+            this.accountListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.IdColumnHeader,
+            this.DateColumnHeader,
+            this.NameColumnHeader,
+            this.columnHeader5});
+            this.accountListView.FullRowSelect = true;
+            this.accountListView.GridLines = true;
+            this.accountListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1});
+            this.accountListView.Location = new System.Drawing.Point(0, 3);
+            this.accountListView.Name = "accountListView";
+            this.accountListView.Size = new System.Drawing.Size(316, 203);
+            this.accountListView.TabIndex = 1;
+            this.accountListView.UseCompatibleStateImageBehavior = false;
+            this.accountListView.View = System.Windows.Forms.View.Details;
+            this.accountListView.SelectedIndexChanged += new System.EventHandler(this.accountListView_SelectedIndexChanged);
+            // 
+            // IdColumnHeader
+            // 
+            this.IdColumnHeader.Text = "Id";
+            this.IdColumnHeader.Width = 30;
+            // 
+            // DateColumnHeader
+            // 
+            this.DateColumnHeader.Text = "日期";
+            this.DateColumnHeader.Width = 89;
+            // 
+            // NameColumnHeader
+            // 
+            this.NameColumnHeader.Text = "摘要";
+            this.NameColumnHeader.Width = 129;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "支出";
+            this.columnHeader5.Width = 64;
             // 
             // notifyIcon
             // 
@@ -191,61 +221,25 @@
             this.closeToolStripMenuItem.Text = "關閉";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
-            // listView1
+            // AddAccountButton
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader4,
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader5,
-            this.columnHeader6});
-            this.listView1.FullRowSelect = true;
-            this.listView1.GridLines = true;
-            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3});
-            this.listView1.Location = new System.Drawing.Point(22, 16);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(376, 168);
-            this.listView1.SmallImageList = this.imageList1;
-            this.listView1.TabIndex = 1;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.AddAccountButton.Location = new System.Drawing.Point(341, 49);
+            this.AddAccountButton.Name = "AddAccountButton";
+            this.AddAccountButton.Size = new System.Drawing.Size(75, 23);
+            this.AddAccountButton.TabIndex = 2;
+            this.AddAccountButton.Text = "新增";
+            this.AddAccountButton.UseVisualStyleBackColor = true;
+            this.AddAccountButton.Click += new System.EventHandler(this.AddAccountButton_Click);
             // 
-            // columnHeader1
+            // button1
             // 
-            this.columnHeader1.Text = "日期";
-            this.columnHeader1.Width = 66;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "摘要";
-            this.columnHeader2.Width = 98;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "收入";
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "支出";
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "test.ico");
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "";
-            this.columnHeader4.Width = 28;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "餘額";
+            this.button1.Enabled = false;
+            this.button1.Location = new System.Drawing.Point(341, 124);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "編輯";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -274,17 +268,16 @@
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ContextMenuStrip iconContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
-        private System.Windows.Forms.Button addTaskButton;
+        private System.Windows.Forms.Button addActivityButton;
         private Pabo.Calendar.MonthCalendar monthCalendar;
         private System.Windows.Forms.TabPage accountTabPage;
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ListView accountListView;
+        private System.Windows.Forms.ColumnHeader DateColumnHeader;
+        private System.Windows.Forms.ColumnHeader NameColumnHeader;
         private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader IdColumnHeader;
+        private System.Windows.Forms.Button AddAccountButton;
+        private System.Windows.Forms.Button button1;
     }
 }
 

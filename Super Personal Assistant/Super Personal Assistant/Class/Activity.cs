@@ -31,14 +31,14 @@ namespace Super_Personal_Assistant
             set { _body = value; }
         }
 
-        //初始化
+        //Constructor
         public Activity(DateTime date,String title,String body)
         {
             _date = date;
             _title = title;
             _body = body;
         }
-        //初始化
+        //Constructor
         public Activity()
         {
             _date = DateTime.Today;

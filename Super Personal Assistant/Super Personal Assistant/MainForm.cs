@@ -1,4 +1,5 @@
 ﻿using Pabo.Calendar;
+using Super_Personal_Assistant.Class;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,27 +16,59 @@ namespace Super_Personal_Assistant
 {
     public partial class MainForm : Form
     {
+        public const int SCHEDULE = 0;
+        public const int ACCOUNT = 1;
+
         private DateTime selectedDate;
-        private  Schedule _schedule = new Schedule();
-        
+        private Schedule _schedule = new Schedule();
+        private List<Account> _account = new List<Account>();
+
+        //=之後要分到別的SCRIPT去===================
         public void AddActivity(Activity a)
         {
-            //新增活動
+            //新增活動(不是UI)
             _schedule.addNewActivity(a);
 
             //標示到日曆物件上
             DateItem di = new DateItem();
-            di.Date = selectedDate;
+            di.Date = a.Date;
             di.BackColor1 = Color.Yellow;
             monthCalendar.AddDateInfo(di);
 
             //提醒使用者創建成功
-            notifyIcon.ShowBalloonTip(1000, "新增活動", selectedDate.Year.ToString() + "/" +
-                selectedDate.Month.ToString() + "/" +
-                selectedDate.Day.ToString() + "/" , ToolTipIcon.Info);
+            notifyIcon.ShowBalloonTip(1000, "新增活動", a.Date.Year.ToString() + "/" +
+                 a.Date.Month.ToString() + "/" +
+                 a.Date.Day.ToString() + "/" , ToolTipIcon.Info);
 
         }
 
+        public void AddAccount(Account account)
+        {
+            //(不是UI)
+            _account.Add(account);
+
+            //標示到ListView
+            ListViewItem lvItem = new ListViewItem();
+            lvItem.Text = (accountListView.Items.Count + 1).ToString();
+
+            ListViewItem.ListViewSubItem lvSubItem = new ListViewItem.ListViewSubItem();
+            lvSubItem.Text = account.Date.ToShortDateString();
+            lvItem.SubItems.Add(lvSubItem);
+
+            lvSubItem = new ListViewItem.ListViewSubItem();
+            lvSubItem.Text = account.ItemName;
+            lvItem.SubItems.Add(lvSubItem);
+
+            lvSubItem = new ListViewItem.ListViewSubItem();
+            lvSubItem.Text = account.Cost.ToString();
+            lvItem.SubItems.Add(lvSubItem);
+
+            accountListView.Items.Add(lvItem);
+
+        }
+
+
+        //================================================
         //init
         public MainForm()
         {
@@ -82,11 +115,12 @@ namespace Super_Personal_Assistant
             Application.Exit();
         }
 
-        //click新增按鈕
+        //click新增行程按鈕
         private void addTaskButton_Click(object sender, EventArgs e)
         {
             InputForm a = new InputForm(selectedDate);
             a.Owner = this;
+            a.SetType(SCHEDULE);
             a.ShowDialog();
 
             label.Text = _schedule.checkHasActivity(selectedDate).Title + " : " + _schedule.checkHasActivity(selectedDate).Body;
@@ -98,5 +132,17 @@ namespace Super_Personal_Assistant
             label.Text = _schedule.checkHasActivity(selectedDate).Title + " : " + _schedule.checkHasActivity(selectedDate).Body;
         }
 
+        private void AddAccountButton_Click(object sender, EventArgs e)
+        {
+            InputForm a = new InputForm(DateTime.Now);
+            a.Owner = this;
+            a.SetType(ACCOUNT);
+            a.ShowDialog();
+        }
+
+        private void accountListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

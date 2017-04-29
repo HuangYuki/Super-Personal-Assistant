@@ -31,14 +31,16 @@ namespace Super_Personal_Assistant
 
             //標示到日曆物件上
             DateItem di = new DateItem();
-            di.Date = a.Date;
+            di.Date = new DateTime(a.Date.Year, a.Date.Month, a.Date.Day);
             di.BackColor1 = Color.Yellow;
             monthCalendar.AddDateInfo(di);
 
             //提醒使用者創建成功
             notifyIcon.ShowBalloonTip(1000, "新增活動", a.Date.Year.ToString() + "/" +
                  a.Date.Month.ToString() + "/" +
-                 a.Date.Day.ToString() + "/" , ToolTipIcon.Info);
+                 a.Date.Day.ToString() + "-" +
+                 a.Date.Hour + ":" +
+                 a.Date.Minute, ToolTipIcon.Info);
 
         }
 
@@ -118,23 +120,48 @@ namespace Super_Personal_Assistant
         //click新增行程按鈕
         private void addTaskButton_Click(object sender, EventArgs e)
         {
-            InputForm a = new InputForm(selectedDate);
-            a.Owner = this;
-            a.SetType(SCHEDULE);
-            a.ShowDialog();
+            InputForm addForm = new InputForm(selectedDate, _schedule.Count());
+            addForm.Owner = this;
+            addForm.SetType(SCHEDULE);
+            addForm.ShowDialog();
 
-            label.Text = _schedule.checkHasActivity(selectedDate).Title + " : " + _schedule.checkHasActivity(selectedDate).Body;
+            List<Activity> a = _schedule.checkHasActivity(selectedDate);
+            if (a != null)
+            {
+                label.Text = "";
+                for (int i = 0; i < a.Count; i++)
+                    label.Text += a[i].Date.ToShortTimeString() + "  -" + a[i].Title + " \n " + a[i].Body + "\n\n";
+            }
         }
 
+        //所點選的日期改變
         private void monthCalendar_DayClick(object sender, DayClickEventArgs e)
         {
+            label.Text = "";
             selectedDate = Activity.StringToDate(e.Date);
-            label.Text = _schedule.checkHasActivity(selectedDate).Title + " : " + _schedule.checkHasActivity(selectedDate).Body;
+            List<Activity> a = _schedule.checkHasActivity(selectedDate);
+            if (a != null)
+            {
+                for (int i=0;i<a.Count;i++)
+                    label.Text += a[i].Date.ToShortTimeString() + "  -" + a[i].Title + " \n " + a[i].Body + "\n\n";
+            }
+        }
+
+
+        //Clock
+        private void notificationTimer_Tick(object sender, EventArgs e)
+        {
+            Activity a = _schedule.TimeOut(DateTime.Now);
+            if (a != null)
+            {
+                notifyIcon.ShowBalloonTip(1000, "活動", a.Title + " : " + a.Body, ToolTipIcon.Info);
+            }
+
         }
 
         private void AddAccountButton_Click(object sender, EventArgs e)
         {
-            InputForm a = new InputForm(DateTime.Now);
+            InputForm a = new InputForm(DateTime.Now,0);
             a.Owner = this;
             a.SetType(ACCOUNT);
             a.ShowDialog();
@@ -144,5 +171,6 @@ namespace Super_Personal_Assistant
         {
 
         }
+
     }
 }

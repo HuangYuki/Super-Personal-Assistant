@@ -10,12 +10,20 @@ namespace Super_Personal_Assistant.Class
         private int _cost;
         private String _itemName;
         private DateTime _date;
+        private int _id;
 
         //Attribute
         public int Cost
         {
             get { return _cost; }
             set { _cost = value; }
+        }
+
+        //Attribute
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
         }
 
         public String ItemName

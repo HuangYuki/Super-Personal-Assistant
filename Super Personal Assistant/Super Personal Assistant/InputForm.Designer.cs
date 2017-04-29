@@ -33,11 +33,15 @@
             this.bodyRichTextBox = new System.Windows.Forms.RichTextBox();
             this.titleLabel = new System.Windows.Forms.Label();
             this.bodyLabel = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // newButton
             // 
-            this.newButton.Location = new System.Drawing.Point(37, 182);
+            this.newButton.Location = new System.Drawing.Point(21, 219);
             this.newButton.Name = "newButton";
             this.newButton.Size = new System.Drawing.Size(75, 23);
             this.newButton.TabIndex = 0;
@@ -79,11 +83,37 @@
             this.bodyLabel.TabIndex = 4;
             this.bodyLabel.Text = "內容(itemName)";
             // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(14, 191);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            23,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(43, 22);
+            this.numericUpDown1.TabIndex = 5;
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(63, 191);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(49, 22);
+            this.numericUpDown2.TabIndex = 5;
+            // 
             // InputForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(154, 232);
+            this.ClientSize = new System.Drawing.Size(143, 254);
+            this.Controls.Add(this.numericUpDown2);
+            this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.bodyLabel);
             this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.bodyRichTextBox);
@@ -91,6 +121,8 @@
             this.Controls.Add(this.newButton);
             this.Name = "InputForm";
             this.Text = "New";
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -103,5 +135,7 @@
         private System.Windows.Forms.RichTextBox bodyRichTextBox;
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Label bodyLabel;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
     }
 }

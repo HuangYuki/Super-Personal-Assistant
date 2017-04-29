@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
             "1",
             "2017/3/11",
             "亂花錢",
@@ -45,6 +45,8 @@
             this.label = new System.Windows.Forms.Label();
             this.monthCalendar = new Pabo.Calendar.MonthCalendar();
             this.accountTabPage = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.AddAccountButton = new System.Windows.Forms.Button();
             this.accountListView = new System.Windows.Forms.ListView();
             this.IdColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.DateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -53,8 +55,7 @@
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.iconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.AddAccountButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.notificationTimer = new System.Windows.Forms.Timer(this.components);
             this.TabControl.SuspendLayout();
             this.calendarTabPage.SuspendLayout();
             this.accountTabPage.SuspendLayout();
@@ -160,6 +161,26 @@
             this.accountTabPage.Text = "帳戶";
             this.accountTabPage.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Enabled = false;
+            this.button1.Location = new System.Drawing.Point(341, 124);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "編輯";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // AddAccountButton
+            // 
+            this.AddAccountButton.Location = new System.Drawing.Point(341, 49);
+            this.AddAccountButton.Name = "AddAccountButton";
+            this.AddAccountButton.Size = new System.Drawing.Size(75, 23);
+            this.AddAccountButton.TabIndex = 2;
+            this.AddAccountButton.Text = "新增";
+            this.AddAccountButton.UseVisualStyleBackColor = true;
+            this.AddAccountButton.Click += new System.EventHandler(this.AddAccountButton_Click);
+            // 
             // accountListView
             // 
             this.accountListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -170,7 +191,7 @@
             this.accountListView.FullRowSelect = true;
             this.accountListView.GridLines = true;
             this.accountListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem2});
             this.accountListView.Location = new System.Drawing.Point(0, 3);
             this.accountListView.Name = "accountListView";
             this.accountListView.Size = new System.Drawing.Size(316, 203);
@@ -221,25 +242,11 @@
             this.closeToolStripMenuItem.Text = "關閉";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
-            // AddAccountButton
+            // notificationTimer
             // 
-            this.AddAccountButton.Location = new System.Drawing.Point(341, 49);
-            this.AddAccountButton.Name = "AddAccountButton";
-            this.AddAccountButton.Size = new System.Drawing.Size(75, 23);
-            this.AddAccountButton.TabIndex = 2;
-            this.AddAccountButton.Text = "新增";
-            this.AddAccountButton.UseVisualStyleBackColor = true;
-            this.AddAccountButton.Click += new System.EventHandler(this.AddAccountButton_Click);
-            // 
-            // button1
-            // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(341, 124);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "編輯";
-            this.button1.UseVisualStyleBackColor = true;
+            this.notificationTimer.Enabled = true;
+            this.notificationTimer.Interval = 60000;
+            this.notificationTimer.Tick += new System.EventHandler(this.notificationTimer_Tick);
             // 
             // MainForm
             // 
@@ -278,6 +285,7 @@
         private System.Windows.Forms.ColumnHeader IdColumnHeader;
         private System.Windows.Forms.Button AddAccountButton;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Timer notificationTimer;
     }
 }
 

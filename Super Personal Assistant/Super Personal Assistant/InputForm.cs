@@ -12,18 +12,20 @@ namespace Super_Personal_Assistant
 {
     public partial class InputForm : Form
     {
-        private DateTime d;
+        private DateTime _d;
         private int _type;
+        private int _id;
 
         public InputForm()
         {
             InitializeComponent();
         }
 
-        public InputForm(DateTime di)
+        public InputForm(DateTime dt,int id)
         {
             InitializeComponent();
-            d = di;
+            _d = dt;
+            _id = id;
         }
 
         public void SetType(int type)
@@ -32,6 +34,8 @@ namespace Super_Personal_Assistant
             if (MainForm.ACCOUNT == type)
             {
                 titleTextBox.Text = "100";
+                numericUpDown1.Visible = false;
+                numericUpDown2.Visible = false;
             }
         }
 
@@ -42,10 +46,12 @@ namespace Super_Personal_Assistant
             switch (_type)
             {
                 case MainForm.SCHEDULE:
-                    mf.AddActivity(new Activity(d, titleTextBox.Text, bodyRichTextBox.Text));
+                    _d = _d.AddHours(double.Parse(numericUpDown1.Value.ToString()));
+                    _d = _d.AddMinutes(double.Parse(numericUpDown2.Value.ToString()));
+                    mf.AddActivity(new Activity(_d, titleTextBox.Text, bodyRichTextBox.Text,_id));
                     break;
                 case MainForm.ACCOUNT:
-                    mf.AddAccount(new Account(int.Parse(titleTextBox.Text),bodyRichTextBox.Text,d));
+                    mf.AddAccount(new Account(int.Parse(titleTextBox.Text),bodyRichTextBox.Text,_d));
                     break;
                 default:
                     break;

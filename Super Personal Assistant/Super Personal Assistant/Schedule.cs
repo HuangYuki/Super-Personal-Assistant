@@ -25,17 +25,41 @@ namespace Super_Personal_Assistant
 
         }
 
-        public Activity checkHasActivity(DateTime today)
+        public int Count()
         {
+            return _activity.Count;
+        }
+
+        public List<Activity> checkHasActivity(DateTime today)
+        {
+            List<Activity> todayActivity = new List<Activity>();
+
             foreach(Activity activity in _activity)
             {
-                if (activity.Date == today)
+                
+                if (new DateTime(activity.Date.Year,activity.Date.Month,activity.Date.Day) == today)
+                {
+                    todayActivity.Add(activity);
+                }
+            }
+            if (todayActivity.Count != 0)
+                return todayActivity;
+
+            return null ;
+        }
+
+        public Activity TimeOut(DateTime today)
+        {
+            foreach (Activity activity in _activity)
+            {
+
+                if (activity.Date == new DateTime(today.Year, today.Month, today.Day, today.Hour, today.Minute, 0) )
                 {
                     return activity;
                 }
             }
-            
-            return new Activity();
+
+            return null;
         }
 
     }

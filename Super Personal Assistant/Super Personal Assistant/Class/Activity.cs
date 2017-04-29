@@ -11,6 +11,7 @@ namespace Super_Personal_Assistant
         private DateTime _date;
         private String _title;
         private String _body;
+        private int _id;
 
         //Attribute
         public DateTime Date
@@ -30,19 +31,27 @@ namespace Super_Personal_Assistant
             get { return _body; }
             set { _body = value; }
         }
+        //Attribute
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
 
         //Constructor
-        public Activity(DateTime date,String title,String body)
+        public Activity(DateTime date,String title,String body,int id)
         {
             _date = date;
             _title = title;
             _body = body;
+            _id = id;
         }
         //Constructor
         public Activity()
         {
             _date = DateTime.Today;
             _title = _body = "";
+            _id = 0;
         }
 
         //function

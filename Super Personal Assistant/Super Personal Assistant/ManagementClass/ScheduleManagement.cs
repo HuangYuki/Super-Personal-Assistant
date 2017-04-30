@@ -6,11 +6,11 @@ using System.Text;
 namespace Super_Personal_Assistant
 {
 
-    public class Schedule
+    public class ScheduleManagement
     {
         private List<Activity> _activity = new List<Activity>();
 
-        public Schedule()
+        public ScheduleManagement()
         {
             _activity.Clear();
         }
@@ -25,10 +25,17 @@ namespace Super_Personal_Assistant
 
         }
 
+        public void changeActivity()
+        {
+
+        }
+
         public int Count()
         {
             return _activity.Count;
         }
+
+
 
         public List<Activity> checkHasActivity(DateTime today)
         {

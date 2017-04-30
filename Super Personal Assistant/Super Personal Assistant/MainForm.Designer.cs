@@ -38,6 +38,7 @@
             "不要問"}, "(無)");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.TabControl = new System.Windows.Forms.TabControl();
+            this.mainPage = new System.Windows.Forms.TabPage();
             this.friendTabPage = new System.Windows.Forms.TabPage();
             this.calendarTabPage = new System.Windows.Forms.TabPage();
             this.addActivityButton = new System.Windows.Forms.Button();
@@ -55,7 +56,6 @@
             this.iconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notificationTimer = new System.Windows.Forms.Timer(this.components);
-            this.mainPage = new System.Windows.Forms.TabPage();
             this.TabControl.SuspendLayout();
             this.calendarTabPage.SuspendLayout();
             this.accountTabPage.SuspendLayout();
@@ -75,6 +75,16 @@
             this.TabControl.SelectedIndex = 0;
             this.TabControl.Size = new System.Drawing.Size(444, 263);
             this.TabControl.TabIndex = 0;
+            // 
+            // mainPage
+            // 
+            this.mainPage.Location = new System.Drawing.Point(4, 22);
+            this.mainPage.Name = "mainPage";
+            this.mainPage.Padding = new System.Windows.Forms.Padding(3);
+            this.mainPage.Size = new System.Drawing.Size(436, 237);
+            this.mainPage.TabIndex = 4;
+            this.mainPage.Text = "主頁";
+            this.mainPage.UseVisualStyleBackColor = true;
             // 
             // friendTabPage
             // 
@@ -214,7 +224,7 @@
             // 
             this.notifyIcon.ContextMenuStrip = this.iconContextMenuStrip;
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
-            this.notifyIcon.Text = "notifyIcon";
+            this.notifyIcon.Text = "超牛個人助理";
             this.notifyIcon.Visible = true;
             this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
             // 
@@ -237,16 +247,6 @@
             this.notificationTimer.Enabled = true;
             this.notificationTimer.Interval = 60000;
             this.notificationTimer.Tick += new System.EventHandler(this.notificationTimer_Tick);
-            // 
-            // mainPage
-            // 
-            this.mainPage.Location = new System.Drawing.Point(4, 22);
-            this.mainPage.Name = "mainPage";
-            this.mainPage.Padding = new System.Windows.Forms.Padding(3);
-            this.mainPage.Size = new System.Drawing.Size(436, 237);
-            this.mainPage.TabIndex = 4;
-            this.mainPage.Text = "主頁";
-            this.mainPage.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 

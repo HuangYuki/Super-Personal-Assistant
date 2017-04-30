@@ -2,13 +2,7 @@
 using Super_Personal_Assistant.Class;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
@@ -20,8 +14,8 @@ namespace Super_Personal_Assistant
         public const int ACCOUNT = 1;
 
         private DateTime selectedDate;
-        private Schedule _schedule = new Schedule();
-        private List<Account> _account = new List<Account>();
+        private ScheduleManagement _schedule = new ScheduleManagement();
+        private AccountItemManagement _account = new AccountItemManagement();
 
         //=之後要分到別的SCRIPT去===================
         public void AddActivity(Activity a)
@@ -44,10 +38,10 @@ namespace Super_Personal_Assistant
 
         }
 
-        public void AddAccount(Account account)
+        public void AddAccount(AccountItem account)
         {
             //新增一筆account(不是UI)
-            _account.Add(account);
+            _account.addNewAccountItem(account);
 
             //標示到ListView
             ListViewItem lvItem = new ListViewItem();

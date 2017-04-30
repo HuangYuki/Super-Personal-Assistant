@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Super_Personal_Assistant.Class
 {
-    public class Account
+    public class AccountItem
     {
         private int _cost;
         private String _itemName;
@@ -39,12 +39,12 @@ namespace Super_Personal_Assistant.Class
         }
 
         //Constructor
-        public Account()
+        public AccountItem()
         {
 
         }
         //Constructor
-        public Account(int cost,String itemName,DateTime date)
+        public AccountItem(int cost,String itemName,DateTime date)
         {
             _cost = cost;
             _itemName = itemName;

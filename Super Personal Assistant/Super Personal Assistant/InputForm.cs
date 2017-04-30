@@ -51,7 +51,7 @@ namespace Super_Personal_Assistant
                     mf.AddActivity(new Activity(_d, titleTextBox.Text, bodyRichTextBox.Text,_id));
                     break;
                 case MainForm.ACCOUNT:
-                    mf.AddAccount(new Account(int.Parse(titleTextBox.Text),bodyRichTextBox.Text,_d));
+                    mf.AddAccount(new AccountItem(int.Parse(titleTextBox.Text),bodyRichTextBox.Text,_d));
                     break;
                 default:
                     break;

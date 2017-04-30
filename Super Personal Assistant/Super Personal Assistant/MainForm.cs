@@ -46,7 +46,7 @@ namespace Super_Personal_Assistant
 
         public void AddAccount(Account account)
         {
-            //(不是UI)
+            //新增一筆account(不是UI)
             _account.Add(account);
 
             //標示到ListView

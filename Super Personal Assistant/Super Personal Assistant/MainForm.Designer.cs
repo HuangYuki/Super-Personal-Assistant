@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "1",
             "2017/3/11",
             "亂花錢",
@@ -39,7 +39,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.friendTabPage = new System.Windows.Forms.TabPage();
-            this.messageTabPage = new System.Windows.Forms.TabPage();
             this.calendarTabPage = new System.Windows.Forms.TabPage();
             this.addActivityButton = new System.Windows.Forms.Button();
             this.label = new System.Windows.Forms.Label();
@@ -56,6 +55,7 @@
             this.iconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notificationTimer = new System.Windows.Forms.Timer(this.components);
+            this.mainPage = new System.Windows.Forms.TabPage();
             this.TabControl.SuspendLayout();
             this.calendarTabPage.SuspendLayout();
             this.accountTabPage.SuspendLayout();
@@ -64,8 +64,8 @@
             // 
             // TabControl
             // 
+            this.TabControl.Controls.Add(this.mainPage);
             this.TabControl.Controls.Add(this.friendTabPage);
-            this.TabControl.Controls.Add(this.messageTabPage);
             this.TabControl.Controls.Add(this.calendarTabPage);
             this.TabControl.Controls.Add(this.accountTabPage);
             this.TabControl.Cursor = System.Windows.Forms.Cursors.Default;
@@ -85,16 +85,6 @@
             this.friendTabPage.TabIndex = 0;
             this.friendTabPage.Text = "好友";
             this.friendTabPage.UseVisualStyleBackColor = true;
-            // 
-            // messageTabPage
-            // 
-            this.messageTabPage.Location = new System.Drawing.Point(4, 22);
-            this.messageTabPage.Name = "messageTabPage";
-            this.messageTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.messageTabPage.Size = new System.Drawing.Size(436, 237);
-            this.messageTabPage.TabIndex = 1;
-            this.messageTabPage.Text = "訊息";
-            this.messageTabPage.UseVisualStyleBackColor = true;
             // 
             // calendarTabPage
             // 
@@ -191,7 +181,7 @@
             this.accountListView.FullRowSelect = true;
             this.accountListView.GridLines = true;
             this.accountListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
+            listViewItem1});
             this.accountListView.Location = new System.Drawing.Point(0, 3);
             this.accountListView.Name = "accountListView";
             this.accountListView.Size = new System.Drawing.Size(316, 203);
@@ -248,6 +238,16 @@
             this.notificationTimer.Interval = 60000;
             this.notificationTimer.Tick += new System.EventHandler(this.notificationTimer_Tick);
             // 
+            // mainPage
+            // 
+            this.mainPage.Location = new System.Drawing.Point(4, 22);
+            this.mainPage.Name = "mainPage";
+            this.mainPage.Padding = new System.Windows.Forms.Padding(3);
+            this.mainPage.Size = new System.Drawing.Size(436, 237);
+            this.mainPage.TabIndex = 4;
+            this.mainPage.Text = "主頁";
+            this.mainPage.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -269,7 +269,6 @@
 
         private System.Windows.Forms.TabControl TabControl;
         private System.Windows.Forms.TabPage friendTabPage;
-        private System.Windows.Forms.TabPage messageTabPage;
         private System.Windows.Forms.TabPage calendarTabPage;
         private System.Windows.Forms.Label label;
         private System.Windows.Forms.NotifyIcon notifyIcon;
@@ -286,6 +285,7 @@
         private System.Windows.Forms.Button AddAccountButton;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Timer notificationTimer;
+        private System.Windows.Forms.TabPage mainPage;
     }
 }
 

@@ -66,6 +66,7 @@ namespace Super_Personal_Assistant
 
         public void EditAccount(int id,int cost ,String name)
         {
+            
             _account.changeAccountItem(id, cost, name);
             //Name
             accountListView.SelectedItems[0].SubItems[2].Text = name;
@@ -182,8 +183,7 @@ namespace Super_Personal_Assistant
         private void edirAccountButton_Click(object sender, EventArgs e)
         {
             String selectedAccountItemId =accountListView.SelectedItems[0].SubItems[0].Text;
-            
-            InputForm a = new InputForm(DateTime.Now, int.Parse(selectedAccountItemId));
+            InputForm a = new InputForm(DateTime.Now, accountListView.SelectedItems[0].Index);
             a.Owner = this;
             a.SetType(ACCOUNT_EDIT);
             a.ShowDialog();

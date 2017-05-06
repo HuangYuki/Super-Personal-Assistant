@@ -29,13 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
-            "1",
-            "2017/3/11",
-            "亂花錢",
-            "0",
-            "300",
-            "不要問"}, "(無)");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.mainPage = new System.Windows.Forms.TabPage();
@@ -48,7 +41,6 @@
             this.edirAccountButton = new System.Windows.Forms.Button();
             this.addAccountButton = new System.Windows.Forms.Button();
             this.accountListView = new System.Windows.Forms.ListView();
-            this.IdColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.DateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.NameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -56,6 +48,7 @@
             this.iconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notificationTimer = new System.Windows.Forms.Timer(this.components);
+            this.IdColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TabControl.SuspendLayout();
             this.calendarTabPage.SuspendLayout();
             this.accountTabPage.SuspendLayout();
@@ -191,8 +184,6 @@
             this.columnHeader5});
             this.accountListView.FullRowSelect = true;
             this.accountListView.GridLines = true;
-            this.accountListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
             this.accountListView.Location = new System.Drawing.Point(0, 3);
             this.accountListView.MultiSelect = false;
             this.accountListView.Name = "accountListView";
@@ -201,11 +192,6 @@
             this.accountListView.UseCompatibleStateImageBehavior = false;
             this.accountListView.View = System.Windows.Forms.View.Details;
             this.accountListView.SelectedIndexChanged += new System.EventHandler(this.accountListView_SelectedIndexChanged);
-            // 
-            // IdColumnHeader
-            // 
-            this.IdColumnHeader.Text = "Id";
-            this.IdColumnHeader.Width = 30;
             // 
             // DateColumnHeader
             // 
@@ -250,6 +236,10 @@
             this.notificationTimer.Interval = 60000;
             this.notificationTimer.Tick += new System.EventHandler(this.notificationTimer_Tick);
             // 
+            // IdColumnHeader
+            // 
+            this.IdColumnHeader.Text = "Id";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -283,11 +273,11 @@
         private System.Windows.Forms.ColumnHeader DateColumnHeader;
         private System.Windows.Forms.ColumnHeader NameColumnHeader;
         private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ColumnHeader IdColumnHeader;
         private System.Windows.Forms.Button addAccountButton;
         private System.Windows.Forms.Button edirAccountButton;
         private System.Windows.Forms.Timer notificationTimer;
         private System.Windows.Forms.TabPage mainPage;
+        private System.Windows.Forms.ColumnHeader IdColumnHeader;
     }
 }
 

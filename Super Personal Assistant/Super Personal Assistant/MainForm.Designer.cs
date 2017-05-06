@@ -45,10 +45,10 @@
             this.label = new System.Windows.Forms.Label();
             this.monthCalendar = new Pabo.Calendar.MonthCalendar();
             this.accountTabPage = new System.Windows.Forms.TabPage();
-            this.edirAccountButton = new System.Windows.Forms.Button();
+            this.deleteAccountButton = new System.Windows.Forms.Button();
+            this.editAccountButton = new System.Windows.Forms.Button();
             this.addAccountButton = new System.Windows.Forms.Button();
             this.accountListView = new System.Windows.Forms.ListView();
-            this.IdColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.DateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.NameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -56,6 +56,7 @@
             this.iconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notificationTimer = new System.Windows.Forms.Timer(this.components);
+            this.IdColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TabControl.SuspendLayout();
             this.calendarTabPage.SuspendLayout();
             this.accountTabPage.SuspendLayout();
@@ -151,7 +152,8 @@
             // 
             // accountTabPage
             // 
-            this.accountTabPage.Controls.Add(this.edirAccountButton);
+            this.accountTabPage.Controls.Add(this.deleteAccountButton);
+            this.accountTabPage.Controls.Add(this.editAccountButton);
             this.accountTabPage.Controls.Add(this.addAccountButton);
             this.accountTabPage.Controls.Add(this.accountListView);
             this.accountTabPage.Location = new System.Drawing.Point(4, 22);
@@ -161,20 +163,31 @@
             this.accountTabPage.Text = "帳戶";
             this.accountTabPage.UseVisualStyleBackColor = true;
             // 
-            // edirAccountButton
+            // deleteAccountButton
             // 
-            this.edirAccountButton.Enabled = false;
-            this.edirAccountButton.Location = new System.Drawing.Point(341, 124);
-            this.edirAccountButton.Name = "edirAccountButton";
-            this.edirAccountButton.Size = new System.Drawing.Size(75, 23);
-            this.edirAccountButton.TabIndex = 3;
-            this.edirAccountButton.Text = "編輯";
-            this.edirAccountButton.UseVisualStyleBackColor = true;
-            this.edirAccountButton.Click += new System.EventHandler(this.edirAccountButton_Click);
+            this.deleteAccountButton.Enabled = false;
+            this.deleteAccountButton.Location = new System.Drawing.Point(341, 153);
+            this.deleteAccountButton.Name = "deleteAccountButton";
+            this.deleteAccountButton.Size = new System.Drawing.Size(75, 23);
+            this.deleteAccountButton.TabIndex = 4;
+            this.deleteAccountButton.Text = "刪除";
+            this.deleteAccountButton.UseVisualStyleBackColor = true;
+            this.deleteAccountButton.Click += new System.EventHandler(this.deleteAccountButton_Click);
+            // 
+            // editAccountButton
+            // 
+            this.editAccountButton.Enabled = false;
+            this.editAccountButton.Location = new System.Drawing.Point(341, 97);
+            this.editAccountButton.Name = "editAccountButton";
+            this.editAccountButton.Size = new System.Drawing.Size(75, 23);
+            this.editAccountButton.TabIndex = 3;
+            this.editAccountButton.Text = "編輯";
+            this.editAccountButton.UseVisualStyleBackColor = true;
+            this.editAccountButton.Click += new System.EventHandler(this.editAccountButton_Click);
             // 
             // addAccountButton
             // 
-            this.addAccountButton.Location = new System.Drawing.Point(341, 49);
+            this.addAccountButton.Location = new System.Drawing.Point(341, 42);
             this.addAccountButton.Name = "addAccountButton";
             this.addAccountButton.Size = new System.Drawing.Size(75, 23);
             this.addAccountButton.TabIndex = 2;
@@ -201,11 +214,6 @@
             this.accountListView.UseCompatibleStateImageBehavior = false;
             this.accountListView.View = System.Windows.Forms.View.Details;
             this.accountListView.SelectedIndexChanged += new System.EventHandler(this.accountListView_SelectedIndexChanged);
-            // 
-            // IdColumnHeader
-            // 
-            this.IdColumnHeader.Text = "Id";
-            this.IdColumnHeader.Width = 30;
             // 
             // DateColumnHeader
             // 
@@ -235,12 +243,12 @@
             this.iconContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.closeToolStripMenuItem});
             this.iconContextMenuStrip.Name = "contextMenuStrip1";
-            this.iconContextMenuStrip.Size = new System.Drawing.Size(101, 26);
+            this.iconContextMenuStrip.Size = new System.Drawing.Size(99, 26);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.closeToolStripMenuItem.Text = "關閉";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -249,6 +257,11 @@
             this.notificationTimer.Enabled = true;
             this.notificationTimer.Interval = 60000;
             this.notificationTimer.Tick += new System.EventHandler(this.notificationTimer_Tick);
+            // 
+            // IdColumnHeader
+            // 
+            this.IdColumnHeader.Text = "Id";
+            this.IdColumnHeader.Width = 89;
             // 
             // MainForm
             // 
@@ -283,11 +296,12 @@
         private System.Windows.Forms.ColumnHeader DateColumnHeader;
         private System.Windows.Forms.ColumnHeader NameColumnHeader;
         private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ColumnHeader IdColumnHeader;
         private System.Windows.Forms.Button addAccountButton;
-        private System.Windows.Forms.Button edirAccountButton;
+        private System.Windows.Forms.Button editAccountButton;
         private System.Windows.Forms.Timer notificationTimer;
         private System.Windows.Forms.TabPage mainPage;
+        private System.Windows.Forms.Button deleteAccountButton;
+        private System.Windows.Forms.ColumnHeader IdColumnHeader;
     }
 }
 

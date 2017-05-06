@@ -11,7 +11,8 @@ namespace Super_Personal_Assistant
     public partial class MainForm : Form
     {
         public const int SCHEDULE = 0;
-        public const int ACCOUNT = 1;
+        public const int ACCOUNT_ADD = 1;
+        public const int ACCOUNT_EDIT = 2;
 
         private DateTime selectedDate;
         private ScheduleManagement _schedule = new ScheduleManagement();
@@ -45,7 +46,7 @@ namespace Super_Personal_Assistant
 
             //標示到ListView
             ListViewItem lvItem = new ListViewItem();
-            lvItem.Text = (accountListView.Items.Count + 1).ToString();
+            lvItem.Text = account.Id.ToString();
 
             ListViewItem.ListViewSubItem lvSubItem = new ListViewItem.ListViewSubItem();
             lvSubItem.Text = account.Date.ToShortDateString();
@@ -63,7 +64,15 @@ namespace Super_Personal_Assistant
 
         }
 
+        public void EditAccount(int id,int cost ,String name)
+        {
+            _account.changeAccountItem(id, cost, name);
+            //Name
+            accountListView.SelectedItems[0].SubItems[2].Text = name;
+            //Cost
+            accountListView.SelectedItems[0].SubItems[3].Text = cost.ToString();
 
+        }
         //================================================
         //init
         public MainForm()
@@ -155,16 +164,36 @@ namespace Super_Personal_Assistant
 
         private void AddAccountButton_Click(object sender, EventArgs e)
         {
-            InputForm a = new InputForm(DateTime.Now,0);
+            InputForm a = new InputForm(DateTime.Now,accountListView.Items.Count + 1);
             a.Owner = this;
-            a.SetType(ACCOUNT);
+            a.SetType(ACCOUNT_ADD);
             a.ShowDialog();
         }
 
         private void accountListView_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (accountListView.SelectedItems.Count != 0)
+                edirAccountButton.Enabled = true;
+            else
+                edirAccountButton.Enabled = false;
 
         }
 
+        private void edirAccountButton_Click(object sender, EventArgs e)
+        {
+            String selectedAccountItemId =accountListView.SelectedItems[0].SubItems[0].Text;
+            
+            InputForm a = new InputForm(DateTime.Now, int.Parse(selectedAccountItemId));
+            a.Owner = this;
+            a.SetType(ACCOUNT_EDIT);
+            a.ShowDialog();
+        }
+
+
+        //testing use
+        private void print(String s)
+        {
+            notifyIcon.ShowBalloonTip(1000, "test",s, ToolTipIcon.Info);
+        }
     }
 }

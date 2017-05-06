@@ -33,8 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MonthCalendar">
-      <HintPath>C:\Users\Huang\Downloads\MonthCalendar.dll</HintPath>
+    <Reference Include="MonthCalendar, Version=1.8.2.0, Culture=neutral, PublicKeyToken=9d22151b1b463438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\MonthCalendar.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -51,7 +52,7 @@
   <ItemGroup>
     <Compile Include="Class\Friend.cs" />
     <Compile Include="ManagementClass\AccountItemManagement.cs" />
-    <Compile Include="Class\Account.cs" />
+    <Compile Include="Class\AccountItem.cs" />
     <Compile Include="InputForm.cs">
       <SubType>Form</SubType>
     </Compile>

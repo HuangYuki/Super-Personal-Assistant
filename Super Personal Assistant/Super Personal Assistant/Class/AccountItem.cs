@@ -44,8 +44,9 @@ namespace Super_Personal_Assistant.Class
 
         }
         //Constructor
-        public AccountItem(int cost,String itemName,DateTime date)
+        public AccountItem(int id,int cost,String itemName,DateTime date)
         {
+            _id = id;
             _cost = cost;
             _itemName = itemName;
             _date = date;

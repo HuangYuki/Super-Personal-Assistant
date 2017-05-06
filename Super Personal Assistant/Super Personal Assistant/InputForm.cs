@@ -31,11 +31,24 @@ namespace Super_Personal_Assistant
         public void SetType(int type)
         {
             _type = type;
-            if (MainForm.ACCOUNT == type)
+            switch (_type)
             {
-                titleTextBox.Text = "100";
-                numericUpDown1.Visible = false;
-                numericUpDown2.Visible = false;
+                case MainForm.ACCOUNT_ADD:
+                    titleTextBox.Text = "100";
+                    numericUpDown1.Visible = false;
+                    numericUpDown2.Visible = false;
+                    break;
+                case MainForm.SCHEDULE:
+
+                    break;
+                case MainForm.ACCOUNT_EDIT:
+                    titleTextBox.Text = "100";
+                    numericUpDown1.Visible = false;
+                    numericUpDown2.Visible = false;
+                    break;
+                default:
+                    break;
+
             }
         }
 
@@ -50,8 +63,11 @@ namespace Super_Personal_Assistant
                     _d = _d.AddMinutes(double.Parse(numericUpDown2.Value.ToString()));
                     mf.AddActivity(new Activity(_d, titleTextBox.Text, bodyRichTextBox.Text,_id));
                     break;
-                case MainForm.ACCOUNT:
-                    mf.AddAccount(new AccountItem(int.Parse(titleTextBox.Text),bodyRichTextBox.Text,_d));
+                case MainForm.ACCOUNT_ADD:
+                    mf.AddAccount(new AccountItem(_id, int.Parse(titleTextBox.Text),bodyRichTextBox.Text,_d));
+                    break;
+                case MainForm.ACCOUNT_EDIT:
+                    mf.EditAccount(_id, int.Parse(titleTextBox.Text), bodyRichTextBox.Text);
                     break;
                 default:
                     break;

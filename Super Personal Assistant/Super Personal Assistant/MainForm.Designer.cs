@@ -45,8 +45,8 @@
             this.label = new System.Windows.Forms.Label();
             this.monthCalendar = new Pabo.Calendar.MonthCalendar();
             this.accountTabPage = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.AddAccountButton = new System.Windows.Forms.Button();
+            this.edirAccountButton = new System.Windows.Forms.Button();
+            this.addAccountButton = new System.Windows.Forms.Button();
             this.accountListView = new System.Windows.Forms.ListView();
             this.IdColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.DateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -151,8 +151,8 @@
             // 
             // accountTabPage
             // 
-            this.accountTabPage.Controls.Add(this.button1);
-            this.accountTabPage.Controls.Add(this.AddAccountButton);
+            this.accountTabPage.Controls.Add(this.edirAccountButton);
+            this.accountTabPage.Controls.Add(this.addAccountButton);
             this.accountTabPage.Controls.Add(this.accountListView);
             this.accountTabPage.Location = new System.Drawing.Point(4, 22);
             this.accountTabPage.Name = "accountTabPage";
@@ -161,25 +161,26 @@
             this.accountTabPage.Text = "帳戶";
             this.accountTabPage.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // edirAccountButton
             // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(341, 124);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "編輯";
-            this.button1.UseVisualStyleBackColor = true;
+            this.edirAccountButton.Enabled = false;
+            this.edirAccountButton.Location = new System.Drawing.Point(341, 124);
+            this.edirAccountButton.Name = "edirAccountButton";
+            this.edirAccountButton.Size = new System.Drawing.Size(75, 23);
+            this.edirAccountButton.TabIndex = 3;
+            this.edirAccountButton.Text = "編輯";
+            this.edirAccountButton.UseVisualStyleBackColor = true;
+            this.edirAccountButton.Click += new System.EventHandler(this.edirAccountButton_Click);
             // 
-            // AddAccountButton
+            // addAccountButton
             // 
-            this.AddAccountButton.Location = new System.Drawing.Point(341, 49);
-            this.AddAccountButton.Name = "AddAccountButton";
-            this.AddAccountButton.Size = new System.Drawing.Size(75, 23);
-            this.AddAccountButton.TabIndex = 2;
-            this.AddAccountButton.Text = "新增";
-            this.AddAccountButton.UseVisualStyleBackColor = true;
-            this.AddAccountButton.Click += new System.EventHandler(this.AddAccountButton_Click);
+            this.addAccountButton.Location = new System.Drawing.Point(341, 49);
+            this.addAccountButton.Name = "addAccountButton";
+            this.addAccountButton.Size = new System.Drawing.Size(75, 23);
+            this.addAccountButton.TabIndex = 2;
+            this.addAccountButton.Text = "新增";
+            this.addAccountButton.UseVisualStyleBackColor = true;
+            this.addAccountButton.Click += new System.EventHandler(this.AddAccountButton_Click);
             // 
             // accountListView
             // 
@@ -193,6 +194,7 @@
             this.accountListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1});
             this.accountListView.Location = new System.Drawing.Point(0, 3);
+            this.accountListView.MultiSelect = false;
             this.accountListView.Name = "accountListView";
             this.accountListView.Size = new System.Drawing.Size(316, 203);
             this.accountListView.TabIndex = 1;
@@ -282,8 +284,8 @@
         private System.Windows.Forms.ColumnHeader NameColumnHeader;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader IdColumnHeader;
-        private System.Windows.Forms.Button AddAccountButton;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button addAccountButton;
+        private System.Windows.Forms.Button edirAccountButton;
         private System.Windows.Forms.Timer notificationTimer;
         private System.Windows.Forms.TabPage mainPage;
     }

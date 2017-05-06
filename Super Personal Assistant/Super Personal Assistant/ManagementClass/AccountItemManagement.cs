@@ -25,8 +25,12 @@ namespace Super_Personal_Assistant
 
         }
 
-        public bool changeAccountItem()
+        public bool changeAccountItem(int id, int cost, String name)
         {
+            int a= _account.FindIndex(x => x.Id == id);
+            _account[a].Cost = cost;
+            _account[a].ItemName = name;
+
             return true;
         }
 

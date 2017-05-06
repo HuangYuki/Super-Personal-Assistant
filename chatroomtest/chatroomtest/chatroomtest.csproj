@@ -45,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UserFormManagement\ConnectionManagement.cs" />
+    <Compile Include="ClassManagement\ConectionSetting.cs" />
+    <Compile Include="ClassManagement\ConnectionManagement.cs" />
+    <Compile Include="ClassManagement\ClientSocket.cs" />
     <Compile Include="UserFormManagement\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>

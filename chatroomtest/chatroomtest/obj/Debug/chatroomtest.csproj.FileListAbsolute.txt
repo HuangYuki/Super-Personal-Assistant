@@ -1,0 +1,10 @@
+c:\users\shu-hang\documents\visual studio 2017\Projects\chatroomtest\chatroomtest\bin\Debug\chatroomtest.exe.config
+c:\users\shu-hang\documents\visual studio 2017\Projects\chatroomtest\chatroomtest\bin\Debug\chatroomtest.exe
+c:\users\shu-hang\documents\visual studio 2017\Projects\chatroomtest\chatroomtest\bin\Debug\chatroomtest.pdb
+c:\users\shu-hang\documents\visual studio 2017\Projects\chatroomtest\chatroomtest\obj\Debug\chatroomtest.csprojResolveAssemblyReference.cache
+c:\users\shu-hang\documents\visual studio 2017\Projects\chatroomtest\chatroomtest\obj\Debug\chatroomtest.Properties.Resources.resources
+c:\users\shu-hang\documents\visual studio 2017\Projects\chatroomtest\chatroomtest\obj\Debug\chatroomtest.csproj.GenerateResource.Cache
+c:\users\shu-hang\documents\visual studio 2017\Projects\chatroomtest\chatroomtest\obj\Debug\chatroomtest.exe
+c:\users\shu-hang\documents\visual studio 2017\Projects\chatroomtest\chatroomtest\obj\Debug\chatroomtest.pdb
+c:\users\shu-hang\documents\visual studio 2017\Projects\chatroomtest\chatroomtest\obj\Debug\chatroomtest.RegisterForm.resources
+c:\users\shu-hang\documents\visual studio 2017\Projects\chatroomtest\chatroomtest\obj\Debug\chatroomtest.UserFormManagement.LoginForm.resources

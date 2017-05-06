@@ -1,6 +1,7 @@
 ﻿using Server.Class;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,8 @@ namespace Server.ManagementClass
 {
     class DataManagement
     {
-        ClientAccount client = new ClientAccount();
+        ClientAccount _client = new ClientAccount();
+        List<String> _accountList = new List<String>();
 
         public bool doDataManagement(String data)
         {
@@ -17,12 +19,7 @@ namespace Server.ManagementClass
 
             dataTypeId = getDataType(data);
             seperateData(dataTypeId, data);
-
-
-            if(dataTypeId == 0 || dataTypeId == 1)
-            {
-                compareData(dataTypeId);
-            }
+            compareData(dataTypeId);
 
 
             return true;
@@ -37,17 +34,22 @@ namespace Server.ManagementClass
             return typeId;
         }
 
-        public void seperateData(int typeId, string data)
+        public String[] seperateData(int typeId, string data)
         {
-            if(typeId == 0)
-            {
-                char space = ' ';
-                string[] words = data.Split(space);
-            }
+            char space = ' ';
+            string[] words = data.Split(space);
+
+            return words;
+
         }
 
         public bool compareData(int typeId)
         {
+            if(typeId == 0)
+            {
+
+            }
+
             return true;
         }
 

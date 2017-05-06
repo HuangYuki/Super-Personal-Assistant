@@ -20,7 +20,7 @@ namespace Server.Class
             _account = "";
             _passward = "";
             _name = "";
-            _typeId = 1;
+            _typeId = 0;
         }
 
         public String Id

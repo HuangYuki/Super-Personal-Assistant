@@ -175,13 +175,19 @@ namespace Super_Personal_Assistant
         private void accountListView_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (accountListView.SelectedItems.Count != 0)
-                edirAccountButton.Enabled = true;
+            {
+                editAccountButton.Enabled = true;
+                deleteAccountButton.Enabled = true;
+            }
             else
-                edirAccountButton.Enabled = false;
+            {
+                editAccountButton.Enabled = false;
+                deleteAccountButton.Enabled = false;
+            }
 
         }
 
-        private void edirAccountButton_Click(object sender, EventArgs e)
+        private void editAccountButton_Click(object sender, EventArgs e)
         {
             String selectedAccountItemId =accountListView.SelectedItems[0].SubItems[0].Text;
             InputForm a = new InputForm(DateTime.Now, accountListView.SelectedItems[0].Index);
@@ -190,11 +196,18 @@ namespace Super_Personal_Assistant
             a.ShowDialog();
         }
 
+        private void deleteAccountButton_Click(object sender, EventArgs e)
+        {
+            int selectedAccountItemIndex = accountListView.SelectedItems[0].Index;
+            accountListView.Items.RemoveAt(selectedAccountItemIndex);
+        }
 
         //testing use
         private void print(String s)
         {
             notifyIcon.ShowBalloonTip(1000, "test",s, ToolTipIcon.Info);
         }
+
+
     }
 }

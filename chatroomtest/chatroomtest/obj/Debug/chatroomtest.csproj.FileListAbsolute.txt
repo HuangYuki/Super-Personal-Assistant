@@ -7,4 +7,4 @@ c:\users\shu-hang\documents\visual studio 2017\Projects\chatroomtest\chatroomtes
 c:\users\shu-hang\documents\visual studio 2017\Projects\chatroomtest\chatroomtest\obj\Debug\chatroomtest.exe
 c:\users\shu-hang\documents\visual studio 2017\Projects\chatroomtest\chatroomtest\obj\Debug\chatroomtest.pdb
 c:\users\shu-hang\documents\visual studio 2017\Projects\chatroomtest\chatroomtest\obj\Debug\chatroomtest.RegisterForm.resources
-c:\users\shu-hang\documents\visual studio 2017\Projects\chatroomtest\chatroomtest\obj\Debug\chatroomtest.UserFormManagement.LoginForm.resources
+C:\Users\Shu-Hang\Documents\Visual Studio 2017\Projects\chatroomtest\chatroomtest\obj\Debug\chatroomtest.LoginForm.resources

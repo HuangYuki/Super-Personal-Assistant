@@ -33,6 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,27 +46,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassManagement\ConectionSetting.cs" />
-    <Compile Include="ClassManagement\ConnectionManagement.cs" />
-    <Compile Include="ClassManagement\ClientSocket.cs" />
-    <Compile Include="UserFormManagement\LoginForm.cs">
+    <Compile Include="ManagementClass\ClientAccount.cs" />
+    <Compile Include="ManagementClass\ConectionSetting.cs" />
+    <Compile Include="ManagementClass\ConnectionManagement.cs" />
+    <Compile Include="ManagementClass\ClientSocket.cs" />
+    <Compile Include="ManagementClass\DataManagement.cs" />
+    <Compile Include="ManagementClass\Tool.cs" />
+    <Compile Include="ManagementClass\User.cs" />
+    <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UserFormManagement\LoginForm.Designer.cs">
+    <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserFormManagement\RegisterForm.cs">
+    <Compile Include="RegisterForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UserFormManagement\RegisterForm.Designer.cs">
+    <Compile Include="RegisterForm.Designer.cs">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="UserFormManagement\LoginForm.resx">
+    <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserFormManagement\RegisterForm.resx">
+    <EmbeddedResource Include="RegisterForm.resx">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

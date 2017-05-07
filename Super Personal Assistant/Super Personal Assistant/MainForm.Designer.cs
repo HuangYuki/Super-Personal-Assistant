@@ -41,6 +41,7 @@
             this.edirAccountButton = new System.Windows.Forms.Button();
             this.addAccountButton = new System.Windows.Forms.Button();
             this.accountListView = new System.Windows.Forms.ListView();
+            this.IdColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.DateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.NameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -48,7 +49,6 @@
             this.iconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notificationTimer = new System.Windows.Forms.Timer(this.components);
-            this.IdColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TabControl.SuspendLayout();
             this.calendarTabPage.SuspendLayout();
             this.accountTabPage.SuspendLayout();
@@ -193,6 +193,11 @@
             this.accountListView.View = System.Windows.Forms.View.Details;
             this.accountListView.SelectedIndexChanged += new System.EventHandler(this.accountListView_SelectedIndexChanged);
             // 
+            // IdColumnHeader
+            // 
+            this.IdColumnHeader.Text = "Id";
+            this.IdColumnHeader.Width = 0;
+            // 
             // DateColumnHeader
             // 
             this.DateColumnHeader.Text = "日期";
@@ -235,10 +240,6 @@
             this.notificationTimer.Enabled = true;
             this.notificationTimer.Interval = 60000;
             this.notificationTimer.Tick += new System.EventHandler(this.notificationTimer_Tick);
-            // 
-            // IdColumnHeader
-            // 
-            this.IdColumnHeader.Text = "Id";
             // 
             // MainForm
             // 

@@ -15,12 +15,13 @@ namespace Server
 {
     public partial class ServerForm : Form
     {
+        ConnectionManagement chatServer = null;
 
         public ServerForm()
         {
             InitializeComponent();
-            ConnectionManagement connection = new ConnectionManagement();
-
+            chatServer = new ConnectionManagement();
+            chatServer.run();
         }
 
         private void ServerForm_Load(object sender, EventArgs e)

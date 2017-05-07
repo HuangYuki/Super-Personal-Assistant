@@ -10,7 +10,6 @@ namespace Server.ManagementClass
 {
     class DataManagement
     {
-        ClientAccount clientAccount = new ClientAccount();
 
         public bool doDataManagement(String data, List<ClientAccount> _accountList)
         {
@@ -49,7 +48,7 @@ namespace Server.ManagementClass
             return words;
         }
 
-        public String mergeData(string[] words, int accountNumber) //重組資料
+        public String mergeData(string[] words, int accountNumber, ClientAccount clientAccount) //重組資料
         {
             string newData = null;
 
@@ -72,13 +71,18 @@ namespace Server.ManagementClass
         {
             if(typeId == 0)
             {
-                for(int i = 0; i < _accountList.Count; i++)
+                if (_accountList.Where(item => item.Account == words[1]).Count() > 0)
+                {
+
+                    return false;
+                }
+               /* for (int i = 0; i < _accountList.Count; i++)
                 {
                     if(words[1] == _accountList[i].Account)
                     {
                         return false;
                     }
-                }
+                }*/
             }
 
             return true;
@@ -88,6 +92,7 @@ namespace Server.ManagementClass
         {
             string newData = null;
             StreamWriter sw = new StreamWriter(@"../../DataStorage/Account.txt", true);
+            ClientAccount clientAccount = new ClientAccount();
 
             if (compareData(typeId, words, _accountList) == false)
             {
@@ -95,7 +100,7 @@ namespace Server.ManagementClass
                 return false;
             }
 
-            newData = mergeData(words, _accountList.Count());
+            newData = mergeData(words, _accountList.Count(), clientAccount);
             clientAccount.Account = words[1];
             clientAccount.Passward = words[2];
             clientAccount.Name = words[3];

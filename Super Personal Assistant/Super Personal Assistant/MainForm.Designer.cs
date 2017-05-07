@@ -33,6 +33,11 @@
             this.TabControl = new System.Windows.Forms.TabControl();
             this.mainPage = new System.Windows.Forms.TabPage();
             this.friendTabPage = new System.Windows.Forms.TabPage();
+            this.deleteFriendButton = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.FriendIdColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.addFriendButton = new System.Windows.Forms.Button();
             this.calendarTabPage = new System.Windows.Forms.TabPage();
             this.addActivityButton = new System.Windows.Forms.Button();
             this.label = new System.Windows.Forms.Label();
@@ -51,6 +56,8 @@
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notificationTimer = new System.Windows.Forms.Timer(this.components);
             this.TabControl.SuspendLayout();
+            this.friendTabPage.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.calendarTabPage.SuspendLayout();
             this.accountTabPage.SuspendLayout();
             this.iconContextMenuStrip.SuspendLayout();
@@ -82,6 +89,9 @@
             // 
             // friendTabPage
             // 
+            this.friendTabPage.Controls.Add(this.deleteFriendButton);
+            this.friendTabPage.Controls.Add(this.groupBox1);
+            this.friendTabPage.Controls.Add(this.addFriendButton);
             this.friendTabPage.Location = new System.Drawing.Point(4, 22);
             this.friendTabPage.Name = "friendTabPage";
             this.friendTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -89,6 +99,54 @@
             this.friendTabPage.TabIndex = 0;
             this.friendTabPage.Text = "好友";
             this.friendTabPage.UseVisualStyleBackColor = true;
+            // 
+            // deleteFriendButton
+            // 
+            this.deleteFriendButton.Enabled = false;
+            this.deleteFriendButton.Location = new System.Drawing.Point(255, 203);
+            this.deleteFriendButton.Name = "deleteFriendButton";
+            this.deleteFriendButton.Size = new System.Drawing.Size(75, 23);
+            this.deleteFriendButton.TabIndex = 4;
+            this.deleteFriendButton.Text = "刪除好友";
+            this.deleteFriendButton.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.listView1);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(430, 197);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "好友清單";
+            // 
+            // listView1
+            // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.FriendIdColumnHeader});
+            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView1.GridLines = true;
+            this.listView1.Location = new System.Drawing.Point(3, 18);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(424, 176);
+            this.listView1.TabIndex = 0;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // FriendIdColumnHeader
+            // 
+            this.FriendIdColumnHeader.Text = "好友帳號";
+            this.FriendIdColumnHeader.Width = 416;
+            // 
+            // addFriendButton
+            // 
+            this.addFriendButton.Location = new System.Drawing.Point(98, 203);
+            this.addFriendButton.Name = "addFriendButton";
+            this.addFriendButton.Size = new System.Drawing.Size(75, 23);
+            this.addFriendButton.TabIndex = 1;
+            this.addFriendButton.Text = "新增好友";
+            this.addFriendButton.UseVisualStyleBackColor = true;
             // 
             // calendarTabPage
             // 
@@ -239,12 +297,12 @@
             this.iconContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.closeToolStripMenuItem});
             this.iconContextMenuStrip.Name = "contextMenuStrip1";
-            this.iconContextMenuStrip.Size = new System.Drawing.Size(101, 26);
+            this.iconContextMenuStrip.Size = new System.Drawing.Size(99, 26);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.closeToolStripMenuItem.Text = "關閉";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -264,6 +322,8 @@
             this.Text = "超牛個人助理";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.TabControl.ResumeLayout(false);
+            this.friendTabPage.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.calendarTabPage.ResumeLayout(false);
             this.accountTabPage.ResumeLayout(false);
             this.iconContextMenuStrip.ResumeLayout(false);
@@ -293,6 +353,11 @@
         private System.Windows.Forms.TabPage mainPage;
         private System.Windows.Forms.ColumnHeader IdColumnHeader;
         internal System.Windows.Forms.Button deleteAccountButton;
+        private System.Windows.Forms.Button deleteFriendButton;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader FriendIdColumnHeader;
+        private System.Windows.Forms.Button addFriendButton;
     }
 }
 

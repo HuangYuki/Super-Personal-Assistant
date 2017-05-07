@@ -24,6 +24,7 @@ namespace Super_Personal_Assistant
             //新增活動(不是UI)
             _schedule.addNewActivity(a);
 
+
             //標示到日曆物件上
             DateItem di = new DateItem();
             di.Date = new DateTime(a.Date.Year, a.Date.Month, a.Date.Day);

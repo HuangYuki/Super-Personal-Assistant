@@ -9,6 +9,7 @@ namespace Super_Personal_Assistant
     class AccountItemManagement
     {
         private List<AccountItem> _account = new List<AccountItem>();
+        private int _nextId = 0;
 
         public AccountItemManagement()
         {
@@ -17,7 +18,9 @@ namespace Super_Personal_Assistant
 
         public void addNewAccountItem(AccountItem newActivity)
         {
+            newActivity.Id = _nextId;
             _account.Add(newActivity);
+            _nextId++;
         }
 
         public void deleteAccountItem()

@@ -152,7 +152,6 @@ namespace Super_Personal_Assistant
             }
         }
 
-
         //Clock
         private void notificationTimer_Tick(object sender, EventArgs e)
         {
@@ -205,9 +204,7 @@ namespace Super_Personal_Assistant
         //testing use
         private void print(String s)
         {
-            notifyIcon.ShowBalloonTip(1000, "test",s, ToolTipIcon.Info);
+            notifyIcon.ShowBalloonTip(1000, "test", s, ToolTipIcon.Info);
         }
-
-
     }
 }

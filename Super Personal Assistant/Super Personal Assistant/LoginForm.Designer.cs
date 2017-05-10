@@ -71,22 +71,22 @@
             // accountLabel
             // 
             this.accountLabel.AutoSize = true;
-            this.accountLabel.Font = new System.Drawing.Font("標楷體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.accountLabel.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.accountLabel.Location = new System.Drawing.Point(21, 22);
             this.accountLabel.Name = "accountLabel";
             this.accountLabel.Size = new System.Drawing.Size(48, 16);
             this.accountLabel.TabIndex = 3;
-            this.accountLabel.Text = "帳號:";
+            this.accountLabel.Text = "帳號 :";
             // 
             // passwordLabel
             // 
             this.passwordLabel.AutoSize = true;
-            this.passwordLabel.Font = new System.Drawing.Font("標楷體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.passwordLabel.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.passwordLabel.Location = new System.Drawing.Point(21, 59);
             this.passwordLabel.Name = "passwordLabel";
             this.passwordLabel.Size = new System.Drawing.Size(48, 16);
             this.passwordLabel.TabIndex = 3;
-            this.passwordLabel.Text = "密碼:";
+            this.passwordLabel.Text = "密碼 :";
             // 
             // LoginForm
             // 

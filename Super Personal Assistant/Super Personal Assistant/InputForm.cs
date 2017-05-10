@@ -43,6 +43,7 @@ namespace Super_Personal_Assistant
                     break;
                 case MainForm.ACCOUNT_EDIT:
                     titleTextBox.Text = "100";
+                    newButton.Text = "確認";
                     numericUpDown1.Visible = false;
                     numericUpDown2.Visible = false;
                     break;

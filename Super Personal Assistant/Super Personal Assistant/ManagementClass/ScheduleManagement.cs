@@ -36,7 +36,6 @@ namespace Super_Personal_Assistant
         }
 
 
-
         public List<Activity> checkHasActivity(DateTime today)
         {
             List<Activity> todayActivity = new List<Activity>();

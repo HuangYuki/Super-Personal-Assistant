@@ -199,6 +199,7 @@ namespace Super_Personal_Assistant
         {
             int selectedAccountItemIndex = accountListView.SelectedItems[0].Index;
             accountListView.Items.RemoveAt(selectedAccountItemIndex);
+            //_account.deleteAccountItem(selectedAccountItemIndex);
         }
 
         //testing use

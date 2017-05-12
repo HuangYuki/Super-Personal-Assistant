@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Super_Personal_Assistant;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SuperPersonalAssistantTests
 {

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Super_Personal_Assistant.ManagementClass
 {
-    class FriendManagement
+    public class FriendManagement
     {
         private List<Friend> _friend = new List<Friend>();
 

@@ -20,7 +20,7 @@ namespace Super_Personal_Assistant
             _activity.Add(newActivity);
         }
 
-        public void deleteActivity()
+        public void deleteActivity(int id)
         {
 
         }

@@ -103,7 +103,7 @@ namespace Super_Personal_Assistant
         }
 
         //案關閉 縮小成小圖示
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.WindowsShutDown) return;
 
@@ -112,8 +112,8 @@ namespace Super_Personal_Assistant
             this.Hide();
             this.ShowInTaskbar = false;
             //通知小視窗
-            notifyIcon.ShowBalloonTip(1000, "哈囉", "我只是縮小而已，還沒關閉", ToolTipIcon.Warning);
-            notifyIcon.ShowBalloonTip(1000, "哈囉", "點我右鍵關閉", ToolTipIcon.Info);
+            //notifyIcon.ShowBalloonTip(1000, "哈囉", "我只是縮小而已，還沒關閉", ToolTipIcon.Warning);
+            //notifyIcon.ShowBalloonTip(1000, "哈囉", "點我右鍵關閉", ToolTipIcon.Info);
         }
 
         //右鍵小圖示，關閉程式
@@ -130,25 +130,41 @@ namespace Super_Personal_Assistant
             addForm.SetType(SCHEDULE);
             addForm.ShowDialog();
 
-            List<Activity> a = _schedule.checkHasActivity(selectedDate);
-            if (a != null)
-            {
-                label.Text = "";
-                for (int i = 0; i < a.Count; i++)
-                    label.Text += a[i].Date.ToShortTimeString() + "  -" + a[i].Title + " \n " + a[i].Body + "\n\n";
-            }
+            showSelectedDateActivities(selectedDate);
         }
 
         //所點選的日期改變
         private void monthCalendar_DayClick(object sender, DayClickEventArgs e)
         {
-            label.Text = "";
             selectedDate = Activity.StringToDate(e.Date);
-            List<Activity> a = _schedule.checkHasActivity(selectedDate);
-            if (a != null)
+            showSelectedDateActivities(selectedDate);
+        }
+
+        //顯示選取日期的活動
+        private void showSelectedDateActivities(DateTime sDate)
+        {
+            int listAmount = eventListView.Items.Count;
+            for (int listIndex = 0; listIndex < listAmount; listIndex++)
+                eventListView.Items.RemoveAt(0);
+
+            List<Activity> activities = _schedule.checkHasActivity(sDate);
+            if (activities != null)
             {
-                for (int i=0;i<a.Count;i++)
-                    label.Text += a[i].Date.ToShortTimeString() + "  -" + a[i].Title + " \n " + a[i].Body + "\n\n";
+                for (int listIndex = 0; listIndex < activities.Count; listIndex++)
+                {
+                    ListViewItem lvItem = new ListViewItem();
+                    lvItem.Text = activities[listIndex].Date.ToShortTimeString();
+
+                    ListViewItem.ListViewSubItem titlelvSubItem = new ListViewItem.ListViewSubItem();
+                    titlelvSubItem.Text = activities[listIndex].Title;
+                    lvItem.SubItems.Add(titlelvSubItem);
+
+                    ListViewItem.ListViewSubItem bodylvSubItem = new ListViewItem.ListViewSubItem();
+                    bodylvSubItem.Text = activities[listIndex].Body;
+                    lvItem.SubItems.Add(bodylvSubItem);
+
+                    eventListView.Items.Add(lvItem);
+                }
             }
         }
 
@@ -207,7 +223,5 @@ namespace Super_Personal_Assistant
         {
             notifyIcon.ShowBalloonTip(1000, "test",s, ToolTipIcon.Info);
         }
-
-
     }
 }

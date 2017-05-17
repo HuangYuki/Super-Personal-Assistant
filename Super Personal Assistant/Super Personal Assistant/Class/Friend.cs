@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Super_Personal_Assistant.Class
 {
-    public class Friend
+    class Friend
     {
         private int _id;
         private String _name;

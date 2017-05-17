@@ -59,11 +59,9 @@ namespace Super_Personal_Assistant
 
             //標示到ListView
             ListViewItem lvItem = new ListViewItem();
-            lvItem.Text = account.Id.ToString();
+            lvItem.Text = account.Date.ToShortDateString();
 
             ListViewItem.ListViewSubItem lvSubItem = new ListViewItem.ListViewSubItem();
-            lvSubItem.Text = account.Date.ToShortDateString();
-            lvItem.SubItems.Add(lvSubItem);
 
             lvSubItem = new ListViewItem.ListViewSubItem();
             lvSubItem.Text = account.ItemName;
@@ -83,9 +81,9 @@ namespace Super_Personal_Assistant
         {
             _account.changeAccountItem(id, cost, name);
             //Name
-            accountListView.SelectedItems[0].SubItems[2].Text = name;
+            accountListView.SelectedItems[0].SubItems[1].Text = name;
             //Cost
-            accountListView.SelectedItems[0].SubItems[3].Text = cost.ToString();
+            accountListView.SelectedItems[0].SubItems[2].Text = cost.ToString();
 
             accountListView.SelectedItems.Clear();
 
@@ -129,8 +127,6 @@ namespace Super_Personal_Assistant
             this.Hide();
             this.ShowInTaskbar = false;
             //通知小視窗
-            //notifyIcon.ShowBalloonTip(1000, "哈囉", "我只是縮小而已，還沒關閉", ToolTipIcon.Warning);
-            //notifyIcon.ShowBalloonTip(1000, "哈囉", "點我右鍵關閉", ToolTipIcon.Info);
             notifyIcon.ShowBalloonTip(1000, "超牛個人助理最小化", "點擊工具列圖示右鍵關閉", ToolTipIcon.Info);
         }
 
@@ -234,7 +230,7 @@ namespace Super_Personal_Assistant
         //點擊新增記帳功能
         private void AddAccountButton_Click(object sender, EventArgs e)
         {
-            InputForm a = new InputForm(DateTime.Now,accountListView.Items.Count + 1);
+            InputForm a = new InputForm(DateTime.Now);
             a.Owner = this;
             a.SetType(ACCOUNT_ADD);
             a.ShowDialog();
@@ -243,7 +239,6 @@ namespace Super_Personal_Assistant
         //點擊編輯記帳按鈕
         private void editAccountButton_Click(object sender, EventArgs e)
         {
-            String selectedAccountItemId =accountListView.SelectedItems[0].SubItems[0].Text;
             InputForm a = new InputForm(DateTime.Now, accountListView.SelectedItems[0].Index);
             a.Owner = this;
             a.SetType(ACCOUNT_EDIT);

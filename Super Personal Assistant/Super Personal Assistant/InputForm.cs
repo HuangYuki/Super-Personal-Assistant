@@ -28,6 +28,12 @@ namespace Super_Personal_Assistant
             _id = id;
         }
 
+        public InputForm(DateTime dt)
+        {
+            InitializeComponent();
+            _d = dt;
+        }
+
         public void SetType(int type)
         {
             _type = type;

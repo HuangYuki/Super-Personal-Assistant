@@ -54,12 +54,5 @@ namespace Super_Personal_Assistant
             _id = 0;
         }
 
-        //function
-        public static DateTime StringToDate(String input)
-        {
-            String[] aa = input.Split('/');
-            DateTime date = new DateTime(int.Parse(aa[0]), int.Parse(aa[1]), int.Parse(aa[2]));
-            return date;
-        }
     }
 }

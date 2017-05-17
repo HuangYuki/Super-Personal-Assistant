@@ -57,7 +57,6 @@
             this.editAccountButton = new System.Windows.Forms.Button();
             this.addAccountButton = new System.Windows.Forms.Button();
             this.accountListView = new System.Windows.Forms.ListView();
-            this.IdColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.DateColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.NameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.MoneyColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -366,7 +365,6 @@
             // accountListView
             // 
             this.accountListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.IdColumnHeader,
             this.DateColumnHeader,
             this.NameColumnHeader,
             this.MoneyColumnHeader});
@@ -381,11 +379,6 @@
             this.accountListView.UseCompatibleStateImageBehavior = false;
             this.accountListView.View = System.Windows.Forms.View.Details;
             this.accountListView.SelectedIndexChanged += new System.EventHandler(this.accountListView_SelectedIndexChanged);
-            // 
-            // IdColumnHeader
-            // 
-            this.IdColumnHeader.Text = "Id";
-            this.IdColumnHeader.Width = 0;
             // 
             // DateColumnHeader
             // 
@@ -415,12 +408,12 @@
             this.iconContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.closeToolStripMenuItem});
             this.iconContextMenuStrip.Name = "contextMenuStrip1";
-            this.iconContextMenuStrip.Size = new System.Drawing.Size(99, 26);
+            this.iconContextMenuStrip.Size = new System.Drawing.Size(101, 26);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.closeToolStripMenuItem.Text = "關閉";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -473,7 +466,6 @@
         private System.Windows.Forms.Button editAccountButton;
         private System.Windows.Forms.Timer notificationTimer;
         private System.Windows.Forms.TabPage mainPage;
-        private System.Windows.Forms.ColumnHeader IdColumnHeader;
         internal System.Windows.Forms.Button deleteAccountButton;
         private System.Windows.Forms.Button deleteFriendButton;
         private System.Windows.Forms.GroupBox friendListGroupBox;

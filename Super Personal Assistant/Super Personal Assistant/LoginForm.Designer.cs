@@ -28,81 +28,99 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.loginButton = new System.Windows.Forms.Button();
-            this.registerButton = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.accountLabel = new System.Windows.Forms.Label();
-            this.passwordLabel = new System.Windows.Forms.Label();
+            this.secretLabel = new System.Windows.Forms.Label();
+            this.accountTextBox = new System.Windows.Forms.TextBox();
+            this.secretTextBox = new System.Windows.Forms.TextBox();
+            this.logInButton = new System.Windows.Forms.Button();
+            this.registerButton = new System.Windows.Forms.Button();
+            this.logInSuccessLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // loginButton
-            // 
-            this.loginButton.Location = new System.Drawing.Point(167, 98);
-            this.loginButton.Name = "loginButton";
-            this.loginButton.Size = new System.Drawing.Size(49, 23);
-            this.loginButton.TabIndex = 0;
-            this.loginButton.Text = "登入";
-            this.loginButton.UseVisualStyleBackColor = true;
-            // 
-            // registerButton
-            // 
-            this.registerButton.Location = new System.Drawing.Point(70, 98);
-            this.registerButton.Name = "registerButton";
-            this.registerButton.Size = new System.Drawing.Size(49, 23);
-            this.registerButton.TabIndex = 1;
-            this.registerButton.Text = "註冊";
-            this.registerButton.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(75, 22);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(154, 22);
-            this.textBox1.TabIndex = 2;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(75, 59);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(154, 22);
-            this.textBox2.TabIndex = 2;
             // 
             // accountLabel
             // 
             this.accountLabel.AutoSize = true;
-            this.accountLabel.Font = new System.Drawing.Font("標楷體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.accountLabel.Location = new System.Drawing.Point(21, 22);
+            this.accountLabel.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.accountLabel.Location = new System.Drawing.Point(12, 26);
             this.accountLabel.Name = "accountLabel";
-            this.accountLabel.Size = new System.Drawing.Size(48, 16);
-            this.accountLabel.TabIndex = 3;
+            this.accountLabel.Size = new System.Drawing.Size(46, 21);
+            this.accountLabel.TabIndex = 0;
             this.accountLabel.Text = "帳號:";
             // 
-            // passwordLabel
+            // secretLabel
             // 
-            this.passwordLabel.AutoSize = true;
-            this.passwordLabel.Font = new System.Drawing.Font("標楷體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.passwordLabel.Location = new System.Drawing.Point(21, 59);
-            this.passwordLabel.Name = "passwordLabel";
-            this.passwordLabel.Size = new System.Drawing.Size(48, 16);
-            this.passwordLabel.TabIndex = 3;
-            this.passwordLabel.Text = "密碼:";
+            this.secretLabel.AutoSize = true;
+            this.secretLabel.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.secretLabel.Location = new System.Drawing.Point(12, 61);
+            this.secretLabel.Name = "secretLabel";
+            this.secretLabel.Size = new System.Drawing.Size(46, 21);
+            this.secretLabel.TabIndex = 1;
+            this.secretLabel.Text = "密碼:";
+            // 
+            // accountTextBox
+            // 
+            this.accountTextBox.Location = new System.Drawing.Point(64, 25);
+            this.accountTextBox.MaxLength = 10;
+            this.accountTextBox.Name = "accountTextBox";
+            this.accountTextBox.Size = new System.Drawing.Size(241, 22);
+            this.accountTextBox.TabIndex = 2;
+            // 
+            // secretTextBox
+            // 
+            this.secretTextBox.Location = new System.Drawing.Point(64, 64);
+            this.secretTextBox.MaxLength = 10;
+            this.secretTextBox.Name = "secretTextBox";
+            this.secretTextBox.Size = new System.Drawing.Size(241, 22);
+            this.secretTextBox.TabIndex = 3;
+            // 
+            // logInButton
+            // 
+            this.logInButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.logInButton.Location = new System.Drawing.Point(64, 122);
+            this.logInButton.Name = "logInButton";
+            this.logInButton.Size = new System.Drawing.Size(84, 35);
+            this.logInButton.TabIndex = 4;
+            this.logInButton.Text = "用戶登入";
+            this.logInButton.UseVisualStyleBackColor = true;
+            this.logInButton.Click += new System.EventHandler(this.clickLogInButton);
+            // 
+            // registerButton
+            // 
+            this.registerButton.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.registerButton.Location = new System.Drawing.Point(200, 122);
+            this.registerButton.Name = "registerButton";
+            this.registerButton.Size = new System.Drawing.Size(105, 35);
+            this.registerButton.TabIndex = 5;
+            this.registerButton.Text = "非用戶註冊";
+            this.registerButton.UseVisualStyleBackColor = true;
+            this.registerButton.Click += new System.EventHandler(this.clickRegisterButton);
+            // 
+            // logInSuccessLabel
+            // 
+            this.logInSuccessLabel.AutoSize = true;
+            this.logInSuccessLabel.Font = new System.Drawing.Font("新細明體", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.logInSuccessLabel.ForeColor = System.Drawing.Color.Red;
+            this.logInSuccessLabel.Location = new System.Drawing.Point(92, 73);
+            this.logInSuccessLabel.Name = "logInSuccessLabel";
+            this.logInSuccessLabel.Size = new System.Drawing.Size(165, 37);
+            this.logInSuccessLabel.TabIndex = 7;
+            this.logInSuccessLabel.Text = "登入成功";
+            this.logInSuccessLabel.Visible = false;
             // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(264, 133);
-            this.Controls.Add(this.passwordLabel);
-            this.Controls.Add(this.accountLabel);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(372, 192);
             this.Controls.Add(this.registerButton);
-            this.Controls.Add(this.loginButton);
-            this.MaximizeBox = false;
+            this.Controls.Add(this.logInButton);
+            this.Controls.Add(this.secretTextBox);
+            this.Controls.Add(this.accountTextBox);
+            this.Controls.Add(this.secretLabel);
+            this.Controls.Add(this.accountLabel);
+            this.Controls.Add(this.logInSuccessLabel);
             this.Name = "LoginForm";
-            this.Text = "登入";
-            this.TopMost = true;
+            this.Text = "LoginForm";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -110,11 +128,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button loginButton;
-        private System.Windows.Forms.Button registerButton;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label accountLabel;
-        private System.Windows.Forms.Label passwordLabel;
+        private System.Windows.Forms.Label secretLabel;
+        private System.Windows.Forms.TextBox accountTextBox;
+        private System.Windows.Forms.TextBox secretTextBox;
+        private System.Windows.Forms.Button logInButton;
+        private System.Windows.Forms.Button registerButton;
+        private System.Windows.Forms.Label logInSuccessLabel;
     }
 }

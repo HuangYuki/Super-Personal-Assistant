@@ -74,6 +74,8 @@ namespace Super_Personal_Assistant
             lvItem.SubItems.Add(lvSubItem);
 
             accountListView.Items.Add(lvItem);
+            //顯示總價
+            totalMoneyLabel.Text = _account.getTotal().ToString();
 
         }
 
@@ -86,6 +88,9 @@ namespace Super_Personal_Assistant
             accountListView.SelectedItems[0].SubItems[3].Text = cost.ToString();
 
             accountListView.SelectedItems.Clear();
+
+            //顯示總價
+            totalMoneyLabel.Text = _account.getTotal().ToString();
         }
         //================================================
         //init
@@ -168,7 +173,7 @@ namespace Super_Personal_Assistant
         //所點選的日期改變
         private void monthCalendar_DayClick(object sender, DayClickEventArgs e)
         {
-            selectedDate = Activity.StringToDate(e.Date);
+            selectedDate = Tool.StringToDate(e.Date);
             showSelectedDateActivities(selectedDate);
         }
 
@@ -252,6 +257,8 @@ namespace Super_Personal_Assistant
             accountListView.Items.RemoveAt(selectedAccountItemIndex);
 
             _account.deleteAccountItem(selectedAccountItemIndex);
+            //顯示總價
+            totalMoneyLabel.Text = _account.getTotal().ToString();
         }
 
         //點選accountListView中的項目

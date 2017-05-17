@@ -40,5 +40,15 @@ namespace Super_Personal_Assistant
             return _account.Count;
         }
 
+        public int getTotal()
+        {
+            int total = 0;
+            foreach(AccountItem ai in _account)
+            {
+                total += ai.Cost;
+            }
+            return total;
+        }
+
     }
 }

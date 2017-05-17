@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Super_Personal_Assistant
 {
-    class AccountItemManagement
+    public class AccountItemManagement
     {
         private List<AccountItem> _account = new List<AccountItem>();
         private int _nextId = 0;
@@ -33,6 +33,11 @@ namespace Super_Personal_Assistant
             _account[id].Cost = cost;
             _account[id].ItemName = name;
             return true;
+        }
+
+        public AccountItem get(int i)
+        {
+            return _account[i];
         }
 
         public int Count()

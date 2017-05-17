@@ -25,7 +25,7 @@ namespace Super_Personal_Assistant
 
         public void deleteAccountItem(int id)
         {
-
+            _account.RemoveAt(id);
         }
 
         public bool changeAccountItem(int id, int cost, String name)

@@ -33,13 +33,16 @@ namespace Super_Personal_Assistant
             _type = type;
             switch (_type)
             {
+                case MainForm.SCHEDULE_ADD:
+
+                    break;
+                case MainForm.SCHEDULE_EDIT:
+
+                    break;
                 case MainForm.ACCOUNT_ADD:
                     titleTextBox.Text = "100";
                     numericUpDown1.Visible = false;
                     numericUpDown2.Visible = false;
-                    break;
-                case MainForm.SCHEDULE:
-
                     break;
                 case MainForm.ACCOUNT_EDIT:
                     titleTextBox.Text = "100";
@@ -59,10 +62,13 @@ namespace Super_Personal_Assistant
             MainForm mf = (MainForm)this.Owner;
             switch (_type)
             {
-                case MainForm.SCHEDULE:
+                case MainForm.SCHEDULE_ADD:
                     _d = _d.AddHours(double.Parse(numericUpDown1.Value.ToString()));
                     _d = _d.AddMinutes(double.Parse(numericUpDown2.Value.ToString()));
                     mf.AddActivity(new Activity(_d, titleTextBox.Text, bodyRichTextBox.Text,_id));
+                    break;
+                case MainForm.SCHEDULE_EDIT:
+                    mf.EditActivity(_id, titleTextBox.Text, bodyRichTextBox.Text);
                     break;
                 case MainForm.ACCOUNT_ADD:
                     mf.AddAccount(new AccountItem(_id, int.Parse(titleTextBox.Text),bodyRichTextBox.Text,_d));

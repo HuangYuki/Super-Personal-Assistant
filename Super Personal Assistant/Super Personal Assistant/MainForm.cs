@@ -10,11 +10,12 @@ namespace Super_Personal_Assistant
 {
     public partial class MainForm : Form
     {
-        public const int SCHEDULE = 0;
-        public const int ACCOUNT_ADD = 1;
-        public const int ACCOUNT_EDIT = 2;
+        public const int SCHEDULE_ADD = 0;
+        public const int SCHEDULE_EDIT = 1;
+        public const int ACCOUNT_ADD = 2;
+        public const int ACCOUNT_EDIT = 3;
 
-        private DateTime selectedDate;
+        private DateTime selectedDate = DateTime.Today;
         private ScheduleManagement _schedule = new ScheduleManagement();
         private AccountItemManagement _account = new AccountItemManagement();
 
@@ -38,6 +39,17 @@ namespace Super_Personal_Assistant
                  a.Date.Hour + ":" +
                  a.Date.Minute, ToolTipIcon.Info);
 
+        }
+
+        public void EditActivity(int id, string title, string body)
+        {
+            _schedule.changeActivity(id, title, body);
+            //Title
+            eventListView.SelectedItems[0].SubItems[1].Text = title;
+            //Body
+            eventListView.SelectedItems[0].SubItems[2].Text = body;
+
+            eventListView.SelectedItems.Clear();
         }
 
         public void AddAccount(AccountItem account)
@@ -67,13 +79,13 @@ namespace Super_Personal_Assistant
 
         public void EditAccount(int id,int cost ,String name)
         {
-            
             _account.changeAccountItem(id, cost, name);
             //Name
             accountListView.SelectedItems[0].SubItems[2].Text = name;
             //Cost
             accountListView.SelectedItems[0].SubItems[3].Text = cost.ToString();
 
+            accountListView.SelectedItems.Clear();
         }
         //================================================
         //init
@@ -103,7 +115,7 @@ namespace Super_Personal_Assistant
         }
 
         //案關閉 縮小成小圖示
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.WindowsShutDown) return;
 
@@ -112,8 +124,9 @@ namespace Super_Personal_Assistant
             this.Hide();
             this.ShowInTaskbar = false;
             //通知小視窗
-            notifyIcon.ShowBalloonTip(1000, "哈囉", "我只是縮小而已，還沒關閉", ToolTipIcon.Warning);
-            notifyIcon.ShowBalloonTip(1000, "哈囉", "點我右鍵關閉", ToolTipIcon.Info);
+            //notifyIcon.ShowBalloonTip(1000, "哈囉", "我只是縮小而已，還沒關閉", ToolTipIcon.Warning);
+            //notifyIcon.ShowBalloonTip(1000, "哈囉", "點我右鍵關閉", ToolTipIcon.Info);
+            notifyIcon.ShowBalloonTip(1000, "超牛個人助理最小化", "點擊工具列圖示右鍵關閉", ToolTipIcon.Info);
         }
 
         //右鍵小圖示，關閉程式
@@ -127,28 +140,78 @@ namespace Super_Personal_Assistant
         {
             InputForm addForm = new InputForm(selectedDate, _schedule.Count());
             addForm.Owner = this;
-            addForm.SetType(SCHEDULE);
+            addForm.SetType(SCHEDULE_ADD);
             addForm.ShowDialog();
 
-            List<Activity> a = _schedule.checkHasActivity(selectedDate);
-            if (a != null)
-            {
-                label.Text = "";
-                for (int i = 0; i < a.Count; i++)
-                    label.Text += a[i].Date.ToShortTimeString() + "  -" + a[i].Title + " \n " + a[i].Body + "\n\n";
-            }
+            showSelectedDateActivities(selectedDate);
+        }
+
+        //click編輯行程按鈕
+        private void editTaskButton_Click(object sender, EventArgs e)
+        {
+            int selectedEventItemId = eventListView.SelectedItems[0].Index;
+            InputForm a = new InputForm(selectedDate, eventListView.SelectedItems[0].Index);
+            a.Owner = this;
+            a.SetType(SCHEDULE_EDIT);
+            a.ShowDialog();
+        }
+
+        //click刪除行程按鈕
+        private void deleteTaskButton_Click(object sender, EventArgs e)
+        {
+            int selectedEventItemIndex = eventListView.SelectedItems[0].Index;
+            eventListView.Items.RemoveAt(selectedEventItemIndex);
+
+            _schedule.deleteActivity(selectedEventItemIndex);
         }
 
         //所點選的日期改變
         private void monthCalendar_DayClick(object sender, DayClickEventArgs e)
         {
-            label.Text = "";
             selectedDate = Activity.StringToDate(e.Date);
-            List<Activity> a = _schedule.checkHasActivity(selectedDate);
-            if (a != null)
+            showSelectedDateActivities(selectedDate);
+        }
+
+        //顯示選取日期的活動
+        private void showSelectedDateActivities(DateTime sDate)
+        {
+            int listAmount = eventListView.Items.Count;
+            for (int listIndex = 0; listIndex < listAmount; listIndex++)
+                eventListView.Items.RemoveAt(0);
+
+            List<Activity> activities = _schedule.checkHasActivity(sDate);
+            if (activities != null)
             {
-                for (int i=0;i<a.Count;i++)
-                    label.Text += a[i].Date.ToShortTimeString() + "  -" + a[i].Title + " \n " + a[i].Body + "\n\n";
+                for (int listIndex = 0; listIndex < activities.Count; listIndex++)
+                {
+                    ListViewItem lvItem = new ListViewItem();
+                    lvItem.Text = activities[listIndex].Date.ToShortTimeString();
+
+                    ListViewItem.ListViewSubItem titlelvSubItem = new ListViewItem.ListViewSubItem();
+                    titlelvSubItem.Text = activities[listIndex].Title;
+                    lvItem.SubItems.Add(titlelvSubItem);
+
+                    ListViewItem.ListViewSubItem bodylvSubItem = new ListViewItem.ListViewSubItem();
+                    bodylvSubItem.Text = activities[listIndex].Body;
+                    lvItem.SubItems.Add(bodylvSubItem);
+
+                    eventListView.Items.Add(lvItem);
+                }
+            }
+        }
+
+        //點選eventListView中的項目
+        private void eventListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (eventListView.SelectedItems.Count != 0)
+            {
+                editTaskButton.Enabled = true;
+                deleteTaskButton.Enabled = true;
+            }
+            else
+            {
+                editTaskButton.Enabled = false;
+                deleteTaskButton.Enabled = false;
             }
         }
 
@@ -163,6 +226,7 @@ namespace Super_Personal_Assistant
 
         }
 
+        //點擊新增記帳功能
         private void AddAccountButton_Click(object sender, EventArgs e)
         {
             InputForm a = new InputForm(DateTime.Now,accountListView.Items.Count + 1);
@@ -171,6 +235,26 @@ namespace Super_Personal_Assistant
             a.ShowDialog();
         }
 
+        //點擊編輯記帳按鈕
+        private void editAccountButton_Click(object sender, EventArgs e)
+        {
+            String selectedAccountItemId =accountListView.SelectedItems[0].SubItems[0].Text;
+            InputForm a = new InputForm(DateTime.Now, accountListView.SelectedItems[0].Index);
+            a.Owner = this;
+            a.SetType(ACCOUNT_EDIT);
+            a.ShowDialog();
+        }
+
+        //點擊刪除記帳按鈕
+        private void deleteAccountButton_Click(object sender, EventArgs e)
+        {
+            int selectedAccountItemIndex = accountListView.SelectedItems[0].Index;
+            accountListView.Items.RemoveAt(selectedAccountItemIndex);
+
+            _account.deleteAccountItem(selectedAccountItemIndex);
+        }
+
+        //點選accountListView中的項目
         private void accountListView_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (accountListView.SelectedItems.Count != 0)
@@ -183,29 +267,12 @@ namespace Super_Personal_Assistant
                 editAccountButton.Enabled = false;
                 deleteAccountButton.Enabled = false;
             }
-
-        }
-
-        private void editAccountButton_Click(object sender, EventArgs e)
-        {
-            String selectedAccountItemId =accountListView.SelectedItems[0].SubItems[0].Text;
-            InputForm a = new InputForm(DateTime.Now, accountListView.SelectedItems[0].Index);
-            a.Owner = this;
-            a.SetType(ACCOUNT_EDIT);
-            a.ShowDialog();
-        }
-
-        private void deleteAccountButton_Click(object sender, EventArgs e)
-        {
-            int selectedAccountItemIndex = accountListView.SelectedItems[0].Index;
-            accountListView.Items.RemoveAt(selectedAccountItemIndex);
-            //_account.deleteAccountItem(selectedAccountItemIndex);
         }
 
         //testing use
         private void print(String s)
         {
-            notifyIcon.ShowBalloonTip(1000, "test", s, ToolTipIcon.Info);
+            notifyIcon.ShowBalloonTip(1000, "test",s, ToolTipIcon.Info);
         }
     }
 }

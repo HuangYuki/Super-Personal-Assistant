@@ -42,8 +42,8 @@
             this.FriendIdColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.addFriendButton = new System.Windows.Forms.Button();
             this.calendarTabPage = new System.Windows.Forms.TabPage();
-            this.deleteTaskButton = new System.Windows.Forms.Button();
-            this.editTaskButton = new System.Windows.Forms.Button();
+            this.deleteActivityButton = new System.Windows.Forms.Button();
+            this.editActivityButton = new System.Windows.Forms.Button();
             this.eventListView = new System.Windows.Forms.ListView();
             this.timeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.titleColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -51,8 +51,6 @@
             this.addActivityButton = new System.Windows.Forms.Button();
             this.monthCalendar = new Pabo.Calendar.MonthCalendar();
             this.accountTabPage = new System.Windows.Forms.TabPage();
-            this.totalMoneyLabel = new System.Windows.Forms.Label();
-            this.moneyTitleLabel = new System.Windows.Forms.Label();
             this.deleteAccountButton = new System.Windows.Forms.Button();
             this.editAccountButton = new System.Windows.Forms.Button();
             this.addAccountButton = new System.Windows.Forms.Button();
@@ -65,6 +63,8 @@
             this.iconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notificationTimer = new System.Windows.Forms.Timer(this.components);
+            this.moneyTitleLabel = new System.Windows.Forms.Label();
+            this.totalMoneyLabel = new System.Windows.Forms.Label();
             this.mainTabControl.SuspendLayout();
             this.friendTabPage.SuspendLayout();
             this.friendListGroupBox.SuspendLayout();
@@ -190,8 +190,8 @@
             // 
             // calendarTabPage
             // 
-            this.calendarTabPage.Controls.Add(this.deleteTaskButton);
-            this.calendarTabPage.Controls.Add(this.editTaskButton);
+            this.calendarTabPage.Controls.Add(this.deleteActivityButton);
+            this.calendarTabPage.Controls.Add(this.editActivityButton);
             this.calendarTabPage.Controls.Add(this.eventListView);
             this.calendarTabPage.Controls.Add(this.addActivityButton);
             this.calendarTabPage.Controls.Add(this.monthCalendar);
@@ -202,27 +202,25 @@
             this.calendarTabPage.Text = "行事曆";
             this.calendarTabPage.UseVisualStyleBackColor = true;
             // 
-            // deleteTaskButton
+            // deleteActivityButton
             // 
-            this.deleteTaskButton.Enabled = false;
-            this.deleteTaskButton.Location = new System.Drawing.Point(503, 279);
-            this.deleteTaskButton.Name = "deleteTaskButton";
-            this.deleteTaskButton.Size = new System.Drawing.Size(65, 23);
-            this.deleteTaskButton.TabIndex = 6;
-            this.deleteTaskButton.Text = "刪除";
-            this.deleteTaskButton.UseVisualStyleBackColor = true;
-            this.deleteTaskButton.Click += new System.EventHandler(this.deleteTaskButton_Click);
+            this.deleteActivityButton.Enabled = false;
+            this.deleteActivityButton.Location = new System.Drawing.Point(503, 279);
+            this.deleteActivityButton.Name = "deleteActivityButton";
+            this.deleteActivityButton.Size = new System.Drawing.Size(65, 23);
+            this.deleteActivityButton.TabIndex = 6;
+            this.deleteActivityButton.Text = "刪除";
+            this.deleteActivityButton.UseVisualStyleBackColor = true;
             // 
-            // editTaskButton
+            // editActivityButton
             // 
-            this.editTaskButton.Enabled = false;
-            this.editTaskButton.Location = new System.Drawing.Point(432, 279);
-            this.editTaskButton.Name = "editTaskButton";
-            this.editTaskButton.Size = new System.Drawing.Size(65, 23);
-            this.editTaskButton.TabIndex = 5;
-            this.editTaskButton.Text = "編輯";
-            this.editTaskButton.UseVisualStyleBackColor = true;
-            this.editTaskButton.Click += new System.EventHandler(this.editTaskButton_Click);
+            this.editActivityButton.Enabled = false;
+            this.editActivityButton.Location = new System.Drawing.Point(432, 279);
+            this.editActivityButton.Name = "editActivityButton";
+            this.editActivityButton.Size = new System.Drawing.Size(65, 23);
+            this.editActivityButton.TabIndex = 5;
+            this.editActivityButton.Text = "編輯";
+            this.editActivityButton.UseVisualStyleBackColor = true;
             // 
             // eventListView
             // 
@@ -241,7 +239,6 @@
             this.eventListView.TabIndex = 4;
             this.eventListView.UseCompatibleStateImageBehavior = false;
             this.eventListView.View = System.Windows.Forms.View.Details;
-            this.eventListView.SelectedIndexChanged += new System.EventHandler(this.eventListView_SelectedIndexChanged);
             // 
             // timeColumnHeader
             // 
@@ -305,31 +302,6 @@
             this.accountTabPage.TabIndex = 3;
             this.accountTabPage.Text = "帳戶";
             this.accountTabPage.UseVisualStyleBackColor = true;
-            // 
-            // totalMoneyLabel
-            // 
-            this.totalMoneyLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.totalMoneyLabel.Font = new System.Drawing.Font("新細明體", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.totalMoneyLabel.Location = new System.Drawing.Point(406, 115);
-            this.totalMoneyLabel.Name = "totalMoneyLabel";
-            this.totalMoneyLabel.Size = new System.Drawing.Size(166, 32);
-            this.totalMoneyLabel.TabIndex = 6;
-            this.totalMoneyLabel.Text = "$0";
-            this.totalMoneyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // moneyTitleLabel
-            // 
-            this.moneyTitleLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.moneyTitleLabel.AutoSize = true;
-            this.moneyTitleLabel.Font = new System.Drawing.Font("新細明體", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.moneyTitleLabel.Location = new System.Drawing.Point(430, 67);
-            this.moneyTitleLabel.Name = "moneyTitleLabel";
-            this.moneyTitleLabel.Size = new System.Drawing.Size(114, 32);
-            this.moneyTitleLabel.TabIndex = 5;
-            this.moneyTitleLabel.Text = "總金額";
-            this.moneyTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // deleteAccountButton
             // 
@@ -430,6 +402,32 @@
             this.notificationTimer.Interval = 60000;
             this.notificationTimer.Tick += new System.EventHandler(this.notificationTimer_Tick);
             // 
+            // moneyTitleLabel
+            // 
+            this.moneyTitleLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.moneyTitleLabel.AutoSize = true;
+            this.moneyTitleLabel.Font = new System.Drawing.Font("新細明體", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.moneyTitleLabel.Location = new System.Drawing.Point(430, 67);
+            this.moneyTitleLabel.Name = "moneyTitleLabel";
+            this.moneyTitleLabel.Size = new System.Drawing.Size(114, 32);
+            this.moneyTitleLabel.TabIndex = 5;
+            this.moneyTitleLabel.Text = "總金額";
+            this.moneyTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // totalMoneyLabel
+            // 
+            this.totalMoneyLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalMoneyLabel.AutoSize = true;
+            this.totalMoneyLabel.Font = new System.Drawing.Font("新細明體", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.totalMoneyLabel.Location = new System.Drawing.Point(416, 115);
+            this.totalMoneyLabel.Name = "totalMoneyLabel";
+            this.totalMoneyLabel.Size = new System.Drawing.Size(143, 32);
+            this.totalMoneyLabel.TabIndex = 6;
+            this.totalMoneyLabel.Text = "$1000000";
+            this.totalMoneyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -482,8 +480,8 @@
         private System.Windows.Forms.Button addFriendButton;
         private System.Windows.Forms.ListView eventListView;
         private System.Windows.Forms.ColumnHeader timeColumnHeader;
-        private System.Windows.Forms.Button deleteTaskButton;
-        private System.Windows.Forms.Button editTaskButton;
+        private System.Windows.Forms.Button deleteActivityButton;
+        private System.Windows.Forms.Button editActivityButton;
         private System.Windows.Forms.TextBox chatroomTextBox;
         private System.Windows.Forms.Button sendMessageButton;
         private System.Windows.Forms.TextBox sendMessageTextBox;

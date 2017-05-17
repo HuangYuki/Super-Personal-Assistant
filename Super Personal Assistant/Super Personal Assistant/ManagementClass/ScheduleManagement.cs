@@ -8,32 +8,31 @@ namespace Super_Personal_Assistant
 
     public class ScheduleManagement
     {
-        private List<Activity> _activities = new List<Activity>();
+        private List<Activity> _activity = new List<Activity>();
 
         public ScheduleManagement()
         {
-            _activities.Clear();
+            _activity.Clear();
         }
 
         public void addNewActivity(Activity newActivity)
         {
-            _activities.Add(newActivity);
+            _activity.Add(newActivity);
         }
 
-        public void deleteActivity(int id)
+        public void deleteActivity()
         {
-            _activities.RemoveAt(id);
+
         }
 
-        public void changeActivity(int id, string title, string body)
+        public void changeActivity()
         {
-            _activities[id].Title = title;
-            _activities[id].Body = body;
+
         }
 
         public int Count()
         {
-            return _activities.Count;
+            return _activity.Count;
         }
 
 
@@ -41,7 +40,7 @@ namespace Super_Personal_Assistant
         {
             List<Activity> todayActivity = new List<Activity>();
 
-            foreach(Activity activity in _activities)
+            foreach(Activity activity in _activity)
             {
                 
                 if (new DateTime(activity.Date.Year,activity.Date.Month,activity.Date.Day) == today)
@@ -57,7 +56,7 @@ namespace Super_Personal_Assistant
 
         public Activity TimeOut(DateTime today)
         {
-            foreach (Activity activity in _activities)
+            foreach (Activity activity in _activity)
             {
 
                 if (activity.Date == new DateTime(today.Year, today.Month, today.Day, today.Hour, today.Minute, 0) )

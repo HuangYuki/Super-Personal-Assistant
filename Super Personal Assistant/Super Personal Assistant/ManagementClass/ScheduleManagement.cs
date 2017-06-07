@@ -17,18 +17,32 @@ namespace Super_Personal_Assistant
 
         public void addNewActivity(Activity newActivity)
         {
+            if (_activities.Count != 0)
+                newActivity.Id = _activities[_activities.Count - 1].Id + 1;
+            else
+                newActivity.Id = 0;
             _activities.Add(newActivity);
         }
 
         public void deleteActivity(int id)
         {
-            _activities.RemoveAt(id);
+            for (int i = 0; i < _activities.Count; i++)
+            {
+                if (_activities[i].Id == id)
+                    _activities.RemoveAt(i);
+            }
         }
 
         public void changeActivity(int id, string title, string body)
         {
-            _activities[id].Title = title;
-            _activities[id].Body = body;
+            for (int i = 0; i < _activities.Count; i++)
+            {
+                if (_activities[i].Id == id)
+                {
+                    _activities[i].Title = title;
+                    _activities[i].Body = body;
+                }
+            }
         }
 
         public int Count()

@@ -25,13 +25,16 @@ namespace Super_Personal_Assistant
             //新增活動(不是UI)
             _schedule.addNewActivity(a);
 
-
-            //標示到日曆物件上
-            DateItem di = new DateItem();
-            di.Date = new DateTime(a.Date.Year, a.Date.Month, a.Date.Day);
-            di.BackColor1 = Color.Yellow;
-            monthCalendar.AddDateInfo(di);
-
+            //確認是否已經標記過(如果沒有標記過，就標記在日曆物件)
+            if (monthCalendar.Dates.IndexOf(new DateTime(a.Date.Year, a.Date.Month, a.Date.Day)) < 0)
+            {
+                //標示到日曆物件上
+                DateItem di = new DateItem();
+                di.Date = new DateTime(a.Date.Year, a.Date.Month, a.Date.Day);
+                di.BackColor1 = Color.Yellow;
+                monthCalendar.AddDateInfo(di);
+            }
+           
             //提醒使用者創建成功
             notifyIcon.ShowBalloonTip(1000, "新增活動", a.Date.Year.ToString() + "/" +
                  a.Date.Month.ToString() + "/" +
@@ -45,9 +48,9 @@ namespace Super_Personal_Assistant
         {
             _schedule.changeActivity(id, title, body);
             //Title
-            eventListView.SelectedItems[0].SubItems[1].Text = title;
+            eventListView.SelectedItems[0].SubItems[2].Text = title;
             //Body
-            eventListView.SelectedItems[0].SubItems[2].Text = body;
+            eventListView.SelectedItems[0].SubItems[3].Text = body;
 
             eventListView.SelectedItems.Clear();
         }
@@ -150,8 +153,8 @@ namespace Super_Personal_Assistant
         //click編輯行程按鈕
         private void editTaskButton_Click(object sender, EventArgs e)
         {
-            int selectedEventItemId = eventListView.SelectedItems[0].Index;
-            InputForm a = new InputForm(selectedDate, eventListView.SelectedItems[0].Index);
+            int selectedId = int.Parse(eventListView.SelectedItems[0].SubItems[0].Text.ToString());
+            InputForm a = new InputForm(selectedDate, selectedId);
             a.Owner = this;
             a.SetType(SCHEDULE_EDIT);
             a.ShowDialog();
@@ -161,14 +164,20 @@ namespace Super_Personal_Assistant
         private void deleteTaskButton_Click(object sender, EventArgs e)
         {
             int selectedEventItemIndex = eventListView.SelectedItems[0].Index;
+            int selectedId = int.Parse(eventListView.SelectedItems[0].SubItems[0].Text.ToString());
             eventListView.Items.RemoveAt(selectedEventItemIndex);
+            //確定該天行程已經清空
+            if (eventListView.Items.Count == 0)
+                //刪除該天的標記
+                monthCalendar.Dates.RemoveAt(monthCalendar.Dates.IndexOf(selectedDate));
 
-            _schedule.deleteActivity(selectedEventItemIndex);
+            _schedule.deleteActivity(selectedId);
         }
 
         //所點選的日期改變
         private void monthCalendar_DayClick(object sender, DayClickEventArgs e)
         {
+            
             selectedDate = Tool.StringToDate(e.Date);
             showSelectedDateActivities(selectedDate);
         }
@@ -186,7 +195,11 @@ namespace Super_Personal_Assistant
                 for (int listIndex = 0; listIndex < activities.Count; listIndex++)
                 {
                     ListViewItem lvItem = new ListViewItem();
-                    lvItem.Text = activities[listIndex].Date.ToShortTimeString();
+                    lvItem.Text = activities[listIndex].Id.ToString();
+
+                    ListViewItem.ListViewSubItem dateSubItem = new ListViewItem.ListViewSubItem();
+                    dateSubItem.Text = activities[listIndex].Date.ToShortTimeString();
+                    lvItem.SubItems.Add(dateSubItem);
 
                     ListViewItem.ListViewSubItem titlelvSubItem = new ListViewItem.ListViewSubItem();
                     titlelvSubItem.Text = activities[listIndex].Title;

@@ -45,6 +45,7 @@
             this.deleteTaskButton = new System.Windows.Forms.Button();
             this.editTaskButton = new System.Windows.Forms.Button();
             this.eventListView = new System.Windows.Forms.ListView();
+            this.idColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.timeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.titleColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.bodyColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -226,6 +227,7 @@
             // eventListView
             // 
             this.eventListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.idColumnHeader,
             this.timeColumnHeader,
             this.titleColumnHeader,
             this.bodyColumnHeader});
@@ -242,18 +244,25 @@
             this.eventListView.View = System.Windows.Forms.View.Details;
             this.eventListView.SelectedIndexChanged += new System.EventHandler(this.eventListView_SelectedIndexChanged);
             // 
+            // idColumnHeader
+            // 
+            this.idColumnHeader.DisplayIndex = 3;
+            // 
             // timeColumnHeader
             // 
+            this.timeColumnHeader.DisplayIndex = 0;
             this.timeColumnHeader.Text = "時間";
             this.timeColumnHeader.Width = 70;
             // 
             // titleColumnHeader
             // 
+            this.titleColumnHeader.DisplayIndex = 1;
             this.titleColumnHeader.Text = "標題";
             this.titleColumnHeader.Width = 80;
             // 
             // bodyColumnHeader
             // 
+            this.bodyColumnHeader.DisplayIndex = 2;
             this.bodyColumnHeader.Text = "內容";
             this.bodyColumnHeader.Width = 100;
             // 
@@ -483,6 +492,7 @@
         private System.Windows.Forms.ColumnHeader bodyColumnHeader;
         private System.Windows.Forms.Label totalMoneyLabel;
         private System.Windows.Forms.Label moneyTitleLabel;
+        private System.Windows.Forms.ColumnHeader idColumnHeader;
     }
 }
 

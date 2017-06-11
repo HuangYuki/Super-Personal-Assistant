@@ -50,8 +50,6 @@ namespace Super_Personal_Assistant
             return _activities.Count;
         }
 
-
-
         public List<Activity> checkHasActivity(DateTime today)
         {
             List<Activity> todayActivity = new List<Activity>();
@@ -84,5 +82,9 @@ namespace Super_Personal_Assistant
             return null;
         }
 
+        public Activity get(int index)
+        {
+            return _activities[index];
+        }
     }
 }

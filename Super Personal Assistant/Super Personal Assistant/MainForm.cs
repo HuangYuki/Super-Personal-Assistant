@@ -26,11 +26,15 @@ namespace Super_Personal_Assistant
             _schedule.addNewActivity(a);
 
 
-            //標示到日曆物件上
-            DateItem di = new DateItem();
-            di.Date = new DateTime(a.Date.Year, a.Date.Month, a.Date.Day);
-            di.BackColor1 = Color.Yellow;
-            monthCalendar.AddDateInfo(di);
+            //確認是否已經標記過(如果沒有標記過，就標記在日曆物件)
+            if (monthCalendar.Dates.IndexOf(new DateTime(a.Date.Year, a.Date.Month, a.Date.Day)) < 0)
+            {
+                //標示到日曆物件上
+                DateItem di = new DateItem();
+                di.Date = new DateTime(a.Date.Year, a.Date.Month, a.Date.Day);
+                di.BackColor1 = Color.Yellow;
+                monthCalendar.AddDateInfo(di);
+            }
 
             //提醒使用者創建成功
             notifyIcon.ShowBalloonTip(1000, "新增活動", a.Date.Year.ToString() + "/" +
@@ -172,6 +176,12 @@ namespace Super_Personal_Assistant
             _schedule.deleteActivity(selectedEventItemIndex);
 
             ShowSelectedDateActivities(selectedDate);
+
+            //確定該天行程已經清空
+            if (eventListView.Items.Count == 0)
+                //刪除該天的標記
+                monthCalendar.Dates.RemoveAt(monthCalendar.Dates.IndexOf(selectedDate));
+
         }
 
         //所點選的日期改變

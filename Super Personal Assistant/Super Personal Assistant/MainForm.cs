@@ -39,17 +39,15 @@ namespace Super_Personal_Assistant
                  a.Date.Hour + ":" +
                  a.Date.Minute, ToolTipIcon.Info);
 
+            ShowSelectedDateActivities(selectedDate);
         }
 
         public void EditActivity(int id, string title, string body)
         {
             _schedule.changeActivity(id, title, body);
-            //Title
-            eventListView.SelectedItems[0].SubItems[1].Text = title;
-            //Body
-            eventListView.SelectedItems[0].SubItems[2].Text = body;
 
             eventListView.SelectedItems.Clear();
+            ShowSelectedDateActivities(selectedDate);
         }
 
         public void AddAccount(AccountItem account)
@@ -57,38 +55,50 @@ namespace Super_Personal_Assistant
             //新增一筆account(不是UI)
             _account.addNewAccountItem(account);
 
-            //標示到ListView
-            ListViewItem lvItem = new ListViewItem();
-            lvItem.Text = account.Date.ToShortDateString();
+            ShowAccounts();
 
-            ListViewItem.ListViewSubItem lvSubItem = new ListViewItem.ListViewSubItem();
-
-            lvSubItem = new ListViewItem.ListViewSubItem();
-            lvSubItem.Text = account.ItemName;
-            lvItem.SubItems.Add(lvSubItem);
-
-            lvSubItem = new ListViewItem.ListViewSubItem();
-            lvSubItem.Text = account.Cost.ToString();
-            lvItem.SubItems.Add(lvSubItem);
-
-            accountListView.Items.Add(lvItem);
             //顯示總價
-            totalMoneyLabel.Text = _account.getTotal().ToString();
-
+            totalMoneyLabel.Text = "$" + _account.getTotal().ToString();            
         }
 
-        public void EditAccount(int id,int cost ,String name)
+        public void EditAccount(int id, int cost, String name)
         {
             _account.changeAccountItem(id, cost, name);
-            //Name
-            accountListView.SelectedItems[0].SubItems[1].Text = name;
-            //Cost
-            accountListView.SelectedItems[0].SubItems[2].Text = cost.ToString();
 
+            ShowAccounts();
             accountListView.SelectedItems.Clear();
 
             //顯示總價
-            totalMoneyLabel.Text = _account.getTotal().ToString();
+            totalMoneyLabel.Text = "$" + _account.getTotal().ToString();
+        }
+
+        ////顯示選取日期的活動
+        private void ShowAccounts()
+        {
+            int listAmount = accountListView.Items.Count;
+            for (int listIndex = 0; listIndex < listAmount; listIndex++)
+                accountListView.Items.RemoveAt(0);
+
+            List<AccountItem> accountItems = _account.GetAccountList();
+            for (int listIndex = 0; listIndex < accountItems.Count; listIndex++)
+            {
+                ListViewItem lvItem = new ListViewItem();
+                lvItem.Text = accountItems[listIndex].Id.ToString();
+
+                ListViewItem.ListViewSubItem timelvSubItem = new ListViewItem.ListViewSubItem();
+                timelvSubItem.Text = accountItems[listIndex].Date.ToShortDateString();
+                lvItem.SubItems.Add(timelvSubItem);
+
+                ListViewItem.ListViewSubItem titlelvSubItem = new ListViewItem.ListViewSubItem();
+                titlelvSubItem.Text = accountItems[listIndex].ItemName;
+                lvItem.SubItems.Add(titlelvSubItem);
+
+                ListViewItem.ListViewSubItem bodylvSubItem = new ListViewItem.ListViewSubItem();
+                bodylvSubItem.Text = accountItems[listIndex].Cost.ToString();
+                lvItem.SubItems.Add(bodylvSubItem);
+
+                accountListView.Items.Add(lvItem);
+            }
         }
         //================================================
         //init
@@ -114,7 +124,7 @@ namespace Super_Personal_Assistant
                 this.Activate();
                 this.ShowInTaskbar = true;
             }
-           
+
         }
 
         //案關閉 縮小成小圖示
@@ -143,15 +153,13 @@ namespace Super_Personal_Assistant
             addForm.Owner = this;
             addForm.SetType(SCHEDULE_ADD);
             addForm.ShowDialog();
-
-            showSelectedDateActivities(selectedDate);
         }
 
         //click編輯行程按鈕
         private void editTaskButton_Click(object sender, EventArgs e)
         {
-            int selectedEventItemId = eventListView.SelectedItems[0].Index;
-            InputForm a = new InputForm(selectedDate, eventListView.SelectedItems[0].Index);
+            int selectedEventItemId = Convert.ToInt32(eventListView.SelectedItems[0].SubItems[0].Text);
+            InputForm a = new InputForm(selectedDate, selectedEventItemId);
             a.Owner = this;
             a.SetType(SCHEDULE_EDIT);
             a.ShowDialog();
@@ -160,21 +168,21 @@ namespace Super_Personal_Assistant
         //click刪除行程按鈕
         private void deleteTaskButton_Click(object sender, EventArgs e)
         {
-            int selectedEventItemIndex = eventListView.SelectedItems[0].Index;
-            eventListView.Items.RemoveAt(selectedEventItemIndex);
-
+            int selectedEventItemIndex = Convert.ToInt32(eventListView.SelectedItems[0].SubItems[0].Text);
             _schedule.deleteActivity(selectedEventItemIndex);
+
+            ShowSelectedDateActivities(selectedDate);
         }
 
         //所點選的日期改變
         private void monthCalendar_DayClick(object sender, DayClickEventArgs e)
         {
             selectedDate = Tool.StringToDate(e.Date);
-            showSelectedDateActivities(selectedDate);
+            ShowSelectedDateActivities(selectedDate);
         }
 
         //顯示選取日期的活動
-        private void showSelectedDateActivities(DateTime sDate)
+        private void ShowSelectedDateActivities(DateTime sDate)
         {
             int listAmount = eventListView.Items.Count;
             for (int listIndex = 0; listIndex < listAmount; listIndex++)
@@ -186,7 +194,11 @@ namespace Super_Personal_Assistant
                 for (int listIndex = 0; listIndex < activities.Count; listIndex++)
                 {
                     ListViewItem lvItem = new ListViewItem();
-                    lvItem.Text = activities[listIndex].Date.ToShortTimeString();
+                    lvItem.Text = activities[listIndex].Id.ToString();
+
+                    ListViewItem.ListViewSubItem timelvSubItem = new ListViewItem.ListViewSubItem();
+                    timelvSubItem.Text = activities[listIndex].Date.ToShortTimeString();
+                    lvItem.SubItems.Add(timelvSubItem);
 
                     ListViewItem.ListViewSubItem titlelvSubItem = new ListViewItem.ListViewSubItem();
                     titlelvSubItem.Text = activities[listIndex].Title;
@@ -239,7 +251,8 @@ namespace Super_Personal_Assistant
         //點擊編輯記帳按鈕
         private void editAccountButton_Click(object sender, EventArgs e)
         {
-            InputForm a = new InputForm(DateTime.Now, accountListView.SelectedItems[0].Index);
+            int selectedAccountItemIndex = Convert.ToInt32(accountListView.SelectedItems[0].SubItems[0].Text);
+            InputForm a = new InputForm(DateTime.Now, selectedAccountItemIndex);
             a.Owner = this;
             a.SetType(ACCOUNT_EDIT);
             a.ShowDialog();
@@ -248,10 +261,11 @@ namespace Super_Personal_Assistant
         //點擊刪除記帳按鈕
         private void deleteAccountButton_Click(object sender, EventArgs e)
         {
-            int selectedAccountItemIndex = accountListView.SelectedItems[0].Index;
-            accountListView.Items.RemoveAt(selectedAccountItemIndex);
-
+            int selectedAccountItemIndex = Convert.ToInt32(accountListView.SelectedItems[0].SubItems[0].Text);
             _account.deleteAccountItem(selectedAccountItemIndex);
+
+            ShowAccounts();
+
             //顯示總價
             totalMoneyLabel.Text = _account.getTotal().ToString();
         }
@@ -274,7 +288,7 @@ namespace Super_Personal_Assistant
         //testing use
         private void print(String s)
         {
-            notifyIcon.ShowBalloonTip(1000, "test",s, ToolTipIcon.Info);
+            notifyIcon.ShowBalloonTip(1000, "test", s, ToolTipIcon.Info);
         }
     }
 }

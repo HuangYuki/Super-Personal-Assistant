@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Super_Personal_Assistant
 {
-
     public class ScheduleManagement
     {
         private List<Activity> _activities = new List<Activity>();
+        private int _nextId = 0;
 
         public ScheduleManagement()
         {
@@ -17,18 +17,22 @@ namespace Super_Personal_Assistant
 
         public void addNewActivity(Activity newActivity)
         {
+            newActivity.Id = _nextId;
             _activities.Add(newActivity);
+            _nextId++;
         }
 
         public void deleteActivity(int id)
         {
-            _activities.RemoveAt(id);
+            Activity resultActivity = _activities.Find(searchActivity => searchActivity.Id.Equals(id));
+            _activities.Remove(resultActivity);
         }
 
         public void changeActivity(int id, string title, string body)
         {
-            _activities[id].Title = title;
-            _activities[id].Body = body;
+            Activity resultActivity = _activities.Find(searchActivity => searchActivity.Id.Equals(id));
+            resultActivity.Title = title;
+            resultActivity.Body = body;
         }
 
         public int Count()
@@ -36,15 +40,12 @@ namespace Super_Personal_Assistant
             return _activities.Count;
         }
 
-
-
         public List<Activity> checkHasActivity(DateTime today)
         {
             List<Activity> todayActivity = new List<Activity>();
 
             foreach(Activity activity in _activities)
-            {
-                
+            {       
                 if (new DateTime(activity.Date.Year,activity.Date.Month,activity.Date.Day) == today)
                 {
                     todayActivity.Add(activity);

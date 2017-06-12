@@ -64,6 +64,8 @@
             this.iconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notificationTimer = new System.Windows.Forms.Timer(this.components);
+            this.taskIdColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.accountIdColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mainTabControl.SuspendLayout();
             this.friendTabPage.SuspendLayout();
             this.friendListGroupBox.SuspendLayout();
@@ -226,6 +228,7 @@
             // eventListView
             // 
             this.eventListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.taskIdColumnHeader,
             this.timeColumnHeader,
             this.titleColumnHeader,
             this.bodyColumnHeader});
@@ -269,7 +272,7 @@
             // 
             // monthCalendar
             // 
-            this.monthCalendar.ActiveMonth.Month = 5;
+            this.monthCalendar.ActiveMonth.Month = 6;
             this.monthCalendar.ActiveMonth.Year = 2017;
             this.monthCalendar.Culture = new System.Globalization.CultureInfo("zh-TW");
             this.monthCalendar.Footer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
@@ -283,6 +286,7 @@
             this.monthCalendar.Month.DateFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.monthCalendar.Month.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.monthCalendar.Name = "monthCalendar";
+            this.monthCalendar.SelectionMode = Pabo.Calendar.mcSelectionMode.One;
             this.monthCalendar.Size = new System.Drawing.Size(342, 304);
             this.monthCalendar.TabIndex = 1;
             this.monthCalendar.TodayColor = System.Drawing.Color.DarkGreen;
@@ -365,6 +369,7 @@
             // accountListView
             // 
             this.accountListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.accountIdColumnHeader,
             this.DateColumnHeader,
             this.NameColumnHeader,
             this.MoneyColumnHeader});
@@ -408,12 +413,12 @@
             this.iconContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.closeToolStripMenuItem});
             this.iconContextMenuStrip.Name = "contextMenuStrip1";
-            this.iconContextMenuStrip.Size = new System.Drawing.Size(101, 26);
+            this.iconContextMenuStrip.Size = new System.Drawing.Size(99, 26);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.closeToolStripMenuItem.Text = "關閉";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -422,6 +427,16 @@
             this.notificationTimer.Enabled = true;
             this.notificationTimer.Interval = 60000;
             this.notificationTimer.Tick += new System.EventHandler(this.notificationTimer_Tick);
+            // 
+            // taskIdColumnHeader
+            // 
+            this.taskIdColumnHeader.Text = "ID";
+            this.taskIdColumnHeader.Width = 0;
+            // 
+            // accountIdColumnHeader
+            // 
+            this.accountIdColumnHeader.Text = "ID";
+            this.accountIdColumnHeader.Width = 0;
             // 
             // MainForm
             // 
@@ -483,6 +498,8 @@
         private System.Windows.Forms.ColumnHeader bodyColumnHeader;
         private System.Windows.Forms.Label totalMoneyLabel;
         private System.Windows.Forms.Label moneyTitleLabel;
+        private System.Windows.Forms.ColumnHeader taskIdColumnHeader;
+        private System.Windows.Forms.ColumnHeader accountIdColumnHeader;
     }
 }
 

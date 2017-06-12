@@ -25,13 +25,15 @@ namespace Super_Personal_Assistant
 
         public void deleteAccountItem(int id)
         {
-            _account.RemoveAt(id);
+            AccountItem resultAccount = _account.Find(searchAccount => searchAccount.Id.Equals(id));
+            _account.Remove(resultAccount);
         }
 
         public bool changeAccountItem(int id, int cost, String name)
         {
-            _account[id].Cost = cost;
-            _account[id].ItemName = name;
+            AccountItem resultAccount = _account.Find(searchAccount => searchAccount.Id.Equals(id));
+            resultAccount.ItemName = name;
+            resultAccount.Cost = cost;
             return true;
         }
 
@@ -50,5 +52,9 @@ namespace Super_Personal_Assistant
             return total;
         }
 
+        public List<AccountItem> GetAccountList()
+        {
+            return _account;
+        }
     }
 }

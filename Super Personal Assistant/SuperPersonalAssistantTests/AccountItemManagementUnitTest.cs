@@ -12,7 +12,7 @@ namespace SuperPersonalAssistantTests
     [TestClass]
     public class AccountItemManagementUnitTest
     {
-    
+        //測試 function ChangeAccountItem() 找到
         [TestMethod]
         public void TestChangeAccountItem()
         {
@@ -36,5 +36,42 @@ namespace SuperPersonalAssistantTests
             }
 
         }
+
+        //測試 function DeleteAccountItem() 找到
+        [TestMethod]
+        public void TestDeleteAccountItem()
+        {
+            AccountItemManagement aim = new AccountItemManagement();
+            aim.addNewAccountItem(new AccountItem(0, 100, "test", new DateTime(10, 10, 10)));
+            aim.addNewAccountItem(new AccountItem(0, 200, "test2222", new DateTime(10, 10, 10)));
+            aim.deleteAccountItem(0);
+
+            List<AccountItem> t = new List<AccountItem>
+            {
+                new AccountItem(0, 200, "test2222", new DateTime(10, 10, 10))
+            };
+
+            Assert.AreEqual(t.Count, aim.Count());
+            for (int i = 0; i < t.Count; i++)
+            {
+                Assert.AreEqual(t[i].Cost, aim.get(i).Cost);
+                Assert.AreEqual(t[i].ItemName, aim.get(i).ItemName);
+                Assert.AreEqual(t[i].Date, aim.get(i).Date);
+            }
+
+        }
+
+        //測試 function getTotal() 找到
+        [TestMethod]
+        public void TestGetTotal()
+        {
+            AccountItemManagement aim = new AccountItemManagement();
+            aim.addNewAccountItem(new AccountItem(0, 100, "test", new DateTime(10, 10, 10)));
+            aim.addNewAccountItem(new AccountItem(0, 200, "test2222", new DateTime(10, 10, 10)));
+            aim.addNewAccountItem(new AccountItem(0, 222, "test2222", new DateTime(10, 10, 10)));
+
+            Assert.AreEqual(aim.getTotal(), 522);
+        }
     }
+
 }

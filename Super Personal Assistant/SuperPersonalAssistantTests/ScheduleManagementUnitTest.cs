@@ -8,6 +8,7 @@ namespace SuperPersonalAssistantTests
     [TestClass]
     public class ScheduleManagementUnitTest
     {
+        //測試 function CheckHasActivity() 沒找到
         [TestMethod]
         public void TestCheckHasActivityIsNull()
         {
@@ -20,7 +21,7 @@ namespace SuperPersonalAssistantTests
             Assert.IsNull(a1);       
         }
 
-
+        //測試 function CheckHasActivity() 有找到
         [TestMethod]
         public void TestCheckHasActivityNotNull()
         {
@@ -45,6 +46,7 @@ namespace SuperPersonalAssistantTests
             }
         }
 
+        //測試 function TimeOut() 找到
         [TestMethod]
         public void TestTimeOutSuccess()
         {
@@ -55,9 +57,10 @@ namespace SuperPersonalAssistantTests
             Assert.AreEqual(test.Date, new DateTime(10, 1, 1));
             Assert.AreEqual(test.Title, "1");
             Assert.AreEqual(test.Body, "1");
-            Assert.AreEqual(test.Id, 10);    
+            Assert.AreEqual(test.Id, 0);    
         }
 
+        //測試 function TimeOut() 沒找到
         [TestMethod]
         public void TestTimeOutFail()
         {
@@ -65,6 +68,54 @@ namespace SuperPersonalAssistantTests
             s.addNewActivity(new Activity(new DateTime(12, 1, 1), "1", "1", 10));
             Activity test = s.TimeOut(new DateTime(10, 1, 1));
             Assert.IsNull(test);
+        }
+
+        //測試 function deleteActivity()
+        [TestMethod]
+        public void TestDeleteActivity()
+        {
+            ScheduleManagement s = new ScheduleManagement();
+            ScheduleManagement test = new ScheduleManagement();         
+            s.addNewActivity(new Activity(new DateTime(12, 1, 10), "1.", "1", 0));
+            s.addNewActivity(new Activity(new DateTime(12, 1, 11), "2.", "11", 0));
+            s.addNewActivity(new Activity(new DateTime(12, 1, 12), "3.", "111", 0));
+            s.deleteActivity(1);
+
+            test.addNewActivity(new Activity(new DateTime(12, 1, 10), "1.", "1", 0));
+            test.addNewActivity(new Activity(new DateTime(12, 1, 12), "3.", "111", 0));
+
+            
+            for (int i = 0; i < s.Count(); i++)
+            {
+                Assert.AreEqual(s.get(i).Date, test.get(i).Date);
+                Assert.AreEqual(s.get(i).Title, test.get(i).Title);
+                Assert.AreEqual(s.get(i).Body, test.get(i).Body);
+            }
+
+        }
+
+        //測試 function changeActivity()
+        [TestMethod]
+        public void TesChangeActivity()
+        {
+            ScheduleManagement s = new ScheduleManagement();
+            ScheduleManagement test = new ScheduleManagement();
+            s.addNewActivity(new Activity(new DateTime(12, 1, 10), "1.", "1", 0));
+            s.addNewActivity(new Activity(new DateTime(12, 1, 11), "2.", "11", 0));
+            s.addNewActivity(new Activity(new DateTime(12, 1, 12), "3.", "111", 0));
+            s.changeActivity(1,"test1","testing");
+
+            test.addNewActivity(new Activity(new DateTime(12, 1, 10), "1.", "1", 0));
+            test.addNewActivity(new Activity(new DateTime(12, 1, 11), "test1", "testing", 0));
+            test.addNewActivity(new Activity(new DateTime(12, 1, 12), "3.", "111", 0));
+
+
+            for (int i = 0; i < s.Count(); i++)
+            {
+                Assert.AreEqual(s.get(i).Date, test.get(i).Date);
+                Assert.AreEqual(s.get(i).Title, test.get(i).Title);
+                Assert.AreEqual(s.get(i).Body, test.get(i).Body);
+            }
         }
     }
 }

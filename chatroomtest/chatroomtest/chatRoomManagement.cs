@@ -69,7 +69,6 @@ namespace chatroomtest
 				sentData(dataString);
 				chatRoomManagement reg = new chatRoomManagement(_clientsocket);
 				reg.Show();
-
 			}
 		}
 
@@ -100,5 +99,10 @@ namespace chatroomtest
 			MessageBox.Show(msg == "OK" ? "寄送成功" : "查詢不到該帳號");
 			return "OK";
 		}
-	}
+
+        private void chatRoomManagement_Load(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

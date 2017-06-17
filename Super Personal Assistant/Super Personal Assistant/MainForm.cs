@@ -23,8 +23,7 @@ namespace Super_Personal_Assistant
         public void AddActivity(Activity a)
         {
             //新增活動(不是UI)
-            _schedule.addNewActivity(a);
-
+            _schedule.addNewActivity(a);            
 
             //確認是否已經標記過(如果沒有標記過，就標記在日曆物件)
             if (monthCalendar.Dates.IndexOf(new DateTime(a.Date.Year, a.Date.Month, a.Date.Day)) < 0)
@@ -62,7 +61,7 @@ namespace Super_Personal_Assistant
             ShowAccounts();
 
             //顯示總價
-            totalMoneyLabel.Text = "$" + _account.getTotal().ToString();            
+            totalMoneyLabel.Text = "$" + _account.getMoneyTotal().ToString();            
         }
 
         public void EditAccount(int id, int cost, String name)
@@ -73,7 +72,7 @@ namespace Super_Personal_Assistant
             accountListView.SelectedItems.Clear();
 
             //顯示總價
-            totalMoneyLabel.Text = "$" + _account.getTotal().ToString();
+            totalMoneyLabel.Text = "$" + _account.getMoneyTotal().ToString();
         }
 
         ////顯示選取日期的活動
@@ -83,7 +82,7 @@ namespace Super_Personal_Assistant
             for (int listIndex = 0; listIndex < listAmount; listIndex++)
                 accountListView.Items.RemoveAt(0);
 
-            List<AccountItem> accountItems = _account.GetAccountList();
+            List<AccountItem> accountItems = _account.getList();
             for (int listIndex = 0; listIndex < accountItems.Count; listIndex++)
             {
                 ListViewItem lvItem = new ListViewItem();
@@ -110,6 +109,8 @@ namespace Super_Personal_Assistant
         {
             InitializeComponent();
             Application.VisualStyleState = VisualStyleState.NoneEnabled;
+            _schedule.recieveData();
+            _account.recieveData();
         }
 
         //點擊兩下 小圖示
@@ -277,7 +278,7 @@ namespace Super_Personal_Assistant
             ShowAccounts();
 
             //顯示總價
-            totalMoneyLabel.Text = _account.getTotal().ToString();
+            totalMoneyLabel.Text = _account.getMoneyTotal().ToString();
         }
 
         //點選accountListView中的項目

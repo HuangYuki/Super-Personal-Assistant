@@ -29,10 +29,10 @@ namespace SuperPersonalAssistantTests
             Assert.AreEqual(t.Count, aim.Count());
             for(int i = 0; i < t.Count; i++)
             {
-                Assert.AreEqual(t[i].Id, aim.get(i).Id);
-                Assert.AreEqual(t[i].Cost, aim.get(i).Cost);
-                Assert.AreEqual(t[i].ItemName, aim.get(i).ItemName);
-                Assert.AreEqual(t[i].Date, aim.get(i).Date);
+                Assert.AreEqual(t[i].Id, aim.getItem(i).Id);
+                Assert.AreEqual(t[i].Cost, aim.getItem(i).Cost);
+                Assert.AreEqual(t[i].ItemName, aim.getItem(i).ItemName);
+                Assert.AreEqual(t[i].Date, aim.getItem(i).Date);
             }
 
         }
@@ -54,9 +54,9 @@ namespace SuperPersonalAssistantTests
             Assert.AreEqual(t.Count, aim.Count());
             for (int i = 0; i < t.Count; i++)
             {
-                Assert.AreEqual(t[i].Cost, aim.get(i).Cost);
-                Assert.AreEqual(t[i].ItemName, aim.get(i).ItemName);
-                Assert.AreEqual(t[i].Date, aim.get(i).Date);
+                Assert.AreEqual(t[i].Cost, aim.getItem(i).Cost);
+                Assert.AreEqual(t[i].ItemName, aim.getItem(i).ItemName);
+                Assert.AreEqual(t[i].Date, aim.getItem(i).Date);
             }
 
         }
@@ -70,7 +70,7 @@ namespace SuperPersonalAssistantTests
             aim.addNewAccountItem(new AccountItem(0, 200, "test2222", new DateTime(10, 10, 10)));
             aim.addNewAccountItem(new AccountItem(0, 222, "test2222", new DateTime(10, 10, 10)));
 
-            Assert.AreEqual(aim.getTotal(), 522);
+            Assert.AreEqual(aim.getMoneyTotal(), 522);
         }
     }
 

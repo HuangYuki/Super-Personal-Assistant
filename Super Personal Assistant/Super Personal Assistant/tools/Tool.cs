@@ -17,9 +17,16 @@ namespace Super_Personal_Assistant
         
         public static DateTime StringToDate(String input)
         {
-            String[] aa = input.Split('/');
-            DateTime date = new DateTime(int.Parse(aa[0]), int.Parse(aa[1]), int.Parse(aa[2]));
+            String[] splitSlash = input.Split('/');
+            DateTime date = new DateTime(int.Parse(splitSlash[0]), int.Parse(splitSlash[1]), int.Parse(splitSlash[2]));
             return date;
+        }
+
+        public static DateTime StringToTime(String input)
+        {
+            string[] splitColon = input.Split(':');
+            DateTime time = new DateTime(2000, 1, 1, int.Parse(splitColon[0]), int.Parse(splitColon[1]), 0);
+            return time;
         }
 
     }

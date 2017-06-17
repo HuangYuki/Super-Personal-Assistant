@@ -29,7 +29,7 @@ namespace Server.ManagementClass
 
         public String[] seperateData(string data) //分離資料
         {
-            char space = ' ';
+            char space = '_';
             string[] words = null;
 
             words = data.Split(space);
@@ -50,7 +50,7 @@ namespace Server.ManagementClass
 
             for (int i = 1; i < words.Length; i++)
             {
-                newData = newData + " " + words[i];
+                newData = newData + "_" + words[i];
             }
 
             return newData;
@@ -66,11 +66,22 @@ namespace Server.ManagementClass
                     return -1; //-1為失敗
                 }
             }
-            if (_accountList.Where(item => item.Account == words[1] && item.Passward == words[2]).Count() > 0)
+            else if (dataType == '1' && _accountList.Where(item => item.Account == words[1] && item.Passward == words[2]).Count() > 0)
             {
                 for (int i = 0; i < _accountList.Count; i++)
                 {
                     if (words[1] == _accountList[i].Account && words[2] == _accountList[i].Passward)
+                    {
+                        return i;
+                    }
+                }
+            }
+
+            else if (dataType == '3' && _accountList.Where(item => item.Account == words[1]).Count() > 0)
+            {
+                for (int i = 0; i < _accountList.Count; i++)
+                {
+                    if (words[1] == _accountList[i].Account)
                     {
                         return i;
                     }
@@ -83,7 +94,7 @@ namespace Server.ManagementClass
         public bool SaveClientAccountData(string[] words, List<ClientAccount> _accountList, char dataType) //存檔帳號
         {
             string newData = null;
-            StreamWriter sw = new StreamWriter(@"../../DataStorage/Account.txt", true);
+            StreamWriter sw = new StreamWriter(@"../../DataStorage/Account/Account.txt");
             ClientAccount clientAccount = new ClientAccount();
 
             if (compareData(words, _accountList, dataType) == -1)
@@ -101,6 +112,18 @@ namespace Server.ManagementClass
             sw.Close();
 
             return true;
+        }
+        
+        public void saveFriend(ClientAccount myAccount, int friendAccountNumber, List<ClientAccount> _friendAcountList)
+        {
+            string path = myAccount.Account + "Friend"; 
+            StreamWriter sw = new StreamWriter(@"../../DataStorage/Friend/" + path + ".txt");
+
+            for(int i = 0; i < _friendAcountList.Count; i++)
+            {
+                sw.WriteLine(_friendAcountList[i].Account + "_" + _friendAcountList[i].Name);
+            }
+            sw.Close();
         }
 
     }

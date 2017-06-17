@@ -14,7 +14,7 @@ namespace Server.Class
     {
         public class ChatSetting
         {
-            public static String serverIp = "192.168.0.18";
+            public static String serverIp = "10.100.3.192";
             public static int port = 3766;
         }
 
@@ -29,7 +29,8 @@ namespace Server.Class
             public StrHandler inHandler;
             public EndPoint remoteEndPoint;
             public bool isDead = false;
-            public ClientAccount account;
+            public ClientAccount account; //使用者帳戶
+            public List<ClientAccount> clientFreindAccount= new List<ClientAccount>();
             public int number = -1;
 
             public ChatSocket(Socket s)

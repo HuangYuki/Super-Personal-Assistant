@@ -35,7 +35,7 @@ namespace Server.Class
             set { _account = value; }
         }
 
-        public String Passward //設定密碼
+        public String Passward //設定密碼 
         {
             get { return _passward; }
             set { _passward = value; }

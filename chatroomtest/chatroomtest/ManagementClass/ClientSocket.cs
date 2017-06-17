@@ -13,7 +13,7 @@ namespace chatroomtest.ManagementClass
 {
 	public class ConectionSetting
 	{
-		public static String serverIp = "192.168.0.21";
+		public static String serverIp = "192.168.0.18";
 		public static int port = 3766;
 	}
 

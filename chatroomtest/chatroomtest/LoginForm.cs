@@ -14,13 +14,15 @@ namespace chatroomtest
 	public partial class LoginForm : Form
 	{
 		ClientSocket _clientsocket;
+		StrHandler msgHandler;
 		ConectionSetting createConnection;
 		public LoginForm()
 		{
 			InitializeComponent();
 
+			msgHandler = this.addMsg;
 			createConnection = new ConectionSetting();
-			secretTextBox.PasswordChar = '*';
+			secretTextBox.PasswordChar = '*';  //輸入密碼時顯示為"*"
 		}
 
 		private void clickLogInButton(object sender, EventArgs e)
@@ -31,12 +33,19 @@ namespace chatroomtest
 			{
 				MessageBox.Show("帳戶或密碼格式不符！！！");
 			}
-
-			foreach (Control item in Controls)
+			else
 			{
-				item.Visible = false;
+				string dataString = "1" + " " + _account + " " + _secret;
+				sentData(dataString);
+				chatRoomManagement reg = new chatRoomManagement(_clientsocket);
+				reg.Show();
+
 			}
-			logInSuccessLabel.Visible = true;
+			//foreach (Control item in Controls)
+			//{
+			//	item.Visible = false;
+			//}
+			//logInSuccessLabel.Visible = true;
 		}
 
 		private void clickRegisterButton(object sender, EventArgs e)
@@ -44,6 +53,37 @@ namespace chatroomtest
 
 			RegisterForm reg = new RegisterForm();
 			reg.ShowDialog();
+		}
+
+		public void sentData(string userData) //"1 帳號 密碼"
+		{
+			//MessageBox.Show(userData);
+
+
+			if (_clientsocket == null)
+			{
+				_clientsocket = ClientSocket.connect(ConectionSetting.serverIp);
+				_clientsocket.newListener(processMsgComeIn);
+
+			}
+			_clientsocket.send(userData);
+
+			foreach (Control item in Controls)
+			{
+				item.Text = item is TextBox ? "" : item.Text; //如果是textbox那就清空否則保持原狀
+			}
+		}
+
+		public String processMsgComeIn(String msg)
+		{
+			this.Invoke(msgHandler, new Object[] { msg });
+			return "OK";
+		}
+
+		public String addMsg(String msg)
+		{
+			MessageBox.Show(msg == "OK" ? "登入成功" : "登入失敗");
+			return "OK";
 		}
 	}
 }

@@ -8,3 +8,4 @@ c:\users\shu-hang\documents\visual studio 2017\Projects\chatroomtest\chatroomtes
 c:\users\shu-hang\documents\visual studio 2017\Projects\chatroomtest\chatroomtest\obj\Debug\chatroomtest.pdb
 c:\users\shu-hang\documents\visual studio 2017\Projects\chatroomtest\chatroomtest\obj\Debug\chatroomtest.RegisterForm.resources
 C:\Users\Shu-Hang\Documents\Visual Studio 2017\Projects\chatroomtest\chatroomtest\obj\Debug\chatroomtest.LoginForm.resources
+C:\Users\Shu-Hang\Documents\Visual Studio 2017\Projects\chatroomtest\chatroomtest\obj\Debug\chatroomtest.chatRoomManagement.resources

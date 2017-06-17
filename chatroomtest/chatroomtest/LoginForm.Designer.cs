@@ -51,7 +51,7 @@
 			this.addFriendColumn = new System.Windows.Forms.DataGridViewButtonColumn();
 			this.deleteFriendColumn = new System.Windows.Forms.DataGridViewButtonColumn();
 			this.userLabel = new System.Windows.Forms.Label();
-			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+			this.messageRichTextBox = new System.Windows.Forms.RichTextBox();
 			this.inputTextBox = new System.Windows.Forms.TextBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -152,7 +152,7 @@
 			// 
 			this.tabPage2.Controls.Add(this.friendTabControl);
 			this.tabPage2.Controls.Add(this.userLabel);
-			this.tabPage2.Controls.Add(this.richTextBox1);
+			this.tabPage2.Controls.Add(this.messageRichTextBox);
 			this.tabPage2.Controls.Add(this.inputTextBox);
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
@@ -167,7 +167,7 @@
 			this.friendTabControl.Controls.Add(this.friendTabPage);
 			this.friendTabControl.Controls.Add(this.addFriendTabPage);
 			this.friendTabControl.Controls.Add(this.friendRequestTabPage);
-			this.friendTabControl.Location = new System.Drawing.Point(84, 38);
+			this.friendTabControl.Location = new System.Drawing.Point(25, 38);
 			this.friendTabControl.Name = "friendTabControl";
 			this.friendTabControl.SelectedIndex = 0;
 			this.friendTabControl.Size = new System.Drawing.Size(205, 348);
@@ -198,6 +198,7 @@
 			this.friendDataGridView.RowTemplate.Height = 24;
 			this.friendDataGridView.Size = new System.Drawing.Size(185, 312);
 			this.friendDataGridView.TabIndex = 0;
+			this.friendDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.friendDataGridView_CellContentClick);
 			// 
 			// Column2
 			// 
@@ -302,31 +303,30 @@
 			// 
 			this.userLabel.AutoSize = true;
 			this.userLabel.Font = new System.Drawing.Font("標楷體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-			this.userLabel.Location = new System.Drawing.Point(80, 11);
+			this.userLabel.Location = new System.Drawing.Point(21, 11);
 			this.userLabel.Name = "userLabel";
 			this.userLabel.Size = new System.Drawing.Size(94, 24);
 			this.userLabel.TabIndex = 7;
 			this.userLabel.Text = "使用者:";
 			// 
-			// richTextBox1
+			// messageRichTextBox
 			// 
-			this.richTextBox1.Font = new System.Drawing.Font("標楷體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-			this.richTextBox1.Location = new System.Drawing.Point(286, 0);
-			this.richTextBox1.Name = "richTextBox1";
-			this.richTextBox1.Size = new System.Drawing.Size(480, 271);
-			this.richTextBox1.TabIndex = 6;
-			this.richTextBox1.Text = "";
-			this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
-			this.richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.richTextBox1_KeyDown);
+			this.messageRichTextBox.Font = new System.Drawing.Font("標楷體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+			this.messageRichTextBox.Location = new System.Drawing.Point(268, 11);
+			this.messageRichTextBox.Name = "messageRichTextBox";
+			this.messageRichTextBox.Size = new System.Drawing.Size(483, 287);
+			this.messageRichTextBox.TabIndex = 6;
+			this.messageRichTextBox.Text = "";
 			// 
 			// inputTextBox
 			// 
-			this.inputTextBox.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-			this.inputTextBox.Location = new System.Drawing.Point(286, 269);
+			this.inputTextBox.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+			this.inputTextBox.Location = new System.Drawing.Point(268, 304);
 			this.inputTextBox.Multiline = true;
 			this.inputTextBox.Name = "inputTextBox";
-			this.inputTextBox.Size = new System.Drawing.Size(480, 117);
+			this.inputTextBox.Size = new System.Drawing.Size(480, 70);
 			this.inputTextBox.TabIndex = 5;
+			this.inputTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.inputTextBox_KeyDown);
 			// 
 			// LoginForm
 			// 
@@ -374,7 +374,7 @@
 		private System.Windows.Forms.TabPage friendRequestTabPage;
 		private System.Windows.Forms.DataGridView friendRequestdataGridView;
 		private System.Windows.Forms.Label userLabel;
-		private System.Windows.Forms.RichTextBox richTextBox1;
+		private System.Windows.Forms.RichTextBox messageRichTextBox;
 		private System.Windows.Forms.TextBox inputTextBox;
 		private System.Windows.Forms.DataGridViewTextBoxColumn friendColumn;
 		private System.Windows.Forms.DataGridViewButtonColumn addFriendColumn;

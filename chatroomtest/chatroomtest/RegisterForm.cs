@@ -29,7 +29,7 @@ namespace chatroomtest
 			checkFormat();
 		}
 
-		public void sentData(string userData) //"0 帳號 密碼 姓名"
+		public void sentData(string userData) //"0_帳號_密碼_姓名"
 		{
 			//MessageBox.Show(userData);
 			
@@ -65,7 +65,7 @@ namespace chatroomtest
 			}
 			else
 			{
-				string dataString = "0" + " " + _account + " " + _secret + " " + _name;
+				string dataString = "0" + "_" + _account + "_" + _secret + "_" + _name;
 				sentData(dataString);
 			}
 		}

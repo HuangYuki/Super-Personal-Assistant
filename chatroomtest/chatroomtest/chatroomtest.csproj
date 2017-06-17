@@ -47,12 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="chatRoomManagement.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="chatRoomManagement.Designer.cs">
-      <DependentUpon>chatRoomManagement.cs</DependentUpon>
-    </Compile>
     <Compile Include="ManagementClass\ClientAccount.cs" />
     <Compile Include="ManagementClass\ConectionSetting.cs" />
     <Compile Include="ManagementClass\ConnectionManagement.cs" />
@@ -74,9 +68,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="chatRoomManagement.resx">
-      <DependentUpon>chatRoomManagement.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>

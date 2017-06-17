@@ -14,11 +14,11 @@ namespace Server.Class
     {
         public class ChatSetting
         {
-            public static String serverIp = "192.168.0.21";
+            public static String serverIp = "192.168.0.18";
             public static int port = 3766;
         }
 
-        public delegate String StrHandler(String str);
+        public delegate String StrHandler(String str, int clientNumber);
 
         public class ChatSocket
         {
@@ -29,6 +29,8 @@ namespace Server.Class
             public StrHandler inHandler;
             public EndPoint remoteEndPoint;
             public bool isDead = false;
+            public ClientAccount account;
+            public int number = -1;
 
             public ChatSocket(Socket s)
             {
@@ -76,7 +78,7 @@ namespace Server.Class
                     while (true)
                     {
                         String line = receive();
-                        inHandler(line);
+                        inHandler(line, number);
                     }
                 }
                 catch (Exception ex)

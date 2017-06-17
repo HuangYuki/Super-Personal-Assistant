@@ -15,7 +15,7 @@ namespace Server.ManagementClass
     {
         List<ClientAccount> _accountList = new List<ClientAccount>();
         DataManagement _datamanagement = new DataManagement();
-        List<ChatSocket> clientList = new List<ChatSocket>();
+        List<ChatSocket> _clientList = new List<ChatSocket>();
         
 
         public ConnectionManagement()
@@ -23,17 +23,17 @@ namespace Server.ManagementClass
             InitializeAccount();
         }
 
-        public void InitializeAccount() //搬到ConnectionManagement
+        public void InitializeAccount() //初始化所有帳號
         {
-            string str = "0 aaaa bbbb fuck";
-            StreamReader sr = new StreamReader(@"../../DataStorage/Account.txt");
-            while (!sr.EndOfStream)
+            //string str = "0 aaaa bbbb fuck"; //新帳號
+            StreamReader sr = new StreamReader(@"../../DataStorage/Account.txt"); //讀取帳號資料
+            while (!sr.EndOfStream) //如果沒有到結數字元
             {
-                String[] words = null;
+                String[] words = null; 
                 ClientAccount account = new ClientAccount();
                 string line = sr.ReadLine();
 
-                words = _datamanagement.seperateData(1, line);
+                words = _datamanagement.seperateData(line);
                 account.Id = words[0];
                 account.Account = words[1];
                 account.Passward = words[2];
@@ -42,16 +42,17 @@ namespace Server.ManagementClass
             }
             sr.Close();
 
-            if(!_datamanagement.doDataManagement(str, _accountList))
+            /*if(!_datamanagement.doAccountDataManagement(str, _accountList)) //新帳號已有
             {
                 Console.WriteLine("false");
             }
+            */
             //Console.WriteLine(_accountList.Count);
 
            // Console.WriteLine(_accountList.Count);
         }
 
-        public void run()
+        public void run() //執行Socket
         {
 
             IPEndPoint ipep = new IPEndPoint(IPAddress.Any, ChatSetting.port);
@@ -68,7 +69,8 @@ namespace Server.ManagementClass
                 ChatSocket client = new ChatSocket(socket);
                 try
                 {
-                    clientList.Add(client);
+                    client.number = _clientList.Count();
+                    _clientList.Add(client);
                     client.newListener(processMsgComeIn);
                 }
                 catch
@@ -79,33 +81,70 @@ namespace Server.ManagementClass
             //      newsock.Close();
         }
 
-        public String processMsgComeIn(String msg) //接收資料
+        public String processMsgComeIn(String msg, int clientSocketNumber) //接收資料
         {
             Console.WriteLine("收到訊息：" + msg);
-            if (!_datamanagement.doDataManagement(msg,  _accountList))
+            if(msg[0] == '0') //新申請帳號
             {
-                Console.WriteLine("false");
-                Console.WriteLine(_accountList.Count);
-                broadCast("FALSE");
+                if (!_datamanagement.doAccountDataManagement(msg, _accountList, '0'))
+                {
+                    broadCast("FALSE", clientSocketNumber);
+                }
+                else
+                {
+                    broadCast("OK", clientSocketNumber);
+                }
             }
-            else
+            else if(msg[1] == '1') //判斷帳號密碼是否存在
             {
-                broadCast("OK");
-                Console.WriteLine(_accountList.Count);
+                String[] words = null;
+                int accountNumber = -2;
+                words = _datamanagement.seperateData(msg);
+                accountNumber = _datamanagement.compareData(words, _accountList, '1');
+                if (accountNumber >= 0)
+                {
+                    findClient(clientSocketNumber, accountNumber);
+                    broadCast("OK", clientSocketNumber);
+                }
+
+                broadCast("FALSE", clientSocketNumber);
+            }
+
+            else if(msg[1] == '2')
+            {
+
+
             }
 
             return "OK";
         }
 
-        public void broadCast(String msg) //送出資料
+        private void findClient(int clientSocketNumber, int accountNumber)
+        {
+            for (int i = 0; i < _clientList.Count(); i++)
+            {
+                if (!_clientList[i].isDead)
+                {
+                    if (_clientList[i].number == clientSocketNumber)
+                    {
+                        _clientList[i].account = _accountList[accountNumber];
+                    }
+                }
+            }
+        }
+
+        public void broadCast(String msg, int clientSocketNumber) //送出資料
         {
             Console.WriteLine("接收 " + msg );
-            foreach (ChatSocket client in clientList)
+            foreach (ChatSocket client in _clientList)
             {
                 if (!client.isDead)
                 {
-                    Console.WriteLine("Send to " + client.remoteEndPoint.ToString() + ":" + msg);
-                    client.send(msg);
+                    if (client.number == clientSocketNumber)
+                    {
+                        Console.WriteLine("Send to " + client.remoteEndPoint.ToString() + ":" + msg);
+                        client.send(msg);
+                    }
                 }
             }
         }

@@ -50,6 +50,7 @@
     <Compile Include="ManagementClass\AccountItemManagement.cs" />
     <Compile Include="ManagementClass\ConnectionManagement.cs" />
     <Compile Include="ManagementClass\DataManagement.cs" />
+    <Compile Include="ManagementClass\FriendManagement.cs" />
     <Compile Include="ManagementClass\MessageManagement.cs" />
     <Compile Include="ManagementClass\ScheduleManagement.cs" />
     <Compile Include="ServerForm.cs">

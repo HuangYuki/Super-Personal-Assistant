@@ -97,7 +97,7 @@ namespace Server.ManagementClass
                     //做資料夾建置
                 }
             }
-            else if(msg[0] == '1') //判斷帳號密碼是否存在
+            else if(msg[0] == '1') //判斷帳號密碼是否存在words[1]帳號
             {
                 String[] words = null;
                 int accountNumber = -2;
@@ -107,8 +107,20 @@ namespace Server.ManagementClass
                 if (accountNumber >= 0)
                 {
                     findClient(clientSocketNumber, accountNumber);
-                    _datamanagement.InitiallizeFriend(words[1], _clientList[clientSocketNumber].clientFreindAccount, _accountList); //初始化
-                    broadCast("1_" + _accountList[accountNumber].Name, clientSocketNumber);     
+                    _datamanagement.InitiallizeFriend(words[1], _clientList[clientSocketNumber].clientFreindAccount, _accountList); //初始化朋友到SERVER的CLIENTSOCKET
+                    broadCast("1_" + _accountList[accountNumber].Name, clientSocketNumber);
+
+                    List<string> tmpFriend = new List<string>();
+                    FriendManagement friendManagement = new FriendManagement();
+                    tmpFriend = friendManagement.InitiallizeFreind(words[1]);
+                    for (int i = 0; i < tmpFriend.Count; i++)
+                    {
+                        broadCast("9_" + tmpFriend[i], clientSocketNumber);
+                    }
+                    broadCast("9_OK", clientSocketNumber);
+                    //傳SERVER的好友給 CLIENT
+
+
                 }
                 else
                 {
@@ -163,6 +175,7 @@ namespace Server.ManagementClass
                             {
                                 if (_clientList[i].account.Account == _accountList[accountfriendNumber].Account) //判斷好友在不再線上
                                 {
+
                                     friendClientNumber = i; //朋友號碼
                                     index = 0;
                                     for (int j = 0; j < _clientList[i].clientFreindAccount.Count; j++)

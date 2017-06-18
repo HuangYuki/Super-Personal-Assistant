@@ -14,7 +14,7 @@ namespace Server.Class
     {
         public class ChatSetting
         {
-            public static String serverIp = "10.100.3.192";
+            public static String serverIp = "192.168.0.21";
             public static int port = 3766;
         }
 

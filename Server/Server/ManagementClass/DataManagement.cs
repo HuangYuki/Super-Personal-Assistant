@@ -94,7 +94,7 @@ namespace Server.ManagementClass
         public bool SaveClientAccountData(string[] words, List<ClientAccount> _accountList, char dataType) //存檔帳號
         {
             string newData = null;
-            StreamWriter sw = new StreamWriter(@"../../DataStorage/Account/Account.txt");
+            StreamWriter sw = new StreamWriter(@"../../DataStorage/Account/Account.txt",true);
             ClientAccount clientAccount = new ClientAccount();
 
             if (compareData(words, _accountList, dataType) == -1)
@@ -124,6 +124,65 @@ namespace Server.ManagementClass
                 sw.WriteLine(_friendAcountList[i].Account + "_" + _friendAcountList[i].Name);
             }
             sw.Close();
+        }
+
+        public void createAllFile(List<ClientAccount> _accountList)
+        {
+            string path = _accountList[_accountList.Count - 1].Account + "Friend";
+            FileStream fileStream = new FileStream(@"../../DataStorage/Friend/" + path + ".txt", FileMode.Create);
+            fileStream.Close();
+
+            path = _accountList[_accountList.Count - 1].Account + "AccountItem";
+            FileStream fileStream1 = new FileStream(@"../../DataStorage/AccountItem/" + path + ".txt", FileMode.Create);
+            fileStream1.Close();
+
+            path = _accountList[_accountList.Count - 1].Account + "Schedule";
+            FileStream fileStream2 = new FileStream(@"../../DataStorage/Schedule/" + path + ".txt", FileMode.Create);
+            fileStream2.Close();
+
+            string dirPath = @"../../DataStorage/Message/" + _accountList[_accountList.Count - 1].Account + "Message";
+            Directory.CreateDirectory(dirPath);
+        }
+
+        public void createMessageFile(string myAccount, string friendAccount)
+        {
+            string path = myAccount + "Message/" + myAccount + friendAccount;
+
+            if (!File.Exists(@"../../DataStorage/Message/" + path + ".txt"))
+            {
+                FileStream fileStream = new FileStream(@"../../DataStorage/Message/" + path + ".txt", FileMode.Create);
+                fileStream.Close();
+            }
+
+            string path2 = friendAccount + "Message/" + friendAccount + myAccount;
+
+            if (!File.Exists(@"../../DataStorage/Message/" + path2 + ".txt"))
+            {
+                FileStream fileStream = new FileStream(@"../../DataStorage/Message/" + path2 + ".txt", FileMode.Create);
+                fileStream.Close();
+            }
+        }
+
+        public void InitiallizeFriend(string account, List<ClientAccount> _clientFriendList, List<ClientAccount> _accountList)
+        {
+            string path = account + "Friend";
+            StreamReader sr = new StreamReader(@"../../DataStorage/Friend/" + path + ".txt");
+            while (!sr.EndOfStream) //如果沒有到結數字元
+            {
+                String[] words = null;
+                string line = sr.ReadLine();
+                words = seperateData(line);
+
+                for (int i=0;i < _accountList.Count; i++)
+                {
+                    if(_accountList[i].Account == words[0])
+                    {
+                        _clientFriendList.Add(_accountList[i]);
+                        break;
+                    }
+                }
+            }
+            sr.Close();
         }
 
     }

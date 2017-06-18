@@ -14,7 +14,6 @@ namespace Server.ManagementClass
     class ConnectionManagement
     {
         List<ClientAccount> _accountList = new List<ClientAccount>();
-        DataManagement _datamanagement = new DataManagement();
         List<ChatSocket> _clientList = new List<ChatSocket>();
         
 
@@ -25,7 +24,9 @@ namespace Server.ManagementClass
 
         public void InitializeAccount() //初始化所有帳號
         {
-            if(!File.Exists(@"../../DataStorage/Account/Account.txt"))
+            DataManagement _datamanagement = new DataManagement();
+
+            if (!File.Exists(@"../../DataStorage/Account/Account.txt"))
             {
                 FileStream fileStream = new FileStream(@"../../DataStorage/Account/Account.txt", FileMode.Create);
                 fileStream.Close();
@@ -80,6 +81,8 @@ namespace Server.ManagementClass
 
         public String processMsgComeIn(String msg, int clientSocketNumber) //接收資料 clientSocketNumber = 我的socket編號
         {
+            DataManagement _datamanagement = new DataManagement();
+
             Console.WriteLine("收到訊息：" + msg);
             if(msg[0] == '0') //新申請帳號
             {
@@ -89,7 +92,9 @@ namespace Server.ManagementClass
                 }
                 else
                 {
+                    _datamanagement.createAllFile(_accountList);
                     broadCast("OK", clientSocketNumber);
+                    //做資料夾建置
                 }
             }
             else if(msg[0] == '1') //判斷帳號密碼是否存在
@@ -102,7 +107,8 @@ namespace Server.ManagementClass
                 if (accountNumber >= 0)
                 {
                     findClient(clientSocketNumber, accountNumber);
-                    broadCast("1_" + _accountList[accountNumber].Name, clientSocketNumber);
+                    _datamanagement.InitiallizeFriend(words[1], _clientList[clientSocketNumber].clientFreindAccount, _accountList); //初始化
+                    broadCast("1_" + _accountList[accountNumber].Name, clientSocketNumber);     
                 }
                 else
                 {
@@ -110,13 +116,21 @@ namespace Server.ManagementClass
                 }
             }
 
-            else if(msg[0] == '2')      
+            else if(msg[0] == '2')  //初始化好友訊息 2_帳號_好友帳號
             {
+                List<string> tmpMessage = new List<string>();
+                MessageManagement messageManagement = new MessageManagement();
+                tmpMessage = messageManagement.InitiallizeFreindMessage(msg);
 
+                for (int i = 0; i < tmpMessage.Count; i++)
+                {
+                    broadCast("2_" + tmpMessage[i], clientSocketNumber);
+                }
+                broadCast("2_OK", clientSocketNumber);
 
             }
 
-            else if (msg[0] == '3') //新增好友
+            else if (msg[0] == '3') //新增好友 3_好友帳號
             {
                 String[] words = null;
                 int accountfriendNumber = -2;
@@ -126,28 +140,28 @@ namespace Server.ManagementClass
 
                 if (accountfriendNumber >= 0)//判斷存不存在
                 {
-                    broadCast("3_OK", clientSocketNumber); //找到
                     int friendClientNumber;
+                    int indexExist = 0;
 
-                    for (int i = 0; i < _clientList.Count(); i++)
+                    for (int k = 0; k < _clientList[clientSocketNumber].clientFreindAccount.Count; k++)
                     {
-                        if (!_clientList[i].isDead)
+                        if (_clientList[clientSocketNumber].clientFreindAccount[k].Account == _accountList[accountfriendNumber].Account) //判斷有沒有好友
                         {
-                            if (_clientList[i].account.Account == _accountList[accountfriendNumber].Account) //判斷好友在不再線上
-                            {
-                                int indexExist = 0;
+                            indexExist++;
+                            Console.WriteLine("indexExist" + indexExist);
+                            broadCast("3_EXIST", clientSocketNumber); //已有好友
+                            break;
+                        }
+                    }
+                    if (indexExist == 0)
+                    {
+                        broadCast("3_OK", clientSocketNumber); //找到
 
-                                for (int k = 0; k < _clientList[clientSocketNumber].clientFreindAccount.Count; k++)
-                                {
-                                    if (_clientList[clientSocketNumber].clientFreindAccount[k].Account == _accountList[accountfriendNumber].Account) //判斷有沒有好友
-                                    {
-                                        indexExist++;
-                                        Console.WriteLine("indexExist" + indexExist);
-                                        broadCast("3_EXIST", clientSocketNumber); //已有好友
-                                        break;
-                                    }
-                                }
-                                if (indexExist == 0)
+                        for (int i = 0; i < _clientList.Count(); i++)
+                        {
+                            if (!_clientList[i].isDead)
+                            {
+                                if (_clientList[i].account.Account == _accountList[accountfriendNumber].Account) //判斷好友在不再線上
                                 {
                                     friendClientNumber = i; //朋友號碼
                                     index = 0;
@@ -157,7 +171,8 @@ namespace Server.ManagementClass
                                         {
                                             index++; //有的話
                                             Console.WriteLine("index" + index);
-                                            broadCast("3_OK", clientSocketNumber); //傳成功
+                                            broadCast("31_" + _clientList[i].clientFreindAccount[j].Account + "_"+  _clientList[i].clientFreindAccount[j].Name, clientSocketNumber); //傳成功(對方已有好友)
+                                            //broadCast("3_OK", clientSocketNumber); //找到
                                             break;
                                         }
                                     }
@@ -165,7 +180,7 @@ namespace Server.ManagementClass
                                     {
                                         broadCast("3_" + _clientList[clientSocketNumber].account.Account, friendClientNumber); //傳給那個朋友
                                     }
-
+                                    _datamanagement.createMessageFile(_clientList[clientSocketNumber].account.Account, _accountList[accountfriendNumber].Account);
                                     _clientList[clientSocketNumber].clientFreindAccount.Add(_accountList[accountfriendNumber]); //加到好友
                                     _datamanagement.saveFriend(_clientList[clientSocketNumber].account, accountfriendNumber, _clientList[clientSocketNumber].clientFreindAccount);
                                 }
@@ -179,7 +194,7 @@ namespace Server.ManagementClass
                 }
             }
 
-            else if (msg[0] == '4') //4_對方帳號_內容
+            else if (msg[0] == '4') //4_帳號_對方帳號_內容
             {
                 String[] words = null;
                 words = _datamanagement.seperateData(msg);
@@ -190,7 +205,7 @@ namespace Server.ManagementClass
                 {
                     if (!_clientList[i].isDead)
                     {
-                        if (_clientList[i].account.Account == words[1]) //判斷對方在不再線上 對方為 i
+                        if (_clientList[i].account.Account == words[2]) //判斷對方在不再線上 對方為 i
                         {
                             index1++;
                             index = 0;
@@ -199,14 +214,19 @@ namespace Server.ManagementClass
                                 if(_clientList[i].clientFreindAccount[j].Account == _clientList[clientSocketNumber].account.Account) //判斷對方有沒有好友
                                 {
                                     index++; //有的話
-                                    broadCast("4_" + _clientList[clientSocketNumber].account.Account + words[2], i); //傳給對方
+                                    broadCast("4_" + _clientList[clientSocketNumber].account.Account + "_" + words[3], i); //傳給對方
                                     broadCast("4_OK", clientSocketNumber); //傳成功
+
+                                    MessageManagement saveTmpMessage = new MessageManagement();
+
+                                    saveTmpMessage.saveMessage(words);
                                 }
                             }
                             if(index == 0)
                             {
-                                broadCast("4_False", clientSocketNumber); //沒有好友
+                                broadCast("4_FALSE", clientSocketNumber); //沒有好友
                             }
+                            index = 0;
                         }
                     }
                 }
@@ -214,6 +234,7 @@ namespace Server.ManagementClass
                 {
                     broadCast("4_NOTFOUND", clientSocketNumber); //找不到人沒上線
                 }
+                index1 = 0;
                 //如果對方不再線上回傳 (4_NOTFOUND)
                 //判斷是不是對方的朋友(不是回傳4_FALSE)
                 //是回傳4_OK傳給對方
@@ -221,12 +242,16 @@ namespace Server.ManagementClass
 
             else if(msg[0] == '5')
             {
+                AccountItemManagement accountItem = new AccountItemManagement();
 
+                accountItem.saveAccountItem(msg);
             }
 
             else if(msg[0] == '6')
             {
+                ScheduleManagement schedule = new ScheduleManagement();
 
+                schedule.saveScheduleItem(msg);
             }
 
             return "OK";

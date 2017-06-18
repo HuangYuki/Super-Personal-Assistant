@@ -47,8 +47,11 @@
   <ItemGroup>
     <Compile Include="Class\ChatLib.cs" />
     <Compile Include="Class\ClientAccount.cs" />
+    <Compile Include="ManagementClass\AccountItemManagement.cs" />
     <Compile Include="ManagementClass\ConnectionManagement.cs" />
     <Compile Include="ManagementClass\DataManagement.cs" />
+    <Compile Include="ManagementClass\MessageManagement.cs" />
+    <Compile Include="ManagementClass\ScheduleManagement.cs" />
     <Compile Include="ServerForm.cs">
       <SubType>Form</SubType>
     </Compile>

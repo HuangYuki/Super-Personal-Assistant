@@ -5,17 +5,33 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using Server.Class;
 
 namespace Super_Personal_Assistant
 {
     public partial class MainForm : Form
     {
-        public const int SCHEDULE_ADD = 0;
+		ClientAccount _myAccount;
+		ClientSocket _clientsocket;
+		StrHandler msgHandler;
+		ConectionSetting createConnection;
+		List<String> friendRequestList = new List<string>();  //存放好友邀請
+		List<String> friendAccountList = new List<string>();  //存放好友帳號
+		List<String> messageList = new List<string>();  //存放聊天列表
+		String _userAccount = "";  //目前使用的用戶帳號
+		String _userPassword = "";  //目前使用的用戶密碼
+		String chatInputTemp = "";  //要寄出的聊天訊息暫存
+		String chatFriend = "";  //要聊天的好友
+		String newFriend = "";  //要新增的好友暫存
+		String friendAccountTemp = "";  //暫存欲加入好友帳號
+
+		public const int SCHEDULE_ADD = 0;
         public const int SCHEDULE_EDIT = 1;
         public const int ACCOUNT_ADD = 2;
         public const int ACCOUNT_EDIT = 3;
 
-        private DateTime selectedDate = DateTime.Today;
+
+		private DateTime selectedDate = DateTime.Today;
         private ScheduleManagement _schedule = new ScheduleManagement();
         private AccountItemManagement _account = new AccountItemManagement();
 
@@ -111,7 +127,12 @@ namespace Super_Personal_Assistant
             Application.VisualStyleState = VisualStyleState.NoneEnabled;
             _schedule.recieveData();
             _account.recieveData();
-        }
+
+			_myAccount = new ClientAccount();
+			msgHandler = this.addMsg;
+			createConnection = new ConectionSetting();
+			secretTextBox.PasswordChar = '*';  //輸入密碼時顯示為"*"
+		}
 
         //點擊兩下 小圖示
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -301,5 +322,264 @@ namespace Super_Personal_Assistant
         {
             notifyIcon.ShowBalloonTip(1000, "test", s, ToolTipIcon.Info);
         }
-    }
+
+		private void logInButton_Click(object sender, EventArgs e)
+		{
+			_userAccount = accountTextBox.Text;
+			_userPassword = secretTextBox.Text;
+			if (_userAccount == "" || _userPassword == "" || !accountTextBox.Text.IsNaturalNumber() || !secretTextBox.Text.IsNaturalNumber())
+			{
+				MessageBox.Show("帳戶或密碼格式不符！！！");
+			}
+			else
+			{
+				string dataString = "1" + "_" + _userAccount + "_" + _userPassword;
+				sentData(dataString);
+			}
+		}
+
+		public void sentData(string userData)  //傳送訊息到Server
+		{
+
+			if (_clientsocket == null)
+			{
+				_clientsocket = ClientSocket.connect(ConectionSetting.serverIp);
+				_clientsocket.newListener(processMsgComeIn);
+			}
+			_clientsocket.send(userData);
+
+			foreach (Control item in Controls)
+			{
+				item.Text = item is TextBox ? "" : item.Text; //如果是textbox那就清空否則保持原狀
+			}
+		}
+
+		public String processMsgComeIn(String msg)
+		{
+			this.Invoke(msgHandler, new Object[] { msg });
+			return "OK";
+		}
+
+		public String addMsg(String msg)  //Server回傳的訊息
+		{
+			if (msg[0] == '1')  //判斷登入是否成功
+			{
+				if (msg != "1_FALSE")
+				{
+					MessageBox.Show("登入成功");
+					_myAccount.Account = _userAccount;
+					_myAccount.Passward = _userPassword;
+					_myAccount.Name = seperateGetData(msg)[1];
+
+					this.mainPage.Parent = null;  //隱藏第一分頁
+					this.friendTabPage.Parent = this.mainTabControl; //顯示第二分頁
+					this.calendarTabPage.Parent = this.mainTabControl; //顯示第二分頁
+					this.accountTabPage.Parent = this.mainTabControl; //顯示第二分頁
+
+					mainTabControl.SelectedTab = friendTabPage;
+
+					userLabel.Text = userLabel.Text + " " + _myAccount.Name;
+				}
+				else
+				{
+					MessageBox.Show("登入失敗");
+				}
+			}
+			else if (msg[0] == '2')
+			{
+				if (msg == "2_OK")  //歷史訊息傳輸結束之後載入到聊天室中
+				{
+					loadingHistoryMessage();
+					sendMessageTextBox.Enabled = true;
+				}
+				else  //接收歷史訊息並加到List中
+				{
+					messageList.Add(seperateGetData(msg)[1]);
+				}
+			}
+			else if (msg[0] == '3')  //判斷好友新增
+			{
+				if (msg == "3_OK")  //該user存在
+				{
+					MessageBox.Show(_userAccount + "邀請已寄出");
+
+					friendAccountList.Add(newFriend);  // 成功送出好友後先新增到好友列表
+
+					friendDataGridView.Rows.Clear();
+					for (int i = 0; i < friendAccountList.Count; i++)
+					{
+						String[] row = new String[] { friendAccountList[i] };
+						friendDataGridView.Rows.Add(row);
+						friendDataGridView.AutoResizeColumns();
+					}
+				}
+				else if (msg == "3_FALSE") //該user account不存在
+				{
+					MessageBox.Show("邀請寄送失敗");
+				}
+				else if (msg == "3_EXIST")
+				{
+					MessageBox.Show("好友已存在！");
+				}
+				else if (msg[0] == '3' && msg[1] == '1')  //對方已有自己好友
+				{
+
+				}
+				else  //已收到該user好友邀請
+				{
+					friendRequestList.Add(seperateGetData(msg)[1]);
+					MessageBox.Show(_userAccount + "收到邀請");
+
+					initilizeRequestRow();
+				}
+			}
+			else if (msg[0] == '4')
+			{
+				if (msg == "4_OK")
+				{
+					MessageBox.Show("收到訊息");
+				}
+				else if (msg == "4_FALSE")
+				{
+					MessageBox.Show("接收訊息失敗");
+				}
+				else if (msg == "4_NOTFOUND")
+				{
+					MessageBox.Show("該用戶不在線上");
+				}
+				else  //接收對方訊息 4_朋友帳號_訊息內容
+				{
+					messageList.Add(seperateGetData(msg)[2]);
+					chatInputTemp = chatFriend + " : " + seperateGetData(msg)[2];
+					messageList.Add(chatInputTemp);
+					chatroomRichTextBox.Text += chatInputTemp + "\n";
+					chatInputTemp = "";
+				}
+			}
+			else if (msg[0] == '9') //朋友初始化
+			{
+				if (msg == "9_OK")
+				{
+					friendDataGridView.Rows.Clear();
+					for (int i = 0; i < friendAccountList.Count; i++)
+					{
+						String[] row = new String[] { friendAccountList[i] };
+						friendDataGridView.Rows.Add(row);
+						friendDataGridView.AutoResizeColumns();
+					}
+				}
+				else
+				{
+					Console.WriteLine("assa");
+					friendAccountList.Add(seperateGetData(msg)[1]);
+				}
+			}
+			return "OK";
+		}
+
+		public String[] seperateGetData(string data) //分離資料
+		{
+			char space = '_';
+			string[] words = null;
+
+			words = data.Split(space);
+
+			return words;
+		}
+
+		private void sendInvitebutton_Click(object sender, EventArgs e)
+		{
+			string _friendaccount = friendAccountTextBox.Text;
+
+			if (_friendaccount == "" || !friendAccountTextBox.Text.IsNaturalNumber())
+			{
+				MessageBox.Show("帳戶格式不符！！！");
+			}
+			else
+			{
+				friendAccountTemp = _friendaccount;
+				string dataString = "3" + "_" + _friendaccount;
+				newFriend = _friendaccount;
+				sentData(dataString);
+
+				friendAccountTextBox.Clear();
+			}
+		}
+
+		private void sendMessageTextBox_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				chatInputTemp = sendMessageTextBox.Text;
+				//MessageBox.Show(chatInputTemp);
+				messageList.Add(chatInputTemp);
+				chatroomRichTextBox.Text += "You : " + chatInputTemp + "\n";
+				sentData("4_" + _myAccount.Account + "_" + chatFriend + "_" + chatInputTemp);  //要改成朋友帳號
+				sendMessageTextBox.Clear();  //清空訊息欄
+				SendKeys.Send("{BACKSPACE}"); //解決清空之後的跳行錯誤
+				chatInputTemp = "";  //清空聊天暫存
+			}
+		}
+
+		public void loadingHistoryMessage()
+		{
+			for (int i = 0; i < messageList.Count; i++)
+			{
+				chatroomRichTextBox.Text += messageList[i] + "\n";
+			}
+		}
+
+		public void initilizeRequestRow()   //更新好友邀請列表
+		{
+			friendRequestdataGridView.Rows.Clear();
+			for (int i = 0; i < friendRequestList.Count; i++)
+			{
+				String[] row = new String[] { friendRequestList[i], "接受邀請", "拒絕邀請" };
+				friendRequestdataGridView.Rows.Add(row);
+				friendRequestdataGridView.AutoResizeColumns();
+			}
+		}
+
+		private void friendRequestdataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.ColumnIndex == 1)
+			{
+				sentData("3_" + friendRequestList[e.RowIndex]);  //接受對方邀請並傳給server
+				newFriend = friendRequestList[e.RowIndex];
+
+				//friendAccountList.Add(friendRequestList[e.RowIndex]);  //新增好友到好友列表
+				//更新好友列表
+				friendDataGridView.Rows.Clear();
+				for (int i = 0; i < friendAccountList.Count; i++)
+				{
+					String[] row = new String[] { friendAccountList[i] };
+					friendDataGridView.Rows.Add(row);
+					friendDataGridView.AutoResizeColumns();
+				}
+
+				friendRequestList.RemoveAt(e.RowIndex);  //從好友邀請list中刪除
+				initilizeRequestRow();
+			}
+		}
+
+		private void friendDataGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+		{
+
+			if (e.ColumnIndex == 0 && e.RowIndex >= 0)
+			{
+				chatroomRichTextBox.Clear();
+				//Console.WriteLine("123");
+				sentData("2_" + _myAccount.Account + "_" + friendAccountList[e.RowIndex]);
+				chatFriend = friendAccountList[e.RowIndex];  //點選的好友帳號名稱
+				sendMessageTextBox.Enabled = false;  //點選好友時先讓server將聊天歷史紀錄loading完後再讓使用者聊天
+				messageList.Clear(); //先清空先前的訊息列表
+			}
+		}
+
+		private void registerButton_Click(object sender, EventArgs e)
+		{
+			RegisterForm reg = new RegisterForm();
+			reg.ShowDialog();
+		}
+	}
 }

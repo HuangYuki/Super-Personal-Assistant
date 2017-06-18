@@ -64,7 +64,7 @@ namespace Super_Personal_Assistant
             }
             else
             {
-                string dataString = "0" + " " + _account + " " + _secret + " " + _name;
+                string dataString = "0" + "_" + _account + "_" + _secret + "_" + _name;
                 sentData(dataString);
             }
         }

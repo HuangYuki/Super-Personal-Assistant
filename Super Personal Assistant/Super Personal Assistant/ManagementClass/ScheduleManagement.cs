@@ -62,6 +62,11 @@ namespace Super_Personal_Assistant
             return _activities.Count;
         }
 
+        public Activity getItem(int index)
+        {
+            return _activities[index];
+        }
+
         public List<Activity> getList()
         {
             return _activities;

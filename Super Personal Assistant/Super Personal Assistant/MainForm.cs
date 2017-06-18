@@ -155,7 +155,12 @@ namespace Super_Personal_Assistant
 			msgHandler = this.addMsg;
 			createConnection = new ConectionSetting();
 			secretTextBox.PasswordChar = '*';  //輸入密碼時顯示為"*"
-		}
+
+            this.mainPage.Parent = this.mainTabControl;  //隱藏登入分頁
+            this.friendTabPage.Parent = null; //顯示好友分頁
+            this.calendarTabPage.Parent = null; //顯示行事曆分頁
+            this.accountTabPage.Parent = null; //顯示記帳分頁
+        }
 
         //點擊兩下 小圖示
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -239,6 +244,18 @@ namespace Super_Personal_Assistant
         {
             selectedDate = Tool.StringToDate(e.Date);
             ShowSelectedDateActivities(selectedDate);
+        }
+
+        private void TagHasTaskDay()
+        {
+            List<Activity> allTask = _schedule.getList();
+            foreach(Activity task in allTask)
+            {
+                DateItem di = new DateItem();
+                di.Date = task.Date;
+                di.BackColor1 = Color.Yellow;
+                monthCalendar.AddDateInfo(di);
+            }
         }
 
         //顯示選取日期的活動
@@ -406,10 +423,10 @@ namespace Super_Personal_Assistant
                     _myAccount.Passward = _userPassword;
                     _myAccount.Name = seperateGetData(msg)[1];
 
-                    this.mainPage.Parent = null;  //隱藏第一分頁
-                    this.friendTabPage.Parent = this.mainTabControl; //顯示第二分頁
-                    this.calendarTabPage.Parent = this.mainTabControl; //顯示第二分頁
-                    this.accountTabPage.Parent = this.mainTabControl; //顯示第二分頁
+                    this.mainPage.Parent = null;  //隱藏登入分頁
+                    this.friendTabPage.Parent = this.mainTabControl; //顯示好友分頁
+                    this.calendarTabPage.Parent = this.mainTabControl; //顯示行事曆分頁
+                    this.accountTabPage.Parent = this.mainTabControl; //顯示記帳分頁
 
                     mainTabControl.SelectedTab = friendTabPage;
 
@@ -508,6 +525,7 @@ namespace Super_Personal_Assistant
             {
                 if (msg == "6_OK")
                 {
+                    TagHasTaskDay();
                     ShowSelectedDateActivities(selectedDate);
                 }
                 else {

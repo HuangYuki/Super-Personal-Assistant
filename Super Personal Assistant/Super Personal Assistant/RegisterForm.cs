@@ -84,6 +84,7 @@ namespace Super_Personal_Assistant
         public String addMsg(String msg)
         {
             MessageBox.Show(msg == "OK" ? "註冊成功" : "註冊失敗");
+            if (msg == "OK") this.Close();
             return "OK";
         }
     }

@@ -64,6 +64,11 @@ namespace Super_Personal_Assistant
             return _activities.Count;
         }
 
+        public Activity getItem(int index)
+        {
+            return _activities[index];
+        }
+
         /// <summary>
         /// 檢查當日是否有行程，若有行程就回傳，無則回傳null
         /// </summary>

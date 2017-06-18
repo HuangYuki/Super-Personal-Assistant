@@ -40,7 +40,6 @@
 			this.friendTabControl = new System.Windows.Forms.TabControl();
 			this.friendTabPage = new System.Windows.Forms.TabPage();
 			this.friendDataGridView = new System.Windows.Forms.DataGridView();
-			this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.addFriendTabPage = new System.Windows.Forms.TabPage();
 			this.sendInvitebutton = new System.Windows.Forms.Button();
 			this.label2 = new System.Windows.Forms.Label();
@@ -53,6 +52,7 @@
 			this.userLabel = new System.Windows.Forms.Label();
 			this.messageRichTextBox = new System.Windows.Forms.RichTextBox();
 			this.inputTextBox = new System.Windows.Forms.TextBox();
+			this.Column2 = new System.Windows.Forms.DataGridViewButtonColumn();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
@@ -187,6 +187,7 @@
 			// friendDataGridView
 			// 
 			this.friendDataGridView.AllowUserToAddRows = false;
+			this.friendDataGridView.AllowUserToDeleteRows = false;
 			this.friendDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.friendDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.friendDataGridView.ColumnHeadersVisible = false;
@@ -194,16 +195,12 @@
             this.Column2});
 			this.friendDataGridView.Location = new System.Drawing.Point(6, 6);
 			this.friendDataGridView.Name = "friendDataGridView";
+			this.friendDataGridView.ReadOnly = true;
 			this.friendDataGridView.RowHeadersVisible = false;
 			this.friendDataGridView.RowTemplate.Height = 24;
 			this.friendDataGridView.Size = new System.Drawing.Size(185, 312);
 			this.friendDataGridView.TabIndex = 0;
-			this.friendDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.friendDataGridView_CellContentClick);
-			// 
-			// Column2
-			// 
-			this.Column2.HeaderText = "Column2";
-			this.Column2.Name = "Column2";
+			this.friendDataGridView.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.friendDataGridView_CellContentDoubleClick);
 			// 
 			// addFriendTabPage
 			// 
@@ -320,6 +317,7 @@
 			// 
 			// inputTextBox
 			// 
+			this.inputTextBox.Enabled = false;
 			this.inputTextBox.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
 			this.inputTextBox.Location = new System.Drawing.Point(268, 304);
 			this.inputTextBox.Multiline = true;
@@ -327,6 +325,14 @@
 			this.inputTextBox.Size = new System.Drawing.Size(480, 70);
 			this.inputTextBox.TabIndex = 5;
 			this.inputTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.inputTextBox_KeyDown);
+			// 
+			// Column2
+			// 
+			this.Column2.HeaderText = "Column2";
+			this.Column2.Name = "Column2";
+			this.Column2.ReadOnly = true;
+			this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
 			// 
 			// LoginForm
 			// 
@@ -366,7 +372,6 @@
 		private System.Windows.Forms.TabControl friendTabControl;
 		private System.Windows.Forms.TabPage friendTabPage;
 		private System.Windows.Forms.DataGridView friendDataGridView;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
 		private System.Windows.Forms.TabPage addFriendTabPage;
 		private System.Windows.Forms.Button sendInvitebutton;
 		private System.Windows.Forms.Label label2;
@@ -379,5 +384,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn friendColumn;
 		private System.Windows.Forms.DataGridViewButtonColumn addFriendColumn;
 		private System.Windows.Forms.DataGridViewButtonColumn deleteFriendColumn;
+		private System.Windows.Forms.DataGridViewButtonColumn Column2;
 	}
 }

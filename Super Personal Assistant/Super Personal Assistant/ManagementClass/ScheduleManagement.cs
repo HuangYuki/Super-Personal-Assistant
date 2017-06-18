@@ -28,8 +28,6 @@ namespace Super_Personal_Assistant
             newActivity.Id = _nextId;
             _activities.Add(newActivity);
             _nextId++;
-
-            saveData();
         }
 
         /// <summary>
@@ -62,11 +60,6 @@ namespace Super_Personal_Assistant
         public int Count()
         {
             return _activities.Count;
-        }
-
-        public Activity getItem(int index)
-        {
-            return _activities[index];
         }
 
         /// <summary>
@@ -114,11 +107,12 @@ namespace Super_Personal_Assistant
         /// 將List中資料依格式儲存
         /// </summary>
         /// <returns></returns>
-        private string saveData()
+        public List<string> saveData(string _myAccount)// 丟給 SERVER
         {
             //ClientSocket dataSender;
+            List<string> tmp = new List<string>();
 
-            StreamWriter scheduleFileWriter = new StreamWriter("aaa_Schedule.txt", false);
+            //StreamWriter scheduleFileWriter = new StreamWriter("aaa_Schedule.txt", false);
             for (int index = 0; index < _activities.Count; index++)
             {
                 //程式代碼_帳戶_該筆行程ID_該筆行程日期_該筆行程時間_該筆行程標題_該筆行程描述
@@ -126,37 +120,37 @@ namespace Super_Personal_Assistant
                 if (index == 0) dataString = "61";
                 else dataString = "6";
 
-                dataString += "_" + "aaa"
+                dataString += "_" + _myAccount
                             + "_" + _activities[index].Id.ToString()
                             + "_" + _activities[index].Date.ToString("yyyy/MM/dd_HH:mm")
                             + "_" + _activities[index].Title
                             + "_" + _activities[index].Body;
 
-                scheduleFileWriter.WriteLine(dataString);
-
+                //scheduleFileWriter.WriteLine(dataString);
+                tmp.Add(dataString);
             }
-            scheduleFileWriter.Close();
+            //scheduleFileWriter.Close();
 
-            return "OK";
+            return tmp;
         }
 
         /// <summary>
         /// 將接收到的資料依格式解析並載入
         /// </summary>
         /// <returns></returns>
-        public string recieveData()
+        public void recieveData(string msg)
         {
-            if (File.Exists("aaa_Schedule.txt"))
-            {
-                StreamReader scheduleFileReader = new StreamReader("aaa_Schedule.txt");
-                _activities.Clear();
-                while (true)
-                {
-                    string dataString = scheduleFileReader.ReadLine();
-                    if (dataString == null) break;
+           // if (File.Exists("aaa_Schedule.txt"))
+            //{
+               // StreamReader scheduleFileReader = new StreamReader("aaa_Schedule.txt");
+               // _activities.Clear();
+                //while (true)
+               // {
+                //    string dataString = scheduleFileReader.ReadLine();
+                //    if (dataString == null) break;
 
                     //程式代碼_帳戶_該筆行程ID_該筆行程日期_該筆行程時間_該筆行程標題_該筆行程描述
-                    string[] splitData = dataString.Split('_');
+                    string[] splitData = msg.Split('_');
                     Activity newTask = new Activity();
                     newTask.Id = Convert.ToInt32(splitData[2]);
                     DateTime resultDate = Tool.StringToDate(splitData[3]);
@@ -166,11 +160,10 @@ namespace Super_Personal_Assistant
                     newTask.Body = splitData[6];
 
                     _activities.Add(newTask);
-                }
+                //}
                 _nextId = _activities[_activities.Count - 1].Id + 1;
-                scheduleFileReader.Close();
-            }
-            return "OK";
+              //  scheduleFileReader.Close();
+          //  }
         }
     }
 }

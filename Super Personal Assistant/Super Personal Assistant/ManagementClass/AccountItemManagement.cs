@@ -29,8 +29,6 @@ namespace Super_Personal_Assistant
             newActivity.Id = _nextId;
             _account.Add(newActivity);
             _nextId++;
-
-            saveData();
         }
 
         /// <summary>
@@ -41,6 +39,7 @@ namespace Super_Personal_Assistant
         {
             AccountItem resultAccount = _account.Find(searchAccount => searchAccount.Id.Equals(id));
             _account.Remove(resultAccount);
+
         }
 
         /// <summary>
@@ -55,6 +54,7 @@ namespace Super_Personal_Assistant
             AccountItem resultAccount = _account.Find(searchAccount => searchAccount.Id.Equals(id));
             resultAccount.ItemName = name;
             resultAccount.Cost = cost;
+
             return true;
         }
 
@@ -104,9 +104,10 @@ namespace Super_Personal_Assistant
         /// 將List中資料依格式儲存
         /// </summary>
         /// <returns></returns>
-        private string saveData()
+        public List<string> saveData(string _myAccount)
         {
-            StreamWriter accountFileWriter = new StreamWriter("aaa_Account.txt", false);
+            List<string> tmp = new List<string>();
+            //StreamWriter accountFileWriter = new StreamWriter("aaa_Account.txt", false);
             for (int index = 0; index < _account.Count; index++)
             {
                 //程式代碼_帳戶_該筆資料ID_該筆資料日期_該筆收支描述_該筆資料收支
@@ -114,36 +115,37 @@ namespace Super_Personal_Assistant
                 if (index == 0) dataString = "51";
                 else dataString = "5";
 
-                dataString += "_" + "aaa"
+                dataString += "_" + _myAccount
                             + "_" + _account[index].Id.ToString()
                             + "_" + _account[index].Date.ToString("yyyy/MM/dd")
                             + "_" + _account[index].ItemName
                             + "_" + _account[index].Cost;
 
-                accountFileWriter.WriteLine(dataString);
+                // accountFileWriter.WriteLine(dataString);
+                tmp.Add(dataString);
             }
-            accountFileWriter.Close();
+           // accountFileWriter.Close();
 
-            return "OK";
+            return tmp;
         }
 
         /// <summary>
         /// 將接收到的資料依格式解析並載入
         /// </summary>
         /// <returns></returns>
-        public string recieveData()
+        public void recieveData(string msg)
         {
-            if (File.Exists("aaa_Account.txt"))
-            {
-                StreamReader accountFileReader = new StreamReader("aaa_Account.txt");
-                _account.Clear();
-                while (true)
-                {
-                    string dataString = accountFileReader.ReadLine();
-                    if (dataString == null) break;
+           // if (File.Exists("aaa_Account.txt"))
+         //   {
+           //     StreamReader accountFileReader = new StreamReader("aaa_Account.txt");
+           //     _account.Clear();
+            //    while (true)
+            //    {
+           //         string dataString = accountFileReader.ReadLine();
+           //         if (dataString == null) break;
 
                     //程式代碼_帳戶_該筆資料ID_該筆資料日期_該筆收支描述_該筆資料收支
-                    string[] splitData = dataString.Split('_');
+                    string[] splitData = msg.Split('_');
                     AccountItem newAccount = new AccountItem();
                     newAccount.Id = Convert.ToInt32(splitData[2]);
                     DateTime resultDate = Tool.StringToDate(splitData[3]);
@@ -152,11 +154,11 @@ namespace Super_Personal_Assistant
                     newAccount.Cost = Convert.ToInt32(splitData[5]);
 
                     _account.Add(newAccount);
-                }
+             //   }
                 _nextId = _account[_account.Count - 1].Id + 1;
-                accountFileReader.Close();
-            }
-            return "OK";
+          //      accountFileReader.Close();
+          //  }
+
         }
     }
 }

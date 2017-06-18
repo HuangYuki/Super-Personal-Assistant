@@ -39,5 +39,22 @@ namespace Server.ManagementClass
                 sw.Close();
             }
         }
+
+
+        public List<String> InitiallizeAccountItem(string msg) //初始化訊息
+        {
+            List<string> tmp = new List<string>();
+
+            string path = msg + "AccountItem";
+            StreamReader sr = new StreamReader(@"../../DataStorage/AccountItem/" + path + ".txt");
+            while (!sr.EndOfStream) //如果沒有到結數字元
+            {
+                string line = sr.ReadLine();
+                tmp.Add(line);
+            }
+            sr.Close();
+
+            return tmp;
+        }
     }
 }

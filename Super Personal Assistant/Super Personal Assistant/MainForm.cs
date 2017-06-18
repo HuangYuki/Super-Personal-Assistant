@@ -39,7 +39,13 @@ namespace Super_Personal_Assistant
         public void AddActivity(Activity a)
         {
             //新增活動(不是UI)
-            _schedule.addNewActivity(a);            
+            _schedule.addNewActivity(a);
+            //傳輸
+            List<string> tmp = _schedule.saveData(_myAccount.Account);
+            for(int i = 0; i< tmp.Count; i++)
+            {
+                sentData(tmp[i]);
+            }
 
             //確認是否已經標記過(如果沒有標記過，就標記在日曆物件)
             if (monthCalendar.Dates.IndexOf(new DateTime(a.Date.Year, a.Date.Month, a.Date.Day)) < 0)
@@ -64,16 +70,28 @@ namespace Super_Personal_Assistant
         public void EditActivity(int id, string title, string body)
         {
             _schedule.changeActivity(id, title, body);
-
+            //傳輸
+            List<string> tmp = _schedule.saveData(_myAccount.Account);
+            for (int i = 0; i < tmp.Count; i++)
+            {
+                sentData(tmp[i]);
+            }
             eventListView.SelectedItems.Clear();
-            ShowSelectedDateActivities(selectedDate);
+            
+
+
         }
 
         public void AddAccount(AccountItem account)
         {
             //新增一筆account(不是UI)
             _account.addNewAccountItem(account);
-
+            //傳輸
+            List<string> tmp = _account.saveData(_myAccount.Account);
+            for (int i = 0; i < tmp.Count; i++)
+            {
+                sentData(tmp[i]);
+            }
             ShowAccounts();
 
             //顯示總價
@@ -83,7 +101,12 @@ namespace Super_Personal_Assistant
         public void EditAccount(int id, int cost, String name)
         {
             _account.changeAccountItem(id, cost, name);
-
+            //傳輸
+            List<string> tmp = _account.saveData(_myAccount.Account);
+            for (int i = 0; i < tmp.Count; i++)
+            {
+                sentData(tmp[i]);
+            }
             ShowAccounts();
             accountListView.SelectedItems.Clear();
 
@@ -125,8 +148,8 @@ namespace Super_Personal_Assistant
         {
             InitializeComponent();
             Application.VisualStyleState = VisualStyleState.NoneEnabled;
-            _schedule.recieveData();
-            _account.recieveData();
+            //_schedule.recieveData();
+            //_account.recieveData();
 
 			_myAccount = new ClientAccount();
 			msgHandler = this.addMsg;
@@ -196,7 +219,12 @@ namespace Super_Personal_Assistant
         {
             int selectedEventItemIndex = Convert.ToInt32(eventListView.SelectedItems[0].SubItems[0].Text);
             _schedule.deleteActivity(selectedEventItemIndex);
-
+            //傳輸
+            List<string> tmp = _schedule.saveData(_myAccount.Account);
+            for (int i = 0; i < tmp.Count; i++)
+            {
+                sentData(tmp[i]);
+            }
             ShowSelectedDateActivities(selectedDate);
 
             //確定該天行程已經清空
@@ -296,6 +324,13 @@ namespace Super_Personal_Assistant
             int selectedAccountItemIndex = Convert.ToInt32(accountListView.SelectedItems[0].SubItems[0].Text);
             _account.deleteAccountItem(selectedAccountItemIndex);
 
+            //傳輸
+            List<string> tmp = _account.saveData(_myAccount.Account);
+            for (int i = 0; i < tmp.Count; i++)
+            {
+                sentData(tmp[i]);
+            }
+
             ShowAccounts();
 
             //顯示總價
@@ -362,118 +397,142 @@ namespace Super_Personal_Assistant
 
 		public String addMsg(String msg)  //Server回傳的訊息
 		{
-			if (msg[0] == '1')  //判斷登入是否成功
-			{
-				if (msg != "1_FALSE")
-				{
-					MessageBox.Show("登入成功");
-					_myAccount.Account = _userAccount;
-					_myAccount.Passward = _userPassword;
-					_myAccount.Name = seperateGetData(msg)[1];
+            if (msg[0] == '1')  //判斷登入是否成功
+            {
+                if (msg != "1_FALSE")
+                {
+                    MessageBox.Show("登入成功");
+                    _myAccount.Account = _userAccount;
+                    _myAccount.Passward = _userPassword;
+                    _myAccount.Name = seperateGetData(msg)[1];
 
-					this.mainPage.Parent = null;  //隱藏第一分頁
-					this.friendTabPage.Parent = this.mainTabControl; //顯示第二分頁
-					this.calendarTabPage.Parent = this.mainTabControl; //顯示第二分頁
-					this.accountTabPage.Parent = this.mainTabControl; //顯示第二分頁
+                    this.mainPage.Parent = null;  //隱藏第一分頁
+                    this.friendTabPage.Parent = this.mainTabControl; //顯示第二分頁
+                    this.calendarTabPage.Parent = this.mainTabControl; //顯示第二分頁
+                    this.accountTabPage.Parent = this.mainTabControl; //顯示第二分頁
 
-					mainTabControl.SelectedTab = friendTabPage;
+                    mainTabControl.SelectedTab = friendTabPage;
 
-					userLabel.Text = userLabel.Text + " " + _myAccount.Name;
-				}
-				else
-				{
-					MessageBox.Show("登入失敗");
-				}
-			}
-			else if (msg[0] == '2')
-			{
-				if (msg == "2_OK")  //歷史訊息傳輸結束之後載入到聊天室中
-				{
-					loadingHistoryMessage();
-					sendMessageTextBox.Enabled = true;
-				}
-				else  //接收歷史訊息並加到List中
-				{
-					messageList.Add(seperateGetData(msg)[1]);
-				}
-			}
-			else if (msg[0] == '3')  //判斷好友新增
-			{
-				if (msg == "3_OK")  //該user存在
-				{
-					MessageBox.Show(_userAccount + "邀請已寄出");
+                    userLabel.Text = userLabel.Text + " " + _myAccount.Name;
+                }
+                else
+                {
+                    MessageBox.Show("登入失敗");
+                }
+            }
+            else if (msg[0] == '2')
+            {
+                if (msg == "2_OK")  //歷史訊息傳輸結束之後載入到聊天室中
+                {
+                    loadingHistoryMessage();
+                    sendMessageTextBox.Enabled = true;
+                }
+                else  //接收歷史訊息並加到List中
+                {
+                    messageList.Add(seperateGetData(msg)[1]);
+                }
+            }
+            else if (msg[0] == '3')  //判斷好友新增
+            {
+                if (msg == "3_OK")  //該user存在
+                {
+                    MessageBox.Show(_userAccount + "邀請已寄出");
 
-					friendAccountList.Add(newFriend);  // 成功送出好友後先新增到好友列表
+                    friendAccountList.Add(newFriend);  // 成功送出好友後先新增到好友列表
 
-					friendDataGridView.Rows.Clear();
-					for (int i = 0; i < friendAccountList.Count; i++)
-					{
-						String[] row = new String[] { friendAccountList[i] };
-						friendDataGridView.Rows.Add(row);
-						friendDataGridView.AutoResizeColumns();
-					}
-				}
-				else if (msg == "3_FALSE") //該user account不存在
-				{
-					MessageBox.Show("邀請寄送失敗");
-				}
-				else if (msg == "3_EXIST")
-				{
-					MessageBox.Show("好友已存在！");
-				}
-				else if (msg[0] == '3' && msg[1] == '1')  //對方已有自己好友
-				{
+                    friendDataGridView.Rows.Clear();
+                    for (int i = 0; i < friendAccountList.Count; i++)
+                    {
+                        String[] row = new String[] { friendAccountList[i] };
+                        friendDataGridView.Rows.Add(row);
+                        friendDataGridView.AutoResizeColumns();
+                    }
+                }
+                else if (msg == "3_FALSE") //該user account不存在
+                {
+                    MessageBox.Show("邀請寄送失敗");
+                }
+                else if (msg == "3_EXIST")
+                {
+                    MessageBox.Show("好友已存在！");
+                }
+                else if (msg[0] == '3' && msg[1] == '1')  //對方已有自己好友
+                {
 
-				}
-				else  //已收到該user好友邀請
-				{
-					friendRequestList.Add(seperateGetData(msg)[1]);
-					MessageBox.Show(_userAccount + "收到邀請");
+                }
+                else  //已收到該user好友邀請
+                {
+                    friendRequestList.Add(seperateGetData(msg)[1]);
+                    MessageBox.Show(_userAccount + "收到邀請");
 
-					initilizeRequestRow();
-				}
-			}
-			else if (msg[0] == '4')
-			{
-				if (msg == "4_OK")
-				{
-					MessageBox.Show("收到訊息");
-				}
-				else if (msg == "4_FALSE")
-				{
-					MessageBox.Show("接收訊息失敗");
-				}
-				else if (msg == "4_NOTFOUND")
-				{
-					MessageBox.Show("該用戶不在線上");
-				}
-				else  //接收對方訊息 4_朋友帳號_訊息內容
-				{
-					messageList.Add(seperateGetData(msg)[2]);
-					chatInputTemp = chatFriend + " : " + seperateGetData(msg)[2];
-					messageList.Add(chatInputTemp);
-					chatroomRichTextBox.Text += chatInputTemp + "\n";
-					chatInputTemp = "";
-				}
-			}
-			else if (msg[0] == '9') //朋友初始化
-			{
-				if (msg == "9_OK")
-				{
-					friendDataGridView.Rows.Clear();
-					for (int i = 0; i < friendAccountList.Count; i++)
-					{
-						String[] row = new String[] { friendAccountList[i] };
-						friendDataGridView.Rows.Add(row);
-						friendDataGridView.AutoResizeColumns();
-					}
-				}
-				else
-				{
-					Console.WriteLine("assa");
-					friendAccountList.Add(seperateGetData(msg)[1]);
-				}
-			}
+                    initilizeRequestRow();
+                }
+            }
+            else if (msg[0] == '4')
+            {
+                if (msg == "4_OK")
+                {
+                    MessageBox.Show("收到訊息");
+                }
+                else if (msg == "4_FALSE")
+                {
+                    MessageBox.Show("接收訊息失敗");
+                }
+                else if (msg == "4_NOTFOUND")
+                {
+                    MessageBox.Show("該用戶不在線上");
+                }
+                else  //接收對方訊息 4_朋友帳號_訊息內容
+                {
+                    messageList.Add(seperateGetData(msg)[2]);
+                    chatInputTemp = chatFriend + " : " + seperateGetData(msg)[2];
+                    messageList.Add(chatInputTemp);
+                    chatroomRichTextBox.Text += chatInputTemp + "\n";
+                    chatInputTemp = "";
+                }
+            }
+            else if (msg[0] == '5')
+            {
+                if (msg == "5_OK")
+                {
+                    ShowAccounts();
+                    totalMoneyLabel.Text = _account.getMoneyTotal().ToString();
+                }
+                else
+                {
+                    _account.recieveData(msg);
+
+                }
+            }
+            else if (msg[0] == '6')
+            {
+                if (msg == "6_OK")
+                {
+                    ShowSelectedDateActivities(selectedDate);
+                }
+                else {
+                    _schedule.recieveData(msg);
+
+                }
+            }
+            else if (msg[0] == '9') //朋友初始化
+            {
+                if (msg == "9_OK")
+                {
+                    friendDataGridView.Rows.Clear();
+                    for (int i = 0; i < friendAccountList.Count; i++)
+                    {
+                        String[] row = new String[] { friendAccountList[i] };
+                        friendDataGridView.Rows.Add(row);
+                        friendDataGridView.AutoResizeColumns();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("assa");
+                    friendAccountList.Add(seperateGetData(msg)[1]);
+                }
+            }
 			return "OK";
 		}
 

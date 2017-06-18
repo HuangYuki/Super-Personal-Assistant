@@ -110,7 +110,7 @@ namespace Server.ManagementClass
                     _datamanagement.InitiallizeFriend(words[1], _clientList[clientSocketNumber].clientFreindAccount, _accountList); //初始化朋友到SERVER的CLIENTSOCKET
                     broadCast("1_" + _accountList[accountNumber].Name, clientSocketNumber);
 
-                    List<string> tmpFriend = new List<string>();
+                    List<string> tmpFriend = new List<string>(); //初始化朋友到Client
                     FriendManagement friendManagement = new FriendManagement();
                     tmpFriend = friendManagement.InitiallizeFreind(words[1]);
                     for (int i = 0; i < tmpFriend.Count; i++)
@@ -118,7 +118,24 @@ namespace Server.ManagementClass
                         broadCast("9_" + tmpFriend[i], clientSocketNumber);
                     }
                     broadCast("9_OK", clientSocketNumber);
-                    //傳SERVER的好友給 CLIENT
+
+                    List<string> tmpAccountItem = new List<string>(); //初始化AccountItem到Client
+                    AccountItemManagement accountItemManagement = new AccountItemManagement();
+                    tmpAccountItem = accountItemManagement.InitiallizeAccountItem(words[1]);
+                    for (int i = 0; i < tmpAccountItem.Count; i++)
+                    {
+                        broadCast(tmpAccountItem[i], clientSocketNumber);
+                    }
+                    broadCast("5_OK", clientSocketNumber);
+
+                    List<string> tmpSchedule = new List<string>(); //初始化Schedule朋友到Client
+                    ScheduleManagement scheduleManagement = new ScheduleManagement();
+                    tmpSchedule = scheduleManagement.InitiallizeSchedule(words[1]);
+                    for (int i = 0; i < tmpSchedule.Count; i++)
+                    {
+                        broadCast(tmpSchedule[i], clientSocketNumber);
+                    }
+                    broadCast("6_OK", clientSocketNumber);
 
 
                 }
